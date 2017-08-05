@@ -31,17 +31,17 @@
         <!--Item List-->
         <scene sceneID="uZP-d9-dob">
             <objects>
-                <tableViewController id="gtD-7r-4xY" userLabel="Item List" sceneMemberID="viewController">
+                <tableViewController id="gtD-7r-4xY" userLabel="Item List" customClass="ItemListViewController" customModule="MyInventory" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="OYB-ho-ZdF">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ItemCell" id="GuP-bE-woI">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ItemCell" id="GuP-bE-woI" customClass="ItemTableCell" customModule="MyInventory" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="GuP-bE-woI" id="v1g-dq-y6E">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="0IQ-Od-k4O" userLabel="Cell Stack View">
@@ -80,12 +80,13 @@
                                         <constraint firstAttribute="leadingMargin" secondItem="0IQ-Od-k4O" secondAttribute="leading" id="wZS-6e-4lM"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="nameLabel" destination="vp0-xx-FKF" id="2X2-YP-la2"/>
+                                    <outlet property="ownerLabel" destination="Tdp-GY-w7G" id="66Y-Ze-uJJ"/>
+                                    <outlet property="quantityLabel" destination="E5j-jw-CaD" id="6YL-it-bCn"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="gtD-7r-4xY" id="Tef-3b-zUd"/>
-                            <outlet property="delegate" destination="gtD-7r-4xY" id="6BU-Hd-tmy"/>
-                        </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Item List" id="fX5-cT-0lp">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="qar-3n-bdo">

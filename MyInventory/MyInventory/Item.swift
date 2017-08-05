@@ -7,3 +7,16 @@
 //
 
 import Foundation
+
+struct Item {
+    var itemId: Int
+    var itemName: String
+    var itemOwner: String
+    var itemQuantity: Int
+}
+
+extension Item {
+    func quantityToString() -> String {
+        return String(self.itemQuantity)
+    }
+}
