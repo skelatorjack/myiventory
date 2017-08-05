@@ -7,3 +7,11 @@
 //
 
 import Foundation
+import UIKit
+
+class AddItemViewController: UIViewController {
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+    }
+}

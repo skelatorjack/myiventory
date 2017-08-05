@@ -13,7 +13,7 @@
         <!--Add Item-->
         <scene sceneID="nsU-Rv-7CE">
             <objects>
-                <viewController title="Add Item" id="kNB-iK-tjt" customClass="ViewController" customModule="MyInventory" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Add Item" id="kNB-iK-tjt" customClass="AddItemViewController" customModule="MyInventory" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="meo-fq-k4t"/>
                         <viewControllerLayoutGuide type="bottom" id="tzq-0z-LjM"/>
