@@ -16,9 +16,9 @@ class ItemTableCell: UITableViewCell {
     @IBOutlet weak var quantityLabel: UILabel!
     
     
-    func decorate(with item: Item) {
-        nameLabel.text = item.itemName
-        ownerLabel.text = item.itemOwner
-        quantityLabel.text = item.quantityToString()
+    func decorate(with item: Item?) {
+        nameLabel.text = item?.itemName
+        ownerLabel.text = item?.itemOwner
+        quantityLabel.text = item?.quantityToString()
     }
 }
