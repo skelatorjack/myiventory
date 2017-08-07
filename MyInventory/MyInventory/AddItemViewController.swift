@@ -35,13 +35,26 @@ class AddItemViewController: UIViewController, UITextFieldDelegate {
     
     func backgroundTapped() {
         view.endEditing(true)
+        enableAddItemPressed()
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         view.endEditing(true)
+        enableAddItemPressed()
         return true
     }
     
+    func enableAddItemPressed() {
+        let name: String = nameField.text!
+        let quantity: String = quantityField.text!
+        let owner: String = ownerField.text!
+        
+        newItem.parseData(name: name, quantity: quantity, owner: owner)
+        
+        if newItem.isItemValid() {
+            addItem.isEnabled = true
+        }
+    }
     @IBAction func addItemPressed(_ sender: UIButton) {
         print("Add Item pressed.")
     }
