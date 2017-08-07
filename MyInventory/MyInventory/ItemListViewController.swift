@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ItemListViewController: UITableViewController {
+class ItemListViewController: UITableViewController, AddItemDelegate {
 
     var user: User = User()
     
@@ -17,10 +17,6 @@ class ItemListViewController: UITableViewController {
         // Do any additional setup after loading the view, typically from a nib.
         tableView.dataSource = self
         tableView.rowHeight = 64
-        
-        user.add(item: Item(newId: 1, newName: "Toothpaste", newOwner: "Jack", newQuantity: 1))
-        
-        user.add(item: Item(newId: 2, newName: "TP", newOwner: "Jack", newQuantity: 2))
     }
 
     override func didReceiveMemoryWarning() {
@@ -30,6 +26,12 @@ class ItemListViewController: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let addItemdest = segue.destination as? AddItemViewController {
+            addItemdest.delegate = self
+        }
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -47,5 +49,14 @@ class ItemListViewController: UITableViewController {
         cell.decorate(with: item)
         
         return cell
+    }
+    
+    func refreshTable() {
+        tableView.reloadData()
+    }
+    
+    func addItem(item: Item) {
+        user.add(item: item)
+        refreshTable()
     }
 }

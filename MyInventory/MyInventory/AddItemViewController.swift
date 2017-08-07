@@ -9,12 +9,19 @@
 import Foundation
 import UIKit
 
+protocol AddItemDelegate: class {
+    func addItem(item: Item)
+}
+
+
 class AddItemViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var nameField: UITextField!
     @IBOutlet weak var quantityField: UITextField!
     @IBOutlet weak var ownerField: UITextField!
     
     @IBOutlet weak var addItem: UIButton!
+    
+    weak var delegate: AddItemDelegate?
     
     private var newItem: Item = Item()
     
@@ -57,5 +64,8 @@ class AddItemViewController: UIViewController, UITextFieldDelegate {
     }
     @IBAction func addItemPressed(_ sender: UIButton) {
         print("Add Item pressed.")
+        
+        delegate?.addItem(item: newItem)
+        let _ = navigationController?.popViewController(animated: true)
     }
 }
