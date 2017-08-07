@@ -21,6 +21,22 @@ struct Item {
         self.itemQuantity = newQuantity
     }
     
+    mutating func parseData(name: String, quantity: String, owner: String) {
+        if !name.isEmpty {
+            itemName = name
+        }
+        
+        if !quantity.isEmpty {
+            itemQuantity = Int(quantity)!
+        }
+        
+        if !owner.isEmpty {
+            itemOwner = owner
+        }
+        
+        itemId = 1
+    }
+    
     func isItemValid() -> Bool {
         if isIdValid(), isNameValid(), isOwnerValid(), isQuantityValid() {
             return true
@@ -29,19 +45,23 @@ struct Item {
     }
     
     func isIdValid() -> Bool {
-        return itemId != -1
+        return isValueNotEqual(value: itemId, to: -1)
     }
     
     func isNameValid() -> Bool {
-        return itemName != ""
+        return !itemName.isEmpty
     }
     
     func isOwnerValid() -> Bool {
-        return itemOwner != ""
+        return !itemOwner.isEmpty
     }
     
     func isQuantityValid() -> Bool {
-        return itemQuantity != -1
+        return isValueNotEqual(value: itemQuantity, to: -1)
+    }
+    
+    func isValueNotEqual(value: Int, to: Int) -> Bool {
+        return value != to
     }
     
 }
