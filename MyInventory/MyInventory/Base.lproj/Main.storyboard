@@ -79,6 +79,9 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kwT-z3-tT1">
                                         <rect key="frame" x="0.0" y="120" width="200" height="30"/>
                                         <state key="normal" title="Add Item"/>
+                                        <connections>
+                                            <action selector="addItemPressed:" destination="kNB-iK-tjt" eventType="touchUpInside" id="U0D-CA-utE"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <constraints>
@@ -94,6 +97,12 @@
                             <constraint firstItem="LPa-Bh-os0" firstAttribute="centerX" secondItem="phj-uk-ZfY" secondAttribute="centerX" id="yIC-oN-Ndw"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="addItem" destination="kwT-z3-tT1" id="1EY-f0-oYz"/>
+                        <outlet property="nameField" destination="Lkm-MJ-x3b" id="2gc-VU-Nxb"/>
+                        <outlet property="ownerField" destination="sfy-H2-zsl" id="MI5-xp-U2x"/>
+                        <outlet property="quantityField" destination="zrH-Jp-Cmk" id="cyh-0I-iyK"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mop-FO-cBO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
