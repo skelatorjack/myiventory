@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Item {
+struct Item: Equatable {
     var itemId: Int
     var itemName: String
     var itemOwner: String
@@ -21,6 +21,16 @@ struct Item {
         self.itemQuantity = newQuantity
     }
     
+    static func == (left: Item, right: Item) -> Bool {
+        if left.itemName == right.itemName,
+            left.itemId == right.itemId,
+            left.itemOwner == right.itemOwner,
+            left.itemQuantity == right.itemQuantity {
+            
+            return true
+        }
+        return false
+    }
     mutating func parseData(name: String, quantity: String, owner: String) {
         if !name.isEmpty {
             itemName = name
