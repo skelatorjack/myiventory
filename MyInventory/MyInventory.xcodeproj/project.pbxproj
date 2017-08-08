@@ -19,6 +19,7 @@
 		945670A81F24778400E80CED /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 945670A71F24778400E80CED /* User.swift */; };
 		945670AA1F24778E00E80CED /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 945670A91F24778E00E80CED /* Item.swift */; };
 		94E2F5A91F393032002BEFE6 /* UserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94E2F5A81F393031002BEFE6 /* UserTests.swift */; };
+		94E2F5AB1F39870D002BEFE6 /* UpdateItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94E2F5AA1F39870D002BEFE6 /* UpdateItemViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +58,7 @@
 		945670A71F24778400E80CED /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		945670A91F24778E00E80CED /* Item.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		94E2F5A81F393031002BEFE6 /* UserTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserTests.swift; sourceTree = "<group>"; };
+		94E2F5AA1F39870D002BEFE6 /* UpdateItemViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateItemViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,6 +113,7 @@
 				9407EE4A1EA1ACB700FC431A /* ItemListViewController.swift */,
 				9407EE4C1EA1ACB700FC431A /* Main.storyboard */,
 				945670A11F24773800E80CED /* ItemTableCell.swift */,
+				94E2F5AA1F39870D002BEFE6 /* UpdateItemViewController.swift */,
 				945670A31F24774900E80CED /* AddItemViewController.swift */,
 				945670A71F24778400E80CED /* User.swift */,
 				945670A91F24778E00E80CED /* Item.swift */,
@@ -280,6 +283,7 @@
 				945670AA1F24778E00E80CED /* Item.swift in Sources */,
 				9407EE491EA1ACB700FC431A /* AppDelegate.swift in Sources */,
 				945670A21F24773800E80CED /* ItemTableCell.swift in Sources */,
+				94E2F5AB1F39870D002BEFE6 /* UpdateItemViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -121,7 +121,7 @@
                                 <rect key="frame" x="0.0" y="28" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="GuP-bE-woI" id="v1g-dq-y6E">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="0IQ-Od-k4O" userLabel="Cell Stack View">
@@ -186,7 +186,7 @@
         <!--Update Item-->
         <scene sceneID="BR6-AY-1cF">
             <objects>
-                <viewController title="Update Item" id="fyr-rr-6CU" userLabel="Update Item" sceneMemberID="viewController">
+                <viewController title="Update Item" id="fyr-rr-6CU" userLabel="Update Item" customClass="UpdateItemViewController" customModule="MyInventory" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="kqE-W5-vMC"/>
                         <viewControllerLayoutGuide type="bottom" id="iry-k9-mHO"/>
