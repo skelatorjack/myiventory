@@ -44,6 +44,10 @@ class User {
         return itemList.count
     }
     
+    func isListEmpty() -> Bool {
+        return itemList.isEmpty
+    }
+    
     private func isIndexValid(index: Int) -> Bool {
         if index >= itemList.count || index < 0 {
             return false
