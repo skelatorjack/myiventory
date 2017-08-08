@@ -34,11 +34,13 @@ class ItemListViewController: UITableViewController, AddItemDelegate {
         if let addItemdest = segue.destination as? AddItemViewController {
             addItemdest.delegate = self
         }
-        /*
-        else if let updateItemDest = segue.destination as? {
+        else if let updateItemDest = segue.destination as? UpdateItemViewController,
+                let index = sender as? Int,
+                segue.identifier == UPDATEITEMID {
+            
+            print("Updating \(user.item(at: index))")
             
         }
-         */
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
