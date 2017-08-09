@@ -24,6 +24,14 @@ class User {
         return nil
     }
     
+    func getItemList() -> [Item] {
+        return itemList
+    }
+    
+    func isItemInList(item: Item) -> Bool {
+        return itemList.contains(item)
+    }
+    
     func add(item: Item) {
         itemList.append(item)
     }
