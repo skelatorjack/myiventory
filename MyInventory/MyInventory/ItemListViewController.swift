@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ItemListViewController: UITableViewController, AddItemDelegate {
+class ItemListViewController: UITableViewController, AddItemDelegate, UpdateItemDelegate {
 
     var user: User = User()
     
@@ -36,10 +36,12 @@ class ItemListViewController: UITableViewController, AddItemDelegate {
         }
         else if let updateItemDest = segue.destination as? UpdateItemViewController,
                 let index = sender as? Int,
-                segue.identifier == UPDATEITEMID {
+                segue.identifier == UPDATEITEMID,
+                let item = user.item(at: index) {
             
             print("Updating \(user.item(at: index))")
-            
+            updateItemDest.setValues(name: item.itemName, quantity: String(item.itemQuantity), owner: item.itemOwner, index: index)
+            updateItemDest.delegate = self
         }
     }
     
@@ -88,6 +90,11 @@ class ItemListViewController: UITableViewController, AddItemDelegate {
     
     func addItem(item: Item) {
         user.add(item: item)
+        refreshTable()
+    }
+    
+    func updateItem(item: Item, at index: Int) {
+        user.updateItem(at: index, with: item)
         refreshTable()
     }
 }
