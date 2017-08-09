@@ -118,4 +118,46 @@ class UserTests: XCTestCase {
         
         XCTAssertFalse(item.isItemValid())
     }
+    
+    func test_whenItemIsUpdated_ItemIsDifferent() {
+        testUser.add(item: testItem)
+        
+        let updateItem: Item = Item(newId: 1, newName: "Toothpaste", newOwner: "Jack", newQuantity: 2)
+        XCTAssertTrue(!testUser.isListEmpty())
+        
+        testUser.updateItem(at: 0, with: updateItem)
+        
+        XCTAssertNotEqual(testUser.item(at: 0), testItem)
+        
+    }
+    
+    func test_whenItemIsCleared_EverythingIsDefualt() {
+        
+        var item: Item = testItem
+        
+        item.clear()
+        
+        XCTAssertEqual(item.itemName, "")
+        XCTAssertEqual(item.itemOwner, "")
+        XCTAssertEqual(item.itemQuantity, -1)
+        XCTAssertEqual(item.itemId, -1)
+    }
+    
+    func test_whenNoItemInList_isListEmptyReturnsTrue() {
+        XCTAssertTrue(testUser.isListEmpty())
+    }
+    
+    func test_whenItemisInList_isListEmptyReturnsFalse() {
+        testUser.add(item: testItem)
+        XCTAssertFalse(testUser.isListEmpty())
+    }
+    
+    func test_whenItemisUpdatedWithSameData_ItemsAreEqual() {
+        testUser.add(item: testItem)
+        testUser.updateItem(at: 0, with: testItem)
+        
+        XCTAssertNotNil(testUser.item(at: 0))
+        XCTAssertEqual(testUser.item(at: 0), testItem)
+    }
+    
 }
