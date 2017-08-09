@@ -19,6 +19,7 @@ class ItemListViewController: UITableViewController, AddItemDelegate, UpdateItem
         // Do any additional setup after loading the view, typically from a nib.
         tableView.dataSource = self
         tableView.rowHeight = 64
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -66,17 +67,18 @@ class ItemListViewController: UITableViewController, AddItemDelegate, UpdateItem
     
     // For table row actions
     
-    /*
+    
     override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-        let update = UITableViewRowAction(style: .normal, title: "Update") { action, index in
+        let del = UITableViewRowAction(style: .destructive, title: "Delete") { action, index in
             //action.backgroundColor = UIColor.green
-            print("Updating item at index \(index.row)")
+            print("Deleting item at index \(index.row)")
+            self.user.delete(at: index.row)
+            self.refreshTable()
             //performSe
         }
-        update.backgroundColor = UIColor.green
-        return [update]
+        del.backgroundColor = UIColor.red
+        return [del]
     }
-     */
     
     // For updating an item
     

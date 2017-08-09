@@ -150,9 +150,46 @@ class UserTests: XCTestCase {
     func test_whenItemisUpdatedWithSameData_ItemsAreEqual() {
         testUser.add(item: testItem)
         testUser.updateItem(at: 0, with: testItem)
-        
+    
         XCTAssertNotNil(testUser.item(at: 0))
         XCTAssertEqual(testUser.item(at: 0), testItem)
     }
     
+    /*
+    func test_whenItemIsUpdatedAtInvalidIndex_ListIsNotUpdated() {
+        
+    }
+    */
+    // Delete tests
+    
+    func test_whenItemIsDeletedAtValidIndex_ListIsNil() {
+        testUser.add(item: testItem)
+        
+        XCTAssertFalse(testUser.isListEmpty())
+        
+        testUser.delete(at: 0)
+        
+        XCTAssertTrue(testUser.isListEmpty())
+    }
+    
+    func test_whenItemIsDeletedAtInvalidIndex_ListIsNotUpdated() {
+        testUser.add(item: testItem)
+        
+        let LISTCOUNT = testUser.getItemCount()
+        
+        testUser.delete(at: 1)
+        
+        XCTAssertEqual(testUser.getItemCount(), LISTCOUNT)
+    }
+    
+    func test_whenItemIsDeleted_ItemIsNotInList() {
+        testUser.add(item: testItem)
+    
+        
+        var items: [Item] = [testItem]
+        testUser.delete(at: 0)
+        items.remove(at: 0)
+        
+        XCTAssertNil(items.index(of: testItem))
+    }
 }
