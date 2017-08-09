@@ -155,11 +155,19 @@ class UserTests: XCTestCase {
         XCTAssertEqual(testUser.item(at: 0), testItem)
     }
     
-    /*
+    
     func test_whenItemIsUpdatedAtInvalidIndex_ListIsNotUpdated() {
+    
+        testUser.add(item: testItem)
+        let item: Item = Item(newId: 1, newName: "Toothpaste", newOwner: "Jack", newQuantity: 1)
+        
+        testUser.updateItem(at: 1, with: item)
+        
+        XCTAssertFalse(testUser.isItemInList(item: item))
+        XCTAssertEqual(testUser.getItemCount(), 1)
         
     }
-    */
+    
     // Delete tests
     
     func test_whenItemIsDeletedAtValidIndex_ListIsNil() {
@@ -185,11 +193,12 @@ class UserTests: XCTestCase {
     func test_whenItemIsDeleted_ItemIsNotInList() {
         testUser.add(item: testItem)
     
-        
-        var items: [Item] = [testItem]
+        let count = testUser.getItemCount()
         testUser.delete(at: 0)
-        items.remove(at: 0)
         
-        XCTAssertNil(items.index(of: testItem))
+        XCTAssertFalse(testUser.isItemInList(item: testItem))
+        XCTAssertLessThan(testUser.getItemCount(), count)
+        
+        
     }
 }
