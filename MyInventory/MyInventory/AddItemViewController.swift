@@ -56,10 +56,14 @@ class AddItemViewController: UIViewController, UITextFieldDelegate {
         let quantity: String = quantityField.text!
         let owner: String = ownerField.text!
         
+        newItem.clear()
         newItem.parseData(name: name, quantity: quantity, owner: owner)
         
         if newItem.isItemValid() {
             addItem.isEnabled = true
+        }
+        else {
+            addItem.isEnabled = false
         }
     }
     @IBAction func addItemPressed(_ sender: UIButton) {
