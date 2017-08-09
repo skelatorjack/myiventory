@@ -194,8 +194,89 @@
                     <view key="view" contentMode="scaleToFill" id="clr-y0-5in">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="dAF-oR-PE3" userLabel="Main Stack View">
+                                <rect key="frame" x="60" y="209" width="200" height="150"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IVW-OT-A1c" userLabel="Name Stack View">
+                                        <rect key="frame" x="0.0" y="0.0" width="200" height="30"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UuN-fD-qfT">
+                                                <rect key="frame" x="0.0" y="0.0" width="100" height="30"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="8mO-y4-7kj" userLabel="Name Field">
+                                                <rect key="frame" x="100" y="0.0" width="100" height="30"/>
+                                                <nil key="textColor"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="btQ-TN-80x" userLabel="Quantity Stack View">
+                                        <rect key="frame" x="0.0" y="40" width="200" height="30"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Quantity:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5iB-ew-osp">
+                                                <rect key="frame" x="0.0" y="0.0" width="100" height="30"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="H2F-jo-XOd" userLabel="Quantity Field">
+                                                <rect key="frame" x="100" y="0.0" width="100" height="30"/>
+                                                <nil key="textColor"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                            </textField>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tEI-7H-Sdz" userLabel="Owner Stack View">
+                                        <rect key="frame" x="0.0" y="80" width="200" height="30"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Owner:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3P5-pE-eB3">
+                                                <rect key="frame" x="0.0" y="0.0" width="100" height="30"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="33f-Hm-Lsb" userLabel="Owner Field">
+                                                <rect key="frame" x="100" y="0.0" width="100" height="30"/>
+                                                <nil key="textColor"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                        </subviews>
+                                    </stackView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4bm-dq-yd7">
+                                        <rect key="frame" x="0.0" y="120" width="200" height="30"/>
+                                        <state key="normal" title="Update Item"/>
+                                        <connections>
+                                            <action selector="addItemPressed:" destination="kNB-iK-tjt" eventType="touchUpInside" id="tQP-P7-mSx"/>
+                                            <action selector="updateItemPressed:" destination="fyr-rr-6CU" eventType="touchUpInside" id="5Wo-tk-A7A"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="H2F-jo-XOd" firstAttribute="width" secondItem="33f-Hm-Lsb" secondAttribute="width" id="EYt-u7-HBu"/>
+                                    <constraint firstItem="8mO-y4-7kj" firstAttribute="width" secondItem="H2F-jo-XOd" secondAttribute="width" id="PUn-ev-YHZ"/>
+                                </constraints>
+                            </stackView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="dAF-oR-PE3" firstAttribute="centerX" secondItem="clr-y0-5in" secondAttribute="centerX" id="4Wf-4e-NF0"/>
+                            <constraint firstItem="dAF-oR-PE3" firstAttribute="leading" secondItem="clr-y0-5in" secondAttribute="leadingMargin" constant="44" id="gdc-yz-8V4"/>
+                            <constraint firstItem="dAF-oR-PE3" firstAttribute="centerY" secondItem="clr-y0-5in" secondAttribute="centerY" id="msO-lx-hlk"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="updateItemButton" destination="4bm-dq-yd7" id="6Nu-t8-AMm"/>
+                        <outlet property="updateNameField" destination="8mO-y4-7kj" id="dBW-Zx-kd0"/>
+                        <outlet property="updateOwnerField" destination="33f-Hm-Lsb" id="Xbg-PV-02s"/>
+                        <outlet property="updateQuantityField" destination="H2F-jo-XOd" id="Sg2-Yi-FhR"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Fe9-cI-JyU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
