@@ -26,7 +26,7 @@ class UserTests: XCTestCase {
     }
     
     func test_whenUserIsInitializedItemListisEmpty() {
-        XCTAssertEqual(testUser.getItemCount(), 0)
+        XCTAssertTrue(testUser.isListEmpty())
     }
     
     func test_whenItemIsSaved_itemIsThere() {
@@ -38,25 +38,14 @@ class UserTests: XCTestCase {
         let actualItem = testUser.item(at: 0)
         
         XCTAssertNotNil(actualItem)
-        XCTAssertTrue(areItemsEqual(left: actualItem!, right: testItem))
-    }
-    
-    func areItemsEqual(left: Item, right: Item) -> Bool {
-        if left.itemName == right.itemName,
-            left.itemId == right.itemId,
-            left.itemOwner == right.itemOwner,
-            left.itemQuantity == right.itemQuantity {
-            
-            return true
-        }
-        return false
+        XCTAssertFalse(testUser.isListEmpty())
     }
     
     func test_whenItemIsSaved_ItemIsReturnedAtIndex() {
         testUser.add(item: testItem)
         
         XCTAssert(testUser.getItemCount() > 0)
-        XCTAssertTrue(areItemsEqual(left: testUser.item(at: 0)!, right: testItem))
+        XCTAssertEqual(testUser.item(at: 0), testItem)
     }
     
     func test_whenItemIsCalledAtInvalidIndex_ReturnNil() {
@@ -64,6 +53,12 @@ class UserTests: XCTestCase {
         XCTAssertNil(testUser.item(at: 0))
         XCTAssertNil(testUser.item(at: -1))
         XCTAssertNil(testUser.item(at: 25))
+    }
+    
+    func test_whenItemIsCalledAtValidIndex_NilIsNotReturned() {
+        testUser.add(item: testItem)
+        
+        XCTAssertNotNil(testUser.item(at: 0))
     }
     
     func whenItemValid_trueIsReturned() {
