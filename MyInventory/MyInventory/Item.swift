@@ -74,6 +74,12 @@ struct Item: Equatable {
         return value != to
     }
     
+    mutating func clear() {
+        self.itemOwner = ""
+        self.itemName = ""
+        self.itemQuantity = -1
+        self.itemId = -1
+    }
 }
 
 extension Item {
