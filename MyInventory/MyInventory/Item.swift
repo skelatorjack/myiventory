@@ -9,21 +9,21 @@
 import Foundation
 
 struct Item: Equatable {
-    var itemId: Int
     var itemName: String
     var itemOwner: String
     var itemQuantity: Int
+    var shoppingList: String
     
-    init(newId: Int = -1, newName: String = "", newOwner: String = "", newQuantity: Int = 0) {
-        self.itemId = newId
+    init(newName: String = "", newOwner: String = "", newQuantity: Int = 0, newShoppingList: String = "") {
         self.itemName = newName
         self.itemOwner = newOwner
         self.itemQuantity = newQuantity
+        self.shoppingList = newShoppingList
     }
     
     static func == (left: Item, right: Item) -> Bool {
         if left.itemName == right.itemName,
-            left.itemId == right.itemId,
+            left.shoppingList == right.shoppingList,
             left.itemOwner == right.itemOwner,
             left.itemQuantity == right.itemQuantity {
             
@@ -44,18 +44,13 @@ struct Item: Equatable {
             itemOwner = owner
         }
         
-        itemId = 1
     }
     
     func isItemValid() -> Bool {
-        if isIdValid(), isNameValid(), isOwnerValid(), isQuantityValid() {
+        if isNameValid(), isOwnerValid(), isQuantityValid() {
             return true
         }
         return false
-    }
-    
-    func isIdValid() -> Bool {
-        return isValueNotEqual(value: itemId, to: -1)
     }
     
     func isNameValid() -> Bool {
@@ -75,10 +70,10 @@ struct Item: Equatable {
     }
     
     mutating func clear() {
-        self.itemOwner = ""
-        self.itemName = ""
+        self.itemOwner.removeAll()
+        self.itemName.removeAll()
         self.itemQuantity = -1
-        self.itemId = -1
+        self.shoppingList.removeAll()
     }
 }
 
