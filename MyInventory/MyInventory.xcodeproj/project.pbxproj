@@ -18,6 +18,7 @@
 		945670A41F24774900E80CED /* AddItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 945670A31F24774900E80CED /* AddItemViewController.swift */; };
 		945670A81F24778400E80CED /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 945670A71F24778400E80CED /* User.swift */; };
 		945670AA1F24778E00E80CED /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 945670A91F24778E00E80CED /* Item.swift */; };
+		94D8D4081F4014A900D635C1 /* MyInventoryDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 94D8D4061F4014A900D635C1 /* MyInventoryDataModel.xcdatamodeld */; };
 		94E2F5A91F393032002BEFE6 /* UserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94E2F5A81F393031002BEFE6 /* UserTests.swift */; };
 		94E2F5AB1F39870D002BEFE6 /* UpdateItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94E2F5AA1F39870D002BEFE6 /* UpdateItemViewController.swift */; };
 /* End PBXBuildFile section */
@@ -57,6 +58,7 @@
 		945670A31F24774900E80CED /* AddItemViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddItemViewController.swift; sourceTree = "<group>"; };
 		945670A71F24778400E80CED /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		945670A91F24778E00E80CED /* Item.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
+		94D8D4071F4014A900D635C1 /* MyInventoryDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MyInventoryDataModel.xcdatamodel; sourceTree = "<group>"; };
 		94E2F5A81F393031002BEFE6 /* UserTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserTests.swift; sourceTree = "<group>"; };
 		94E2F5AA1F39870D002BEFE6 /* UpdateItemViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateItemViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -109,6 +111,7 @@
 		9407EE471EA1ACB700FC431A /* MyInventory */ = {
 			isa = PBXGroup;
 			children = (
+				94D8D4061F4014A900D635C1 /* MyInventoryDataModel.xcdatamodeld */,
 				9407EE481EA1ACB700FC431A /* AppDelegate.swift */,
 				9407EE4A1EA1ACB700FC431A /* ItemListViewController.swift */,
 				9407EE4C1EA1ACB700FC431A /* Main.storyboard */,
@@ -277,6 +280,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				94D8D4081F4014A900D635C1 /* MyInventoryDataModel.xcdatamodeld in Sources */,
 				9407EE4B1EA1ACB700FC431A /* ItemListViewController.swift in Sources */,
 				945670A81F24778400E80CED /* User.swift in Sources */,
 				945670A41F24774900E80CED /* AddItemViewController.swift in Sources */,
@@ -548,6 +552,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		94D8D4061F4014A900D635C1 /* MyInventoryDataModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				94D8D4071F4014A900D635C1 /* MyInventoryDataModel.xcdatamodel */,
+			);
+			currentVersion = 94D8D4071F4014A900D635C1 /* MyInventoryDataModel.xcdatamodel */;
+			path = MyInventoryDataModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 9407EE3D1EA1ACB700FC431A /* Project object */;
 }
