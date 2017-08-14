@@ -64,11 +64,17 @@ class User {
         
         var items: [Item] = []
         
-        for model in itemModels {
+        if isListEmpty() {
             
-            if let item = adaptItemModelToItem(itemModel: model) {
-                items.append(item)
+            for model in itemModels {
+            
+                if let item = adaptItemModelToItem(itemModel: model) {
+                    print("Item from core data is \(item)")
+                    items.append(item)
+                }
             }
+        
+            setItemList(itemList: items)
         }
     }
     
