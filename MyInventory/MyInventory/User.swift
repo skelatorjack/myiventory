@@ -28,6 +28,10 @@ class User {
         return itemList
     }
     
+    func setItemList(itemList: [Item] = []) {
+        self.itemList = itemList
+    }
+    
     func isItemInList(item: Item) -> Bool {
         return itemList.contains(item)
     }
