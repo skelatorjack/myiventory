@@ -22,7 +22,7 @@ class ItemListViewController: UITableViewController, AddItemDelegate, UpdateItem
         // Do any additional setup after loading the view, typically from a nib.
         tableView.dataSource = self
         tableView.rowHeight = 64
-        
+        fetchDataFromCoreData()
     }
 
     override func didReceiveMemoryWarning() {
@@ -136,6 +136,7 @@ class ItemListViewController: UITableViewController, AddItemDelegate, UpdateItem
         
         do {
             items = try managedContext.fetch(fetchRequest)
+            user.adaptItemModelToItemList(itemModels: items as! [ItemModel])
         } catch let error as NSError {
             print("Could not fetch. \(error), \(error.userInfo)")
         }
