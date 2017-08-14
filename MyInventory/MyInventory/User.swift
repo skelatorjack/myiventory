@@ -56,6 +56,32 @@ class User {
         return itemList.isEmpty
     }
     
+    func adaptItemModelToItemList(itemModels: [ItemModel]) {
+        
+        var items: [Item] = []
+        
+        for model in itemModels {
+            
+            if let item = adaptItemModelToItem(itemModel: model) {
+                items.append(item)
+            }
+        }
+    }
+    
+    func adaptItemModelToItem(itemModel: ItemModel) -> Item? {
+        
+        let quant = Int(itemModel.quantityOfItem)
+        
+        guard let name = itemModel.name,
+            let owner = itemModel.ownerOfItem,
+            let shoppingList = itemModel.shoppingListId else {
+                
+                return nil
+        }
+        
+        return Item(newName: name, newOwner: owner, newQuantity: quant, newShoppingList: shoppingList)
+    }
+    
     private func isIndexValid(index: Int) -> Bool {
         if index >= itemList.count || index < 0 {
             return false
