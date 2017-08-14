@@ -13,6 +13,8 @@ class ItemListViewController: UITableViewController, AddItemDelegate, UpdateItem
 
     var user: User = User()
     
+    var items: [NSManagedObject] = []
+    
     private let UPDATEITEMID: String = "updateItem"
     
     override func viewDidLoad() {
@@ -92,8 +94,51 @@ class ItemListViewController: UITableViewController, AddItemDelegate, UpdateItem
     }
     
     func addItem(item: Item) {
-        user.add(item: item)
+        
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+        
+        let managedContext = appDelegate.persistentContainer.viewContext
+        
+        guard let entity = NSEntityDescription.entity(forEntityName: "ItemModel", in: managedContext) else {
+            return
+        }
+        
+        let itemToSave = NSManagedObject(entity: entity, insertInto: managedContext)
+        itemToSave.setValue(item.itemName, forKey: "name")
+        itemToSave.setValue(item.itemOwner, forKey: "ownerOfItem")
+        itemToSave.setValue(item.itemQuantity, forKey: "quantityOfItem")
+        itemToSave.setValue(item.shoppingList, forKey: "shoppingListId")
+        
+        do {
+            try managedContext.save()
+            items.append(itemToSave)
+            user.add(item: item)
+        } catch let error as NSError {
+            print("Could not save. \(error), \(error.userInfo)")
+        }
+        
         refreshTable()
+    }
+    
+    func fetchDataFromCoreData() {
+        guard let appDelegate =
+            UIApplication.shared.delegate as? AppDelegate else {
+                return
+        }
+        
+        let managedContext =
+            appDelegate.persistentContainer.viewContext
+        
+        
+        let fetchRequest =
+            NSFetchRequest<NSManagedObject>(entityName: "ItemModel")
+        
+        
+        do {
+            items = try managedContext.fetch(fetchRequest)
+        } catch let error as NSError {
+            print("Could not fetch. \(error), \(error.userInfo)")
+        }
     }
     
     func updateItem(item: Item, at index: Int) {

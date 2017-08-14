@@ -111,7 +111,6 @@
 		9407EE471EA1ACB700FC431A /* MyInventory */ = {
 			isa = PBXGroup;
 			children = (
-				94D8D4061F4014A900D635C1 /* MyInventoryDataModel.xcdatamodeld */,
 				9407EE481EA1ACB700FC431A /* AppDelegate.swift */,
 				9407EE4A1EA1ACB700FC431A /* ItemListViewController.swift */,
 				9407EE4C1EA1ACB700FC431A /* Main.storyboard */,
@@ -123,6 +122,7 @@
 				9407EE4F1EA1ACB700FC431A /* Assets.xcassets */,
 				9407EE511EA1ACB700FC431A /* LaunchScreen.storyboard */,
 				9407EE541EA1ACB700FC431A /* Info.plist */,
+				94D8D4061F4014A900D635C1 /* MyInventoryDataModel.xcdatamodeld */,
 			);
 			path = MyInventory;
 			sourceTree = "<group>";
