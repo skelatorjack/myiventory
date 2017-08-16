@@ -92,6 +92,10 @@ class User {
         return Item(newName: name, newOwner: owner, newQuantity: quant, newShoppingList: shoppingList)
     }
     
+    func adatpItemToItemModel(itemToUpdate: Item) -> ItemModel {
+        
+        return ItemModel()
+    }
     private func isIndexValid(index: Int) -> Bool {
         if index >= itemList.count || index < 0 {
             return false

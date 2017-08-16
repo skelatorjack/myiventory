@@ -104,10 +104,8 @@ class ItemListViewController: UITableViewController, AddItemDelegate, UpdateItem
         }
         
         let itemToSave = NSManagedObject(entity: entity, insertInto: managedContext)
-        itemToSave.setValue(item.itemName, forKey: "name")
-        itemToSave.setValue(item.itemOwner, forKey: "ownerOfItem")
-        itemToSave.setValue(item.itemQuantity, forKey: "quantityOfItem")
-        itemToSave.setValue(item.shoppingList, forKey: "shoppingListId")
+        
+        updateManagedObject(managedObject: itemToSave, with: item)
         
         do {
             try managedContext.save()
@@ -143,7 +141,48 @@ class ItemListViewController: UITableViewController, AddItemDelegate, UpdateItem
     }
     
     func updateItem(item: Item, at index: Int) {
-        user.updateItem(at: index, with: item)
+        
+        var searchCriteria: [NSPredicate] = []
+        
+        guard let itemToUpdate: Item = user.item(at: index) else { return }
+        
+        guard let appDel = UIApplication.shared.delegate as? AppDelegate else { return }
+        let managedContext: NSManagedObjectContext = appDel.persistentContainer.viewContext
+        
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "ItemModel")
+        
+        searchCriteria = getSearchCriteriaForUpdating(itemToUpdate: itemToUpdate)
+        
+        fetchRequest.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: searchCriteria)
+        
+        
+        do {
+            let searchedForItems = try managedContext.fetch(fetchRequest)
+            updateManagedObject(managedObject: searchedForItems.first!, with: item)
+            try managedContext.save()
+            user.updateItem(at: index, with: item)
+        } catch {
+            print(error)
+        }
+        
         refreshTable()
+    }
+    
+    private func getSearchCriteriaForUpdating(itemToUpdate: Item) -> [NSPredicate] {
+        let searchCriteria: [NSPredicate] = [
+            NSPredicate(format: "name == %@", itemToUpdate.itemName),
+            NSPredicate(format: "ownerOfItem == %@", itemToUpdate.itemOwner),
+            NSPredicate(format: "quantityOfItem == %@", String(itemToUpdate.itemQuantity)),
+            NSPredicate(format: "shoppingListId == %@", itemToUpdate.shoppingList)
+        ]
+        
+        return searchCriteria
+    }
+    
+    private func updateManagedObject(managedObject: NSManagedObject, with item: Item) {
+        managedObject.setValue(item.itemName, forKey: "name")
+        managedObject.setValue(item.itemOwner, forKey: "ownerOfItem")
+        managedObject.setValue(item.itemQuantity, forKey: "quantityOfItem")
+        managedObject.setValue(item.shoppingList, forKey: "shoppingListId")
     }
 }

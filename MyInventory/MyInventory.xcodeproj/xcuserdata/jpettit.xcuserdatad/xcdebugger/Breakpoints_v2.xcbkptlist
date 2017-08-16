@@ -218,11 +218,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MyInventory/ItemListViewController.swift"
-            timestampString = "524377926.411261"
+            timestampString = "524554685.80398"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "123"
-            endingLineNumber = "123"
+            startingLineNumber = "121"
+            endingLineNumber = "121"
             landmarkName = "fetchDataFromCoreData()"
             landmarkType = "7">
          </BreakpointContent>
@@ -256,6 +256,22 @@
             startingLineNumber = "216"
             endingLineNumber = "216"
             landmarkName = "test_didFetchDataFromCoreData()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MyInventory/ItemListViewController.swift"
+            timestampString = "524554685.80398"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "143"
+            endingLineNumber = "143"
+            landmarkName = "updateItem(item:at:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
