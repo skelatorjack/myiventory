@@ -64,7 +64,7 @@ class User {
         
         var items: [Item] = []
         
-        if isListEmpty() {
+        if isListEmpty() && !itemModels.isEmpty {
             
             for model in itemModels {
             

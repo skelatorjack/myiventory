@@ -90,11 +90,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MyInventoryTests/UserTests.swift"
-            timestampString = "523860192.711263"
+            timestampString = "524546921.413873"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "36"
-            endingLineNumber = "36"
+            startingLineNumber = "37"
+            endingLineNumber = "37"
             landmarkName = "test_whenItemIsSaved_itemIsThere()"
             landmarkType = "7">
          </BreakpointContent>
@@ -106,11 +106,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MyInventoryTests/UserTests.swift"
-            timestampString = "523860192.711263"
+            timestampString = "524546921.413873"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "42"
-            endingLineNumber = "42"
+            startingLineNumber = "43"
+            endingLineNumber = "43"
             landmarkName = "test_whenItemIsSaved_itemIsThere()"
             landmarkType = "7">
          </BreakpointContent>
@@ -240,6 +240,22 @@
             startingLineNumber = "25"
             endingLineNumber = "25"
             landmarkName = "viewDidLoad()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MyInventoryTests/UserTests.swift"
+            timestampString = "524546921.413873"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "216"
+            endingLineNumber = "216"
+            landmarkName = "test_didFetchDataFromCoreData()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
