@@ -7,14 +7,15 @@
 //
 
 import XCTest
+import CoreData
 @testable import MyInventory
 
 class UserTests: XCTestCase {
     var testUser: User!
-    let testItem: Item = Item(newId: 1, newName: "TP", newOwner: "Jack", newQuantity: 1)
+    let testItem: Item = Item(newName: "TP", newOwner: "Jack", newQuantity: 1)
     let emptyString: String = ""
     let unInitializedVal: Int = -1
-    
+
     override func setUp() {
         super.setUp()
         testUser = User()
@@ -117,7 +118,7 @@ class UserTests: XCTestCase {
     func test_whenItemIsUpdated_ItemIsDifferent() {
         testUser.add(item: testItem)
         
-        let updateItem: Item = Item(newId: 1, newName: "Toothpaste", newOwner: "Jack", newQuantity: 2)
+        let updateItem: Item = Item(newName: "Toothpaste", newOwner: "Jack", newQuantity: 2)
         XCTAssertTrue(!testUser.isListEmpty())
         
         testUser.updateItem(at: 0, with: updateItem)
@@ -135,7 +136,6 @@ class UserTests: XCTestCase {
         XCTAssertEqual(item.itemName, "")
         XCTAssertEqual(item.itemOwner, "")
         XCTAssertEqual(item.itemQuantity, -1)
-        XCTAssertEqual(item.itemId, -1)
     }
     
     func test_whenNoItemInList_isListEmptyReturnsTrue() {
@@ -159,7 +159,7 @@ class UserTests: XCTestCase {
     func test_whenItemIsUpdatedAtInvalidIndex_ListIsNotUpdated() {
     
         testUser.add(item: testItem)
-        let item: Item = Item(newId: 1, newName: "Toothpaste", newOwner: "Jack", newQuantity: 1)
+        let item: Item = Item(newName: "Toothpaste", newOwner: "Jack", newQuantity: 1)
         
         testUser.updateItem(at: 1, with: item)
         
@@ -200,5 +200,99 @@ class UserTests: XCTestCase {
         XCTAssertLessThan(testUser.getItemCount(), count)
         
         
+    }
+    
+    
+    func test_didFetchDataFromCoreData() {
+        
+        var itemCountFromFetch: Int = 0
+        
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+            return
+        }
+        
+        let managedContext =
+            appDelegate.persistentContainer.viewContext
+        
+        
+        let fetchRequest =
+            NSFetchRequest<NSManagedObject>(entityName: "ItemModel")
+        
+        do {
+            let items = try managedContext.fetch(fetchRequest) as! [ItemModel]
+            itemCountFromFetch = items.count
+            testUser.adaptItemModelToItemList(itemModels: items)
+            
+        } catch let error as NSError {
+            print("Could not fetch data \(error)")
+        }
+        
+        XCTAssertFalse(testUser.isListEmpty())
+        XCTAssertEqual(testUser.getItemCount(), itemCountFromFetch)
+    }
+    
+    func test_whenListIsNotEmptyAndCoreDataListIsEmpty_DonotSetItemList() {
+        let emptyItems: [ItemModel] = []
+        
+        testUser.add(item: testItem)
+        testUser.adaptItemModelToItemList(itemModels: emptyItems)
+        
+        XCTAssertFalse(testUser.isListEmpty())
+        XCTAssertTrue(testUser.getItemCount() == 1)
+    }
+    
+    func test_whenListIsNotEmptyAndCoreDataListIsNotEmpty_DonotSetItemList() {
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+            return
+        }
+        
+        let managedContext =
+            appDelegate.persistentContainer.viewContext
+        
+        
+        let fetchRequest =
+            NSFetchRequest<NSManagedObject>(entityName: "ItemModel")
+        
+        testUser.add(item: testItem)
+        
+        do {
+            let items = try managedContext.fetch(fetchRequest) as! [ItemModel]
+            testUser.adaptItemModelToItemList(itemModels: items)
+        } catch let error as NSError {
+            print("Could not fetch data \(error)")
+        }
+        
+        XCTAssertTrue(testUser.getItemCount() == 1)
+    }
+    
+    func test_whenListIsEmptyAndCoreDataListIsEmpty_DonotSetItemList() {
+        let emptyItems: [ItemModel] = []
+        
+        testUser.adaptItemModelToItemList(itemModels: emptyItems)
+        
+        XCTAssertTrue(testUser.isListEmpty())
+    }
+    
+    func test_whenListIsEmptyAndCoreDataListIsNotEmpty_DoSetItemList() {
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+            return
+        }
+        
+        let managedContext =
+            appDelegate.persistentContainer.viewContext
+        
+        
+        let fetchRequest =
+            NSFetchRequest<NSManagedObject>(entityName: "ItemModel")
+        
+        
+        do {
+            let items = try managedContext.fetch(fetchRequest) as! [ItemModel]
+            testUser.adaptItemModelToItemList(itemModels: items)
+        } catch let error as NSError {
+            print("Can't fetch data \(error)")
+        }
+        
+        XCTAssertFalse(testUser.isListEmpty())
     }
 }
