@@ -11,12 +11,12 @@ import CoreData
 
 class ItemListViewController: UITableViewController, AddItemDelegate, UpdateItemDelegate {
 
-    var user: User = User()
+    var user: User = User(appDel: (UIApplication.shared.delegate as? AppDelegate)!)
     
     var items: [NSManagedObject] = []
     
     private let UPDATEITEMID: String = "updateItem"
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
