@@ -7,14 +7,27 @@
 //
 
 import Foundation
+import CoreData
+
 // Model Class
 
 
 class User {
     private var itemList: [Item]
+    private var coreDataInterface: CoreDataObject
     
-    init(itemList: [Item] = []) {
+    init(itemList: [Item] = [], appDel: AppDelegate) {
         self.itemList = itemList
+        
+        let managedContext =
+            appDel.persistentContainer.viewContext
+        let fetchRequest =
+            NSFetchRequest<NSManagedObject>(entityName: "ItemModel")
+        
+        let entity = NSEntityDescription.entity(forEntityName: "ItemModel", in: managedContext)
+        
+        self.coreDataInterface = CoreDataObject(appDel: appDel, managedContext: managedContext, fetchReq: fetchRequest, entity: entity!)
+
     }
     
     func item(at index: Int) -> Item? {
@@ -76,6 +89,11 @@ class User {
         
             setItemList(itemList: items)
         }
+    }
+    
+    func fetchFromCoreData() {
+        let itemModels: [ItemModel] = coreDataInterface.fetchSavedData()
+        adaptItemModelToItemList(itemModels: itemModels)
     }
     
     func adaptItemModelToItem(itemModel: ItemModel) -> Item? {
