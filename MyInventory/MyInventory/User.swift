@@ -50,18 +50,19 @@ class User {
     }
     
     func add(item: Item) {
-        itemList.append(item)
+        // itemList.append(item)
+        coreDataInterface.saveItem(item: item, itemList: &itemList)
     }
     
     func delete(at index: Int) {
-        if self.item(at: index) != nil {
-            itemList.remove(at: index)
+        if let item = self.item(at: index) {
+            coreDataInterface.deleteItem(itemToDelete: item, indexToDelete: index, itemList: &itemList)
         }
     }
     
     func updateItem(at index: Int, with item: Item) {
-        if self.item(at: index) != nil {
-            itemList[index] = item
+        if let oldItem = self.item(at: index) {
+            coreDataInterface.updateItem(oldItem: oldItem, newItem: item, indexOfUpdate: index, itemList: &itemList)
         }
     }
     

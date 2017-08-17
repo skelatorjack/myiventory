@@ -186,11 +186,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MyInventory/ItemListViewController.swift"
-            timestampString = "524627451.45418"
+            timestampString = "524641698.375333"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "94"
-            endingLineNumber = "94"
+            startingLineNumber = "93"
+            endingLineNumber = "93"
             landmarkName = "addItem(item:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -218,11 +218,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MyInventory/ItemListViewController.swift"
-            timestampString = "524627451.45418"
+            timestampString = "524641698.375333"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "119"
-            endingLineNumber = "119"
+            startingLineNumber = "98"
+            endingLineNumber = "98"
             landmarkName = "fetchDataFromCoreData()"
             landmarkType = "7">
          </BreakpointContent>
@@ -266,13 +266,91 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MyInventory/ItemListViewController.swift"
-            timestampString = "524627451.45418"
+            timestampString = "524641698.375333"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "141"
-            endingLineNumber = "141"
+            startingLineNumber = "120"
+            endingLineNumber = "120"
             landmarkName = "updateItem(item:at:)"
             landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MyInventory/ItemListViewController.swift"
+            timestampString = "524641043.781199"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "14"
+            endingLineNumber = "14"
+            landmarkName = "ItemListViewController"
+            landmarkType = "3">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "MyInventory.ItemListViewController.user.setter : MyInventory.User"
+                  moduleName = "MyInventory"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/jpettit/Development/Hobbies/MyInventory/MyInventory/MyInventory/ItemListViewController.swift"
+                  timestampString = "524641242.980641"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "14"
+                  endingLineNumber = "14"
+                  offsetFromSymbolStart = "63">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "MyInventory.ItemListViewController.init (style : __C.UITableViewStyle) -&gt; MyInventory.ItemListViewController"
+                  moduleName = "MyInventory"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/jpettit/Development/Hobbies/MyInventory/MyInventory/MyInventory/ItemListViewController.swift"
+                  timestampString = "524641242.983308"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "14"
+                  endingLineNumber = "14"
+                  offsetFromSymbolStart = "19">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "MyInventory.ItemListViewController.init (nibName : Swift.Optional&lt;Swift.String&gt;, bundle : Swift.Optional&lt;__ObjC.Bundle&gt;) -&gt; MyInventory.ItemListViewController"
+                  moduleName = "MyInventory"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/jpettit/Development/Hobbies/MyInventory/MyInventory/MyInventory/ItemListViewController.swift"
+                  timestampString = "524641242.985883"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "14"
+                  endingLineNumber = "14"
+                  offsetFromSymbolStart = "57">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "MyInventory.ItemListViewController.init (coder : __ObjC.NSCoder) -&gt; Swift.Optional&lt;MyInventory.ItemListViewController&gt;"
+                  moduleName = "MyInventory"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/jpettit/Development/Hobbies/MyInventory/MyInventory/MyInventory/ItemListViewController.swift"
+                  timestampString = "524641242.987941"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "14"
+                  endingLineNumber = "14"
+                  offsetFromSymbolStart = "19">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
