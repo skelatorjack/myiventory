@@ -10,16 +10,19 @@ import Foundation
 import CoreData
 
 class CoreDataObject {
+    
     private let appDelegate: AppDelegate
     private let managedContext: NSManagedObjectContext
     private var fetchRequest: NSFetchRequest<NSManagedObject>
     private var itemsToSave: [NSManagedObject]
+    private let entity: NSEntityDescription
     
-    init(appDel: AppDelegate, managedContext: NSManagedObjectContext, fetchReq: NSFetchRequest<NSManagedObject>, itemsToSave: [NSManagedObject] = []) {
+    init(appDel: AppDelegate, managedContext: NSManagedObjectContext, fetchReq: NSFetchRequest<NSManagedObject>, itemsToSave: [NSManagedObject] = [], entity: NSEntityDescription) {
         self.appDelegate = appDel
         self.managedContext = managedContext
         self.fetchRequest = fetchReq
         self.itemsToSave = itemsToSave
+        self.entity = entity
     }
     
     func fetchSavedData() -> [ItemModel] {
@@ -34,20 +37,49 @@ class CoreDataObject {
         return items as! [ItemModel]
     }
     
-    func saveItem() {
+    func saveItem(item: Item) {
+        let itemToSave = NSManagedObject(entity: entity, insertInto: managedContext)
+        
+        updateManagedObject(managedObject: itemToSave, with: item)
+        
         do {
-            
+            itemsToSave.append(itemToSave)
+            try managedContext.save()
         } catch {
             print("Could not save item \(error)")
         }
     }
     
-    func deleteItem() {
+    func deleteItem(itemToDelete: Item) {
+        let searchCriteria: [NSPredicate] = getSearchCriteria(item: itemToDelete)
+
+        fetchRequest.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: searchCriteria)
         
+        do {
+            if let result = try? managedContext.fetch(fetchRequest) {
+                for itemToDel in result {
+                    managedContext.delete(itemToDel)
+                }
+                try managedContext.save()
+            }
+        } catch {
+            print("Failed to delete item \(error)")
+        }
     }
     
-    func updateItem() {
+    func updateItem(oldItem: Item, newItem: Item) {
+        let searchCriteria: [NSPredicate] = getSearchCriteria(item: oldItem)
         
+        fetchRequest.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: searchCriteria)
+        
+        do {
+            let searchedForItems = try managedContext.fetch(fetchRequest)
+            guard let firstItem = searchedForItems.first else { return }
+            updateManagedObject(managedObject: firstItem, with: newItem)
+            try managedContext.save()
+        } catch {
+            print("Couldn't update item \(error)")
+        }
     }
     
     private func updateManagedObject(managedObject: NSManagedObject, with item: Item) {
