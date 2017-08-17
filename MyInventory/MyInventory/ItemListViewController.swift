@@ -73,11 +73,9 @@ class ItemListViewController: UITableViewController, AddItemDelegate, UpdateItem
     
     override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         let del = UITableViewRowAction(style: .destructive, title: "Delete") { action, index in
-            //action.backgroundColor = UIColor.green
             print("Deleting item at index \(index.row)")
-            self.user.delete(at: index.row)
+            self.deleteItemFromCoreData(at: index.row)
             self.refreshTable()
-            //performSe
         }
         del.backgroundColor = UIColor.red
         return [del]
@@ -168,6 +166,33 @@ class ItemListViewController: UITableViewController, AddItemDelegate, UpdateItem
         refreshTable()
     }
     
+    private func deleteItemFromCoreData(at index: Int) {
+        var searchCriteria: [NSPredicate] = []
+        
+        guard let itemToDelete: Item = user.item(at: index) else { return }
+        
+        guard let appDel = UIApplication.shared.delegate as? AppDelegate else { return }
+        
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "ItemModel")
+        let managedContext: NSManagedObjectContext = appDel.persistentContainer.viewContext
+        searchCriteria = getSearchCriteriaForUpdating(itemToUpdate: itemToDelete)
+        
+        fetchRequest.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: searchCriteria)
+        
+        do {
+            if let result = try? managedContext.fetch(fetchRequest) {
+                
+                for itemToDel in result {
+                    managedContext.delete(itemToDel)
+                }
+                try managedContext.save()
+                user.delete(at: index)
+            }
+        } catch {
+            print(error)
+        }
+        
+    }
     private func getSearchCriteriaForUpdating(itemToUpdate: Item) -> [NSPredicate] {
         let searchCriteria: [NSPredicate] = [
             NSPredicate(format: "name == %@", itemToUpdate.itemName),
