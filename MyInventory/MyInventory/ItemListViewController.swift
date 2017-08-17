@@ -22,7 +22,7 @@ class ItemListViewController: UITableViewController, AddItemDelegate, UpdateItem
         // Do any additional setup after loading the view, typically from a nib.
         tableView.dataSource = self
         tableView.rowHeight = 64
-        fetchDataFromCoreData()
+        user.fetchFromCoreData()
     }
 
     override func didReceiveMemoryWarning() {
@@ -75,7 +75,6 @@ class ItemListViewController: UITableViewController, AddItemDelegate, UpdateItem
         let del = UITableViewRowAction(style: .destructive, title: "Delete") { action, index in
             print("Deleting item at index \(index.row)")
             self.deleteItemFromCoreData(at: index.row)
-            self.refreshTable()
         }
         del.backgroundColor = UIColor.red
         return [del]
@@ -92,27 +91,7 @@ class ItemListViewController: UITableViewController, AddItemDelegate, UpdateItem
     }
     
     func addItem(item: Item) {
-        
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
-        
-        let managedContext = appDelegate.persistentContainer.viewContext
-        
-        guard let entity = NSEntityDescription.entity(forEntityName: "ItemModel", in: managedContext) else {
-            return
-        }
-        
-        let itemToSave = NSManagedObject(entity: entity, insertInto: managedContext)
-        
-        updateManagedObject(managedObject: itemToSave, with: item)
-        
-        do {
-            try managedContext.save()
-            items.append(itemToSave)
-            user.add(item: item)
-        } catch let error as NSError {
-            print("Could not save. \(error), \(error.userInfo)")
-        }
-        
+        user.add(item: item)
         refreshTable()
     }
     
@@ -139,59 +118,13 @@ class ItemListViewController: UITableViewController, AddItemDelegate, UpdateItem
     }
     
     func updateItem(item: Item, at index: Int) {
-        
-        var searchCriteria: [NSPredicate] = []
-        
-        guard let itemToUpdate: Item = user.item(at: index) else { return }
-        
-        guard let appDel = UIApplication.shared.delegate as? AppDelegate else { return }
-        let managedContext: NSManagedObjectContext = appDel.persistentContainer.viewContext
-        
-        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "ItemModel")
-        
-        searchCriteria = getSearchCriteriaForUpdating(itemToUpdate: itemToUpdate)
-        
-        fetchRequest.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: searchCriteria)
-        
-        
-        do {
-            let searchedForItems = try managedContext.fetch(fetchRequest)
-            updateManagedObject(managedObject: searchedForItems.first!, with: item)
-            try managedContext.save()
-            user.updateItem(at: index, with: item)
-        } catch {
-            print(error)
-        }
-        
+        user.updateItem(at: index, with: item)
         refreshTable()
     }
     
     private func deleteItemFromCoreData(at index: Int) {
-        var searchCriteria: [NSPredicate] = []
-        
-        guard let itemToDelete: Item = user.item(at: index) else { return }
-        
-        guard let appDel = UIApplication.shared.delegate as? AppDelegate else { return }
-        
-        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "ItemModel")
-        let managedContext: NSManagedObjectContext = appDel.persistentContainer.viewContext
-        searchCriteria = getSearchCriteriaForUpdating(itemToUpdate: itemToDelete)
-        
-        fetchRequest.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: searchCriteria)
-        
-        do {
-            if let result = try? managedContext.fetch(fetchRequest) {
-                
-                for itemToDel in result {
-                    managedContext.delete(itemToDel)
-                }
-                try managedContext.save()
-                user.delete(at: index)
-            }
-        } catch {
-            print(error)
-        }
-        
+        user.delete(at: index)
+        refreshTable()
     }
     private func getSearchCriteriaForUpdating(itemToUpdate: Item) -> [NSPredicate] {
         let searchCriteria: [NSPredicate] = [
