@@ -37,7 +37,7 @@ class CoreDataObject {
         return items as! [ItemModel]
     }
     
-    func saveItem(item: Item) {
+    func saveItem(item: Item, itemList: inout [Item]) {
         let itemToSave = NSManagedObject(entity: entity, insertInto: managedContext)
         
         updateManagedObject(managedObject: itemToSave, with: item)
@@ -45,12 +45,13 @@ class CoreDataObject {
         do {
             itemsToSave.append(itemToSave)
             try managedContext.save()
+            itemList.append(item)
         } catch {
             print("Could not save item \(error)")
         }
     }
     
-    func deleteItem(itemToDelete: Item) {
+    func deleteItem(itemToDelete: Item, indexToDelete: Int, itemList: inout [Item]) {
         let searchCriteria: [NSPredicate] = getSearchCriteria(item: itemToDelete)
 
         fetchRequest.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: searchCriteria)
@@ -61,13 +62,14 @@ class CoreDataObject {
                     managedContext.delete(itemToDel)
                 }
                 try managedContext.save()
+                itemList.remove(at: indexToDelete)
             }
         } catch {
             print("Failed to delete item \(error)")
         }
     }
     
-    func updateItem(oldItem: Item, newItem: Item) {
+    func updateItem(oldItem: Item, newItem: Item, indexOfUpdate: Int, itemList: inout [Item]) {
         let searchCriteria: [NSPredicate] = getSearchCriteria(item: oldItem)
         
         fetchRequest.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: searchCriteria)
@@ -77,6 +79,7 @@ class CoreDataObject {
             guard let firstItem = searchedForItems.first else { return }
             updateManagedObject(managedObject: firstItem, with: newItem)
             try managedContext.save()
+            itemList[indexOfUpdate] = newItem
         } catch {
             print("Couldn't update item \(error)")
         }
