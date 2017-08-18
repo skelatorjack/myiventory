@@ -26,6 +26,20 @@ class UserTests: XCTestCase {
         
     }
     
+    func deleteAfterTest(item: Item) {
+        if let indexOfItem = testUser.getIndexOfItem(itemToFind: item) {
+            testUser.delete(at: indexOfItem)
+        }
+    }
+    
+    func addAfterTest(item: Item) {
+        testUser.add(item: item)
+    }
+    
+    func restoreAfterTest(oldItem: Item, at index: Int) {
+        testUser.updateItem(at: index, with: oldItem)
+    }
+    
     func test_whenUserIsInitializedItemListisEmpty() {
         XCTAssertTrue(testUser.isListEmpty())
     }
@@ -40,7 +54,8 @@ class UserTests: XCTestCase {
         
         XCTAssertNotNil(actualItem)
         XCTAssertFalse(testUser.isListEmpty())
-        
+    
+        deleteAfterTest(item: testItem)
     }
     
     func test_whenItemIsSaved_ItemIsReturnedAtIndex() {
@@ -48,6 +63,8 @@ class UserTests: XCTestCase {
         
         XCTAssert(testUser.getItemCount() > 0)
         XCTAssertEqual(testUser.item(at: 0), testItem)
+        
+        deleteAfterTest(item: testItem)
     }
     
     func test_whenItemIsCalledAtInvalidIndex_ReturnNil() {
@@ -61,6 +78,8 @@ class UserTests: XCTestCase {
         testUser.add(item: testItem)
         
         XCTAssertNotNil(testUser.item(at: 0))
+        
+        deleteAfterTest(item: testItem)
     }
     
     func whenItemValid_trueIsReturned() {
@@ -126,6 +145,8 @@ class UserTests: XCTestCase {
         
         XCTAssertNotEqual(testUser.item(at: 0), testItem)
         
+        deleteAfterTest(item: updateItem)
+        
     }
     
     func test_whenItemIsCleared_EverythingIsDefualt() {
@@ -146,6 +167,7 @@ class UserTests: XCTestCase {
     func test_whenItemisInList_isListEmptyReturnsFalse() {
         testUser.add(item: testItem)
         XCTAssertFalse(testUser.isListEmpty())
+        deleteAfterTest(item: testItem)
     }
     
     func test_whenItemisUpdatedWithSameData_ItemsAreEqual() {
@@ -154,6 +176,7 @@ class UserTests: XCTestCase {
     
         XCTAssertNotNil(testUser.item(at: 0))
         XCTAssertEqual(testUser.item(at: 0), testItem)
+        deleteAfterTest(item: testItem)
     }
     
     
@@ -166,12 +189,12 @@ class UserTests: XCTestCase {
         
         XCTAssertFalse(testUser.isItemInList(item: item))
         XCTAssertEqual(testUser.getItemCount(), 1)
-        
+        deleteAfterTest(item: testItem)
     }
     
     // Delete tests
     
-    func test_whenItemIsDeletedAtValidIndex_ListIsNil() {
+    func test_whenItemIsDeletedAtValidIndex_ListIsEmpty() {
         testUser.add(item: testItem)
         
         XCTAssertFalse(testUser.isListEmpty())
@@ -189,6 +212,7 @@ class UserTests: XCTestCase {
         testUser.delete(at: 1)
         
         XCTAssertEqual(testUser.getItemCount(), LISTCOUNT)
+        deleteAfterTest(item: testItem)
     }
     
     func test_whenItemIsDeleted_ItemIsNotInList() {
@@ -200,26 +224,19 @@ class UserTests: XCTestCase {
         XCTAssertFalse(testUser.isItemInList(item: testItem))
         XCTAssertLessThan(testUser.getItemCount(), count)
         
-        
     }
     // Core Data Tests
-    
     func test_didFetchDataFromCoreData() {
         
         var itemCountFromFetch: Int = 0
-        /*
-        do {
-            let items = try managedContext.fetch(fetchRequest) as! [ItemModel]
-            itemCountFromFetch = items.count
-            testUser.adaptItemModelToItemList(itemModels: items)
-            
-        } catch let error as NSError {
-            print("Could not fetch data \(error)")
-        }
+        
+        testUser.fetchFromCoreData()
+        
+        itemCountFromFetch = testUser.getNumberOfItemsFromCoreData()
         
         XCTAssertFalse(testUser.isListEmpty())
         XCTAssertEqual(testUser.getItemCount(), itemCountFromFetch)
-        */
+
     }
     
     func test_whenListIsNotEmptyAndCoreDataListIsEmpty_DonotSetItemList() {
@@ -230,30 +247,14 @@ class UserTests: XCTestCase {
         
         XCTAssertFalse(testUser.isListEmpty())
         XCTAssertTrue(testUser.getItemCount() == 1)
+        
+        deleteAfterTest(item: testItem)
     }
     
     func test_whenListIsNotEmptyAndCoreDataListIsNotEmpty_DonotSetItemList() {
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
-            return
-        }
-        
-        let managedContext =
-            appDelegate.persistentContainer.viewContext
-        
-        
-        let fetchRequest =
-            NSFetchRequest<NSManagedObject>(entityName: "ItemModel")
         
         testUser.add(item: testItem)
         
-        do {
-            let items = try managedContext.fetch(fetchRequest) as! [ItemModel]
-            testUser.adaptItemModelToItemList(itemModels: items)
-        } catch let error as NSError {
-            print("Could not fetch data \(error)")
-        }
-        
-        XCTAssertTrue(testUser.getItemCount() == 1)
     }
     
     func test_whenListIsEmptyAndCoreDataListIsEmpty_DonotSetItemList() {
