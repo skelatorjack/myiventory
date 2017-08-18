@@ -18,7 +18,7 @@ class UserTests: XCTestCase {
 
     override func setUp() {
         super.setUp()
-        testUser = User()
+        testUser = User(appDel: (UIApplication.shared.delegate as? AppDelegate)!)
     }
     
     override func tearDown() {
@@ -201,7 +201,7 @@ class UserTests: XCTestCase {
         
         
     }
-    
+    // Core Data Tests
     
     func test_didFetchDataFromCoreData() {
         
