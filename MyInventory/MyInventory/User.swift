@@ -74,6 +74,7 @@ class User {
         return itemList.isEmpty
     }
     
+    // Converts data fetched from CoreData to Items and sets the array to the itemlist
     func adaptItemModelToItemList(itemModels: [ItemModel]) {
         
         var items: [Item] = []
@@ -111,10 +112,6 @@ class User {
         return Item(newName: name, newOwner: owner, newQuantity: quant, newShoppingList: shoppingList)
     }
     
-    func adatpItemToItemModel(itemToUpdate: Item) -> ItemModel {
-        
-        return ItemModel()
-    }
     private func isIndexValid(index: Int) -> Bool {
         if index >= itemList.count || index < 0 {
             return false

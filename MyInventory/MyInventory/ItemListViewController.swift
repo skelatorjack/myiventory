@@ -39,13 +39,13 @@ class ItemListViewController: UITableViewController, AddItemDelegate, UpdateItem
             addItemdest.delegate = self
         }
         else if let updateItemDest = segue.destination as? UpdateItemViewController,
-                let index = sender as? Int,
-                segue.identifier == UPDATEITEMID,
-                let item = user.item(at: index) {
+            let index = sender as? Int,
+            segue.identifier == UPDATEITEMID,
+            let item = user.item(at: index) {
             
-            print("Updating \(user.item(at: index))")
-            updateItemDest.setValues(name: item.itemName, quantity: String(item.itemQuantity), owner: item.itemOwner, index: index)
-            updateItemDest.delegate = self
+                print("Updating \(user.item(at: index))")
+                updateItemDest.setValues(name: item.itemName, quantity: String(item.itemQuantity), owner: item.itemOwner, index: index)
+                updateItemDest.delegate = self
         }
     }
     
@@ -58,8 +58,6 @@ class ItemListViewController: UITableViewController, AddItemDelegate, UpdateItem
         guard
             let cell = tableView.dequeueReusableCell(withIdentifier: "ItemCell") as? ItemTableCell
         else { return UITableViewCell() }
-        
-        
         
         let item: Item? = user.item(at: indexPath.row)
             
@@ -86,35 +84,13 @@ class ItemListViewController: UITableViewController, AddItemDelegate, UpdateItem
         performSegue(withIdentifier: UPDATEITEMID, sender: indexPath.row)
     }
     
-    func refreshTable() {
+    private func refreshTable() {
         tableView.reloadData()
     }
     
     func addItem(item: Item) {
         user.add(item: item)
         refreshTable()
-    }
-    
-    func fetchDataFromCoreData() {
-        guard let appDelegate =
-            UIApplication.shared.delegate as? AppDelegate else {
-                return
-        }
-        
-        let managedContext =
-            appDelegate.persistentContainer.viewContext
-        
-        
-        let fetchRequest =
-            NSFetchRequest<NSManagedObject>(entityName: "ItemModel")
-        
-        
-        do {
-            items = try managedContext.fetch(fetchRequest)
-            user.adaptItemModelToItemList(itemModels: items as! [ItemModel])
-        } catch let error as NSError {
-            print("Could not fetch. \(error), \(error.userInfo)")
-        }
     }
     
     func updateItem(item: Item, at index: Int) {
@@ -125,22 +101,5 @@ class ItemListViewController: UITableViewController, AddItemDelegate, UpdateItem
     private func deleteItemFromCoreData(at index: Int) {
         user.delete(at: index)
         refreshTable()
-    }
-    private func getSearchCriteriaForUpdating(itemToUpdate: Item) -> [NSPredicate] {
-        let searchCriteria: [NSPredicate] = [
-            NSPredicate(format: "name == %@", itemToUpdate.itemName),
-            NSPredicate(format: "ownerOfItem == %@", itemToUpdate.itemOwner),
-            NSPredicate(format: "quantityOfItem == %@", String(itemToUpdate.itemQuantity)),
-            NSPredicate(format: "shoppingListId == %@", itemToUpdate.shoppingList)
-        ]
-        
-        return searchCriteria
-    }
-    
-    private func updateManagedObject(managedObject: NSManagedObject, with item: Item) {
-        managedObject.setValue(item.itemName, forKey: "name")
-        managedObject.setValue(item.itemOwner, forKey: "ownerOfItem")
-        managedObject.setValue(item.itemQuantity, forKey: "quantityOfItem")
-        managedObject.setValue(item.shoppingList, forKey: "shoppingListId")
     }
 }
