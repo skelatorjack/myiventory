@@ -38,6 +38,10 @@ class CoreDataObject {
         numberOfItemsPersisted -= 1
     }
     
+    func getNumberOfItemsPersisted() -> Int {
+        return numberOfItemsPersisted
+    }
+    
     func fetchSavedData() -> [ItemModel] {
         var items: [NSManagedObject] = []
         

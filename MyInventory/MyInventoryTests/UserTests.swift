@@ -40,6 +40,7 @@ class UserTests: XCTestCase {
         
         XCTAssertNotNil(actualItem)
         XCTAssertFalse(testUser.isListEmpty())
+        
     }
     
     func test_whenItemIsSaved_ItemIsReturnedAtIndex() {
@@ -206,18 +207,7 @@ class UserTests: XCTestCase {
     func test_didFetchDataFromCoreData() {
         
         var itemCountFromFetch: Int = 0
-        
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
-            return
-        }
-        
-        let managedContext =
-            appDelegate.persistentContainer.viewContext
-        
-        
-        let fetchRequest =
-            NSFetchRequest<NSManagedObject>(entityName: "ItemModel")
-        
+        /*
         do {
             let items = try managedContext.fetch(fetchRequest) as! [ItemModel]
             itemCountFromFetch = items.count
@@ -229,6 +219,7 @@ class UserTests: XCTestCase {
         
         XCTAssertFalse(testUser.isListEmpty())
         XCTAssertEqual(testUser.getItemCount(), itemCountFromFetch)
+        */
     }
     
     func test_whenListIsNotEmptyAndCoreDataListIsEmpty_DonotSetItemList() {
