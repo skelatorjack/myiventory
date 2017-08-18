@@ -49,6 +49,10 @@ class User {
         return itemList.contains(item)
     }
     
+    func getIndexOfItem(itemToFind: Item) -> Int? {
+        return itemList.index(of: itemToFind)
+    }
+    
     func add(item: Item) {
         // itemList.append(item)
         coreDataInterface.saveItem(item: item, itemList: &itemList)
