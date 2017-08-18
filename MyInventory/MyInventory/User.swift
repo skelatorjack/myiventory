@@ -119,6 +119,29 @@ class User {
         return Item(newName: name, newOwner: owner, newQuantity: quant, newShoppingList: shoppingList)
     }
     
+    func adaptItemsToItemModels(items: [Item]) -> [ItemModel] {
+        
+        var itemMods: [ItemModel] = []
+        
+        for item in items {
+            if let itemMod = adaptItemToItemModel(itemToAdapt: item) {
+                itemMods.append(itemMod)
+            }
+        }
+        return itemMods
+    }
+    
+    func adaptItemToItemModel(itemToAdapt: Item) -> ItemModel? {
+        var itemModel: ItemModel? = nil
+    
+        itemModel?.name = itemToAdapt.itemName
+        itemModel?.ownerOfItem = itemToAdapt.itemOwner
+        itemModel?.quantityOfItem = Int16(itemToAdapt.itemQuantity)
+        itemModel?.shoppingListId = itemToAdapt.shoppingList
+        
+        return itemModel
+    }
+    
     private func isIndexValid(index: Int) -> Bool {
         if index >= itemList.count || index < 0 {
             return false
