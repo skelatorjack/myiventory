@@ -16,6 +16,7 @@ class CoreDataObject {
     private var fetchRequest: NSFetchRequest<NSManagedObject>
     private var itemsToSave: [NSManagedObject]
     private let entity: NSEntityDescription
+    private var numberOfItemsPersisted: Int = 0
     
     init(appDel: AppDelegate, managedContext: NSManagedObjectContext, fetchReq: NSFetchRequest<NSManagedObject>, itemsToSave: [NSManagedObject] = [], entity: NSEntityDescription) {
         self.appDelegate = appDel
@@ -25,11 +26,24 @@ class CoreDataObject {
         self.entity = entity
     }
     
+    private func setNumberOfItemsPersisted(count: Int) {
+        numberOfItemsPersisted = count
+    }
+    
+    private func increaseNumberOfItemsPersisted() {
+        numberOfItemsPersisted += 1
+    }
+    
+    private func decreaseNumberOfItemsPersisted() {
+        numberOfItemsPersisted -= 1
+    }
+    
     func fetchSavedData() -> [ItemModel] {
         var items: [NSManagedObject] = []
         
         do {
             items = try managedContext.fetch(fetchRequest)
+            setNumberOfItemsPersisted(count: items.count)
         } catch {
             print("Failed fetch saved data \(error)")
         }
@@ -44,6 +58,7 @@ class CoreDataObject {
         
         do {
             itemsToSave.append(itemToSave)
+            increaseNumberOfItemsPersisted()
             try managedContext.save()
             itemList.append(item)
         } catch {
@@ -60,6 +75,7 @@ class CoreDataObject {
             if let result = try? managedContext.fetch(fetchRequest) {
                 for itemToDel in result {
                     managedContext.delete(itemToDel)
+                    decreaseNumberOfItemsPersisted()
                 }
                 try managedContext.save()
                 itemList.remove(at: indexToDelete)
