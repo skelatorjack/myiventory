@@ -254,7 +254,10 @@ class UserTests: XCTestCase {
     func test_whenListIsNotEmptyAndCoreDataListIsNotEmpty_DonotSetItemList() {
         
         testUser.add(item: testItem)
+        testUser.fetchFromCoreData()
         
+        XCTAssertTrue(testUser.getItemCount() == 1)
+        deleteAfterTest(item: testItem)
     }
     
     func test_whenListIsEmptyAndCoreDataListIsEmpty_DonotSetItemList() {
@@ -266,25 +269,7 @@ class UserTests: XCTestCase {
     }
     
     func test_whenListIsEmptyAndCoreDataListIsNotEmpty_DoSetItemList() {
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
-            return
-        }
-        
-        let managedContext =
-            appDelegate.persistentContainer.viewContext
-        
-        
-        let fetchRequest =
-            NSFetchRequest<NSManagedObject>(entityName: "ItemModel")
-        
-        
-        do {
-            let items = try managedContext.fetch(fetchRequest) as! [ItemModel]
-            testUser.adaptItemModelToItemList(itemModels: items)
-        } catch let error as NSError {
-            print("Can't fetch data \(error)")
-        }
-        
+        testUser.fetchFromCoreData()
         XCTAssertFalse(testUser.isListEmpty())
     }
 }
