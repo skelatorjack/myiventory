@@ -23,7 +23,7 @@ class ShoppingListsViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "ShoppingListTableCell") as? ShoppingListTableCell
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "ShoppingListCell") as? ShoppingListTableCell
             else { return UITableViewCell() }
         
         let shoppingList: ShoppingList? = shoppingLists[indexPath.row]
