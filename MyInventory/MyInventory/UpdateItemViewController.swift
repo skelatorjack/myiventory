@@ -18,6 +18,7 @@ class UpdateItemViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var updateNameField: UITextField!
     @IBOutlet weak var updateQuantityField: UITextField!
     @IBOutlet weak var updateOwnerField: UITextField!
+    @IBOutlet weak var updateShopListField: UITextField!
     
     @IBOutlet weak var updateItemButton: UIButton!
     
@@ -26,6 +27,7 @@ class UpdateItemViewController: UIViewController, UITextFieldDelegate {
     private var nameValue: String = ""
     private var quantityValue: String = ""
     private var ownerValue: String = ""
+    private var shopListValue: String = ""
     
     private var item: Item = Item()
     
@@ -37,6 +39,7 @@ class UpdateItemViewController: UIViewController, UITextFieldDelegate {
         updateNameField.text = nameValue
         updateQuantityField.text = quantityValue
         updateOwnerField.text = ownerValue
+        updateShopListField.text = shopListValue
         
         updateNameField.delegate = self
         updateOwnerField.delegate = self
@@ -62,9 +65,10 @@ class UpdateItemViewController: UIViewController, UITextFieldDelegate {
         let name: String = updateNameField.text!
         let quantity: String = updateQuantityField.text!
         let owner: String = updateOwnerField.text!
+        let list: String = updateShopListField.text!
         
         item.clear()
-        item.parseData(name: name, quantity: quantity, owner: owner)
+        item.parseData(name: name, quantity: quantity, owner: owner, list: list)
         
         if item.isItemValid() {
             updateItemButton.isEnabled = true
@@ -74,11 +78,12 @@ class UpdateItemViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
-    func setValues(name: String, quantity: String, owner: String, index: Int) {
+    func setValues(name: String, quantity: String, owner: String, index: Int, list: String) {
         nameValue = name
         quantityValue = quantity
         ownerValue = owner
         updateItemIndex = index
+        shopListValue = list
     }
     
     @IBAction func updateItemPressed(_ sender: UIButton) {
