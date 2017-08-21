@@ -15,8 +15,9 @@ import CoreData
 class User {
     private var itemList: [Item]
     private var coreDataInterface: CoreDataObject
+    private var shoppingLists: [ShoppingList]
     
-    init(itemList: [Item] = [], appDel: AppDelegate) {
+    init(itemList: [Item] = [], appDel: AppDelegate, shoppingLists: [ShoppingList] = []) {
         self.itemList = itemList
         
         let managedContext =
@@ -27,6 +28,8 @@ class User {
         let entity = NSEntityDescription.entity(forEntityName: "ItemModel", in: managedContext)
         
         self.coreDataInterface = CoreDataObject(appDel: appDel, managedContext: managedContext, fetchReq: fetchRequest, entity: entity!)
+        
+        self.shoppingLists = shoppingLists
 
     }
     
@@ -53,9 +56,26 @@ class User {
         return itemList.index(of: itemToFind)
     }
     
+    func getShoppingLists() -> [ShoppingList] {
+        return shoppingLists
+    }
+    
     func getNumberOfItemsFromCoreData() -> Int {
         return coreDataInterface.getNumberOfItemsPersisted()
     }
+    
+    func addItemsToShoppingLists() {
+        
+        for item in itemList {
+            if shoppingLists[0].doesKeyExist(key: item.shoppingList) {
+                shoppingLists[0].addItemToKey(item: item)
+            }
+            else {
+                shoppingLists[0].createKey(keyName: item.shoppingList)
+            }
+        }
+    }
+    
     func add(item: Item) {
         // itemList.append(item)
         coreDataInterface.saveItem(item: item, itemList: &itemList)
@@ -140,6 +160,14 @@ class User {
         itemModel?.shoppingListId = itemToAdapt.shoppingList
         
         return itemModel
+    }
+    
+    func shoppingList(at index: Int) -> ShoppingList? {
+        
+        if isIndexValid(index: index) {
+            return shoppingLists[index]
+        }
+        return nil
     }
     
     private func isIndexValid(index: Int) -> Bool {

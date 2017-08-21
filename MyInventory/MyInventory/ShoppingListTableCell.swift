@@ -14,7 +14,8 @@ class ShoppingListTableCell: UITableViewCell {
     @IBOutlet weak var shoppingListNameLabel: UILabel!
     @IBOutlet weak var shoppingListCountLabel: UILabel!
     
-    func decorate() {
-        
+    func decorate(with shoppingList: ShoppingList) {
+        shoppingListNameLabel.text = shoppingList.getListName()
+        shoppingListCountLabel.text = "\(shoppingList.getTotalNumberOfItems())"
     }
 }
