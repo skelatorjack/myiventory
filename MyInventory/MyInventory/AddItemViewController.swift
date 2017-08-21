@@ -18,6 +18,7 @@ class AddItemViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var nameField: UITextField!
     @IBOutlet weak var quantityField: UITextField!
     @IBOutlet weak var ownerField: UITextField!
+    @IBOutlet weak var shopListField: UITextField!
     
     @IBOutlet weak var addItem: UIButton!
     
@@ -33,6 +34,7 @@ class AddItemViewController: UIViewController, UITextFieldDelegate {
         nameField.delegate = self
         quantityField.delegate = self
         ownerField.delegate = self
+        shopListField.delegate = self
         
         // set tap gesture recognizer
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(backgroundTapped))
@@ -55,9 +57,10 @@ class AddItemViewController: UIViewController, UITextFieldDelegate {
         let name: String = nameField.text!
         let quantity: String = quantityField.text!
         let owner: String = ownerField.text!
+        let list: String = shopListField.text!
         
         newItem.clear()
-        newItem.parseData(name: name, quantity: quantity, owner: owner)
+        newItem.parseData(name: name, quantity: quantity, owner: owner, list: list)
         
         if newItem.isItemValid() {
             addItem.isEnabled = true
