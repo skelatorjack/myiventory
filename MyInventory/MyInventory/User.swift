@@ -65,15 +65,19 @@ class User {
     }
     
     func addItemsToShoppingLists() {
+        let shoppingList: ShoppingList = ShoppingList()
         
         for item in itemList {
-            if shoppingLists[0].doesKeyExist(key: item.shoppingList) {
-                shoppingLists[0].addItemToKey(item: item)
+            if shoppingList.doesKeyExist(key: item.shoppingList) {
+                shoppingList.addItemToKey(item: item)
             }
             else {
-                shoppingLists[0].createKey(keyName: item.shoppingList)
+                shoppingList.createKey(keyName: item.shoppingList)
+                shoppingList.addItemToKey(item: item)
             }
         }
+        
+        shoppingLists.append(shoppingList)
     }
     
     func add(item: Item) {
