@@ -11,4 +11,10 @@ import UIKit
 
 class ShoppingListTableCell: UITableViewCell {
     
+    @IBOutlet weak var shoppingListNameLabel: UILabel!
+    @IBOutlet weak var shoppingListCountLabel: UILabel!
+    
+    func decorate() {
+        
+    }
 }
