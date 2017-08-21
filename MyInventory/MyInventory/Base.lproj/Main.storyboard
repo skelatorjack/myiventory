@@ -13,7 +13,7 @@
         <!--Shopping Lists-->
         <scene sceneID="L5h-Bp-khB">
             <objects>
-                <tableViewController title="Shopping Lists" id="C8W-Cj-pFR" sceneMemberID="viewController">
+                <tableViewController title="Shopping Lists" id="C8W-Cj-pFR" customClass="ShoppingListsViewController" customModule="MyInventory" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="0bG-z4-2si">
                         <rect key="frame" x="0.0" y="0.0" width="568" height="320"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -168,6 +168,7 @@
                         <outlet property="nameField" destination="Lkm-MJ-x3b" id="2gc-VU-Nxb"/>
                         <outlet property="ownerField" destination="sfy-H2-zsl" id="MI5-xp-U2x"/>
                         <outlet property="quantityField" destination="zrH-Jp-Cmk" id="cyh-0I-iyK"/>
+                        <outlet property="shopListField" destination="8bD-aN-vGo" id="kUf-Us-Yfx"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mop-FO-cBO" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -365,6 +366,7 @@
                         <outlet property="updateNameField" destination="8mO-y4-7kj" id="dBW-Zx-kd0"/>
                         <outlet property="updateOwnerField" destination="33f-Hm-Lsb" id="Xbg-PV-02s"/>
                         <outlet property="updateQuantityField" destination="H2F-jo-XOd" id="Sg2-Yi-FhR"/>
+                        <outlet property="updateShopListField" destination="z7n-Oh-osi" id="ZXV-04-T0H"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Fe9-cI-JyU" userLabel="First Responder" sceneMemberID="firstResponder"/>
