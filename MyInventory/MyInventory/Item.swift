@@ -31,7 +31,7 @@ struct Item: Equatable {
         }
         return false
     }
-    mutating func parseData(name: String, quantity: String, owner: String) {
+    mutating func parseData(name: String, quantity: String, owner: String, list: String) {
         if !name.isEmpty {
             itemName = name
         }
@@ -43,6 +43,8 @@ struct Item: Equatable {
         if !owner.isEmpty {
             itemOwner = owner
         }
+        
+        shoppingList = list
         
     }
     

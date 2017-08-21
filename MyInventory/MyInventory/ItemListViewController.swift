@@ -44,12 +44,10 @@ class ItemListViewController: UITableViewController, AddItemDelegate, UpdateItem
             let item = user.item(at: index) {
             
                 print("Updating \(user.item(at: index))")
-                updateItemDest.setValues(name: item.itemName, quantity: String(item.itemQuantity), owner: item.itemOwner, index: index)
+                updateItemDest.setValues(name: item.itemName, quantity: String(item.itemQuantity), owner: item.itemOwner, index: index, list: item.shoppingList)
                 updateItemDest.delegate = self
         }
         else if let shoppingListDest = segue.destination as? ShoppingListsViewController {
-            user.addItemsToShoppingLists()
-            shoppingListDest.shoppingLists = user.getShoppingLists()
         }
     }
     
