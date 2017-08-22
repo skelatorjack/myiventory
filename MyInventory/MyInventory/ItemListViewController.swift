@@ -47,8 +47,6 @@ class ItemListViewController: UITableViewController, AddItemDelegate, UpdateItem
                 updateItemDest.setValues(name: item.itemName, quantity: String(item.itemQuantity), owner: item.itemOwner, index: index, list: item.shoppingList)
                 updateItemDest.delegate = self
         }
-        else if let shoppingListDest = segue.destination as? ShoppingListsViewController {
-        }
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
