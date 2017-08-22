@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class ShoppingListsViewController: UITableViewController {
+class ShoppingListsViewController: UITableViewController, AddShoppingList {
     
     var shoppingLists: [ShoppingList] = []
     
@@ -19,6 +19,14 @@ class ShoppingListsViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return shoppingLists.count
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if let addShopDest = segue.destination as? AddShoppingListViewController {
+            
+            addShopDest.delegate = self
+        }
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -33,5 +41,17 @@ class ShoppingListsViewController: UITableViewController {
         }
     
         return cell
+    }
+    
+    func add(shoppingListName: String) {
+        
+        let newShoppingList: ShoppingList = ShoppingList(listName: shoppingListName)
+        
+        shoppingLists.append(newShoppingList)
+        reloadTable()
+    }
+    
+    func reloadTable() {
+        tableView.reloadData()
     }
 }
