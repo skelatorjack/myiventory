@@ -19,6 +19,10 @@ class ShoppingList {
         self.listName = listName
     }
     
+    func setListName(name: String) {
+        listName = name
+    }
+    
     func getNumberOfKeys() -> Int {
         return storeAndItems.count
     }
