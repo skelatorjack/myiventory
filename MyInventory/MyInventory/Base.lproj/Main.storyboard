@@ -119,7 +119,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <segue destination="geM-te-wg0" kind="show" identifier="shoppingListDetail" id="nYN-vZ-3uY"/>
+                        <segue destination="moH-IU-dNQ" kind="show" identifier="editShoppingList" id="LvS-fs-urL"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="T0Y-Yb-CZv" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -127,20 +127,72 @@
             <point key="canvasLocation" x="122" y="-682"/>
         </scene>
         <!--Shopping List Detail-->
-        <scene sceneID="9u8-jh-Iqs">
+        <scene sceneID="J3G-dp-FZ8">
             <objects>
-                <viewController title="Shopping List Detail" id="geM-te-wg0" customClass="ShoppingListDetailViewController" customModule="MyInventory" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="ftY-cu-2l4"/>
-                        <viewControllerLayoutGuide type="bottom" id="bOU-fo-6PA"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="93o-eW-3kx">
+                <tableViewController id="moH-IU-dNQ" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="Wrt-IK-KuY">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Rpz-eW-fQX" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="shopListDetailCell" id="IlA-85-xH1" customClass="ShoppingListDetailCell" customModule="MyInventory" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="IlA-85-xH1" id="Y8y-Ky-4Aa">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="kMg-BY-EeC">
+                                            <rect key="frame" x="10" y="-1" width="300" height="44"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rh2-km-gN8">
+                                                    <rect key="frame" x="0.0" y="12" width="100" height="20.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Quantity" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O33-XH-mGG">
+                                                    <rect key="frame" x="100" y="12" width="100" height="20.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Owner" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8dH-FV-Ygn">
+                                                    <rect key="frame" x="200" y="12" width="100" height="20.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </stackView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="kMg-BY-EeC" firstAttribute="centerX" secondItem="Y8y-Ky-4Aa" secondAttribute="centerX" id="68B-Td-0Ue"/>
+                                        <constraint firstItem="kMg-BY-EeC" firstAttribute="centerY" secondItem="Y8y-Ky-4Aa" secondAttribute="centerY" id="8qR-tn-ti1"/>
+                                        <constraint firstItem="kMg-BY-EeC" firstAttribute="leading" secondItem="Y8y-Ky-4Aa" secondAttribute="leading" constant="10" id="kiY-O1-UT5"/>
+                                        <constraint firstItem="kMg-BY-EeC" firstAttribute="height" secondItem="Y8y-Ky-4Aa" secondAttribute="height" id="vh8-6L-ymc"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="nameLabel" destination="Rh2-km-gN8" id="lkv-pn-wLH"/>
+                                    <outlet property="ownerLabel" destination="8dH-FV-Ygn" id="5zf-0D-SqH"/>
+                                    <outlet property="quantityLabel" destination="O33-XH-mGG" id="PjD-Kb-C2g"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="moH-IU-dNQ" id="yuI-Mo-rrt"/>
+                            <outlet property="delegate" destination="moH-IU-dNQ" id="Zhb-dS-m2Q"/>
+                        </connections>
+                    </tableView>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" title="Shopping List Detail" id="A65-dP-BCh" userLabel="Shopping List Detail">
+                        <barButtonItem key="leftBarButtonItem" title="Send" id="IuZ-Wh-bfO"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="5su-a6-73c"/>
+                    </navigationItem>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="oUe-JS-Zel" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1155" y="-1388"/>
         </scene>
