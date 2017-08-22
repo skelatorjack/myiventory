@@ -24,7 +24,6 @@ class ShoppingListsViewController: UITableViewController, AddShoppingList {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if let addShopDest = segue.destination as? AddShoppingListViewController {
-            
             addShopDest.delegate = self
         }
     }
@@ -41,6 +40,10 @@ class ShoppingListsViewController: UITableViewController, AddShoppingList {
         }
     
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        performSegue(withIdentifier: "editShoppingList", sender: indexPath.row)
     }
     
     func add(shoppingListName: String) {
