@@ -13,7 +13,7 @@
         <!--Add Shopping List-->
         <scene sceneID="hfx-hH-7h0">
             <objects>
-                <viewController title="Add Shopping List" id="HyN-4H-wa6" sceneMemberID="viewController">
+                <viewController title="Add Shopping List" id="HyN-4H-wa6" customClass="AddShoppingListViewController" customModule="MyInventory" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Xuo-EX-2qh"/>
                         <viewControllerLayoutGuide type="bottom" id="I71-UZ-DpZ"/>
@@ -34,7 +34,7 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="nr6-QH-Rdy">
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="nr6-QH-Rdy" userLabel="List Name Field">
                                                 <rect key="frame" x="105" y="0.0" width="95" height="30"/>
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -45,6 +45,9 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9gs-lg-c0N">
                                         <rect key="frame" x="0.0" y="40" width="200" height="30"/>
                                         <state key="normal" title="Add Shopping List"/>
+                                        <connections>
+                                            <action selector="addShoppingListPressed:" destination="HyN-4H-wa6" eventType="touchUpInside" id="pHv-Gc-cHW"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                             </stackView>
@@ -56,6 +59,10 @@
                             <constraint firstItem="m9o-2c-odR" firstAttribute="leading" secondItem="YSG-X1-U7Y" secondAttribute="leadingMargin" constant="44" id="wzG-Jk-2mg"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="addShoppingListButton" destination="9gs-lg-c0N" id="bzB-vz-uFl"/>
+                        <outlet property="listNameTextField" destination="nr6-QH-Rdy" id="Bwj-we-6bB"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CVX-u3-1Zd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
