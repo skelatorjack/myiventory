@@ -23,6 +23,7 @@ class ItemListViewController: UITableViewController, AddItemDelegate, UpdateItem
         tableView.dataSource = self
         tableView.rowHeight = 64
         user.fetchFromCoreData()
+        user.setUpShoppingLists()
     }
 
     override func didReceiveMemoryWarning() {
@@ -46,6 +47,10 @@ class ItemListViewController: UITableViewController, AddItemDelegate, UpdateItem
                 print("Updating \(user.item(at: index))")
                 updateItemDest.setValues(name: item.itemName, quantity: String(item.itemQuantity), owner: item.itemOwner, index: index, list: item.shoppingList)
                 updateItemDest.delegate = self
+        }
+        else if let shoppingListVC = segue.destination as? ShoppingListsViewController {
+            
+            shoppingListVC.setShoppingLists(userShoppingLists: user.getShoppingLists())
         }
     }
     
