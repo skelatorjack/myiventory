@@ -11,10 +11,14 @@ import UIKit
 
 class ShoppingListsViewController: UITableViewController, AddShoppingList {
     
-    var shoppingLists: [ShoppingList] = []
+    private var shoppingLists: [ShoppingList] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
+    }
+    
+    func setShoppingLists(userShoppingLists: [ShoppingList]) {
+        shoppingLists = userShoppingLists
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -25,6 +29,12 @@ class ShoppingListsViewController: UITableViewController, AddShoppingList {
         
         if let addShopDest = segue.destination as? AddShoppingListViewController {
             addShopDest.delegate = self
+        }
+        else if let shopListDetail = segue.destination as? ShoppingListDetailViewController,
+            segue.identifier == "editShoppingList",
+            let indexOfList = sender as? Int {
+            
+            shopListDetail.setList(list: shoppingLists[indexOfList])
         }
     }
     
