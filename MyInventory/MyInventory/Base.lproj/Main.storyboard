@@ -81,18 +81,18 @@
                                 <rect key="frame" x="0.0" y="28" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="fPe-UP-Acl" id="cwX-SP-CGB">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="List Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="kKe-iM-HDu">
-                                            <rect key="frame" x="15" y="4" width="77" height="21"/>
+                                            <rect key="frame" x="15" y="5" width="77" height="20.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Count" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="yPT-y8-uFu">
-                                            <rect key="frame" x="15" y="25" width="35" height="15"/>
+                                            <rect key="frame" x="15" y="25.5" width="34.5" height="14.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                             <nil key="textColor"/>
@@ -129,7 +129,7 @@
         <!--Shopping List Detail-->
         <scene sceneID="J3G-dp-FZ8">
             <objects>
-                <tableViewController id="moH-IU-dNQ" sceneMemberID="viewController">
+                <tableViewController id="moH-IU-dNQ" customClass="ShoppingListDetailViewController" customModule="MyInventory" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="Wrt-IK-KuY">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -139,7 +139,7 @@
                                 <rect key="frame" x="0.0" y="28" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="IlA-85-xH1" id="Y8y-Ky-4Aa">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="kMg-BY-EeC">
@@ -209,7 +209,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="LPa-Bh-os0" userLabel="Main Stack View">
-                                <rect key="frame" x="60" y="189" width="200" height="190"/>
+                                <rect key="frame" x="60" y="209" width="200" height="150"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LbA-Wy-7EN" userLabel="Name Stack View">
                                         <rect key="frame" x="0.0" y="0.0" width="200" height="30"/>
@@ -262,25 +262,8 @@
                                             </textField>
                                         </subviews>
                                     </stackView>
-                                    <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Iec-k3-ezA" userLabel="Shop. List Stack View">
-                                        <rect key="frame" x="0.0" y="120" width="200" height="30"/>
-                                        <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Shop. List" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vmJ-ED-RDg" userLabel="Shopping List">
-                                                <rect key="frame" x="0.0" y="0.0" width="100" height="30"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <nil key="textColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="8bD-aN-vGo" userLabel="Shop. List Field">
-                                                <rect key="frame" x="100" y="0.0" width="100" height="30"/>
-                                                <nil key="textColor"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits"/>
-                                            </textField>
-                                        </subviews>
-                                    </stackView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kwT-z3-tT1">
-                                        <rect key="frame" x="0.0" y="160" width="200" height="30"/>
+                                        <rect key="frame" x="0.0" y="120" width="200" height="30"/>
                                         <state key="normal" title="Add Item"/>
                                         <connections>
                                             <action selector="addItemPressed:" destination="kNB-iK-tjt" eventType="touchUpInside" id="U0D-CA-utE"/>
@@ -289,7 +272,6 @@
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="zrH-Jp-Cmk" firstAttribute="width" secondItem="sfy-H2-zsl" secondAttribute="width" id="IyN-xB-CVb"/>
-                                    <constraint firstItem="8bD-aN-vGo" firstAttribute="width" secondItem="sfy-H2-zsl" secondAttribute="width" id="OWF-Jo-2p5"/>
                                     <constraint firstItem="Lkm-MJ-x3b" firstAttribute="width" secondItem="zrH-Jp-Cmk" secondAttribute="width" id="mlx-Kj-1FM"/>
                                 </constraints>
                             </stackView>
@@ -306,7 +288,6 @@
                         <outlet property="nameField" destination="Lkm-MJ-x3b" id="2gc-VU-Nxb"/>
                         <outlet property="ownerField" destination="sfy-H2-zsl" id="MI5-xp-U2x"/>
                         <outlet property="quantityField" destination="zrH-Jp-Cmk" id="cyh-0I-iyK"/>
-                        <outlet property="shopListField" destination="8bD-aN-vGo" id="kUf-Us-Yfx"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mop-FO-cBO" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -326,7 +307,7 @@
                                 <rect key="frame" x="0.0" y="28" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="GuP-bE-woI" id="v1g-dq-y6E">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="0IQ-Od-k4O" userLabel="Cell Stack View">
@@ -376,7 +357,7 @@
                     <navigationItem key="navigationItem" title="Item List" id="fX5-cT-0lp">
                         <barButtonItem key="leftBarButtonItem" title="Shop. List" id="wC7-9O-Bnj">
                             <connections>
-                                <segue destination="C8W-Cj-pFR" kind="show" id="c42-MI-O5N"/>
+                                <segue destination="C8W-Cj-pFR" kind="show" identifier="displayShoppingLists" id="c42-MI-O5N"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="qar-3n-bdo">
@@ -406,7 +387,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="dAF-oR-PE3" userLabel="Main Stack View">
-                                <rect key="frame" x="60" y="189" width="200" height="190"/>
+                                <rect key="frame" x="60" y="209" width="200" height="150"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IVW-OT-A1c" userLabel="Name Stack View">
                                         <rect key="frame" x="0.0" y="0.0" width="200" height="30"/>
@@ -459,25 +440,8 @@
                                             </textField>
                                         </subviews>
                                     </stackView>
-                                    <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6mn-5F-KBS" userLabel="Shop. List Stack View">
-                                        <rect key="frame" x="0.0" y="120" width="200" height="30"/>
-                                        <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Shop. List" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="isa-9f-aOC" userLabel="Shop. List">
-                                                <rect key="frame" x="0.0" y="0.0" width="100" height="30"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <nil key="textColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="z7n-Oh-osi" userLabel="Shop. List Field">
-                                                <rect key="frame" x="100" y="0.0" width="100" height="30"/>
-                                                <nil key="textColor"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits"/>
-                                            </textField>
-                                        </subviews>
-                                    </stackView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4bm-dq-yd7">
-                                        <rect key="frame" x="0.0" y="160" width="200" height="30"/>
+                                        <rect key="frame" x="0.0" y="120" width="200" height="30"/>
                                         <state key="normal" title="Update Item"/>
                                         <connections>
                                             <action selector="addItemPressed:" destination="kNB-iK-tjt" eventType="touchUpInside" id="tQP-P7-mSx"/>
@@ -486,7 +450,6 @@
                                     </button>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstItem="z7n-Oh-osi" firstAttribute="width" secondItem="33f-Hm-Lsb" secondAttribute="width" id="6Z8-2A-3KW"/>
                                     <constraint firstItem="H2F-jo-XOd" firstAttribute="width" secondItem="33f-Hm-Lsb" secondAttribute="width" id="EYt-u7-HBu"/>
                                     <constraint firstItem="8mO-y4-7kj" firstAttribute="width" secondItem="H2F-jo-XOd" secondAttribute="width" id="PUn-ev-YHZ"/>
                                 </constraints>
@@ -504,7 +467,6 @@
                         <outlet property="updateNameField" destination="8mO-y4-7kj" id="dBW-Zx-kd0"/>
                         <outlet property="updateOwnerField" destination="33f-Hm-Lsb" id="Xbg-PV-02s"/>
                         <outlet property="updateQuantityField" destination="H2F-jo-XOd" id="Sg2-Yi-FhR"/>
-                        <outlet property="updateShopListField" destination="z7n-Oh-osi" id="ZXV-04-T0H"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Fe9-cI-JyU" userLabel="First Responder" sceneMemberID="firstResponder"/>

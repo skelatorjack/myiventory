@@ -4,9 +4,15 @@
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="ownerOfItem" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="quantityOfItem" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="shopName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="shoppingListId" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
+    <entity name="ShoppingListModel" representedClassName="ShoppingListModel" syncable="YES" codeGenerationType="class">
+        <attribute name="itemsInList" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
     <elements>
-        <element name="ItemModel" positionX="-63" positionY="-18" width="128" height="103"/>
+        <element name="ItemModel" positionX="-63" positionY="-18" width="128" height="120"/>
+        <element name="ShoppingListModel" positionX="-63" positionY="18" width="128" height="75"/>
     </elements>
 </model>
