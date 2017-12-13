@@ -289,6 +289,9 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5aS-eh-Vwz">
                                         <rect key="frame" x="0.0" y="160" width="200" height="30"/>
                                         <state key="normal" title="Add Item To List"/>
+                                        <connections>
+                                            <action selector="addItemToListPressed:" destination="dCs-bt-uCQ" eventType="touchUpInside" id="9So-vz-20s"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <constraints>
@@ -305,6 +308,13 @@
                             <constraint firstItem="cdp-OU-R9z" firstAttribute="leading" secondItem="khP-yN-oc4" secondAttribute="leadingMargin" constant="44" id="uPP-YB-F6J"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="addItemToList" destination="5aS-eh-Vwz" id="ub9-3z-Zqs"/>
+                        <outlet property="nameField" destination="2j7-SP-qr9" id="ZEd-JE-tan"/>
+                        <outlet property="ownerField" destination="TGW-pS-miE" id="Gud-Sb-eRF"/>
+                        <outlet property="quantityField" destination="4IT-WR-EeL" id="Sx3-h5-n05"/>
+                        <outlet property="storeField" destination="d4G-jo-aC9" id="LjZ-Iq-qf2"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dr9-Xz-SPt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
