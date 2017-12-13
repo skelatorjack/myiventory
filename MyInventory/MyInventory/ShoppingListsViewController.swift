@@ -9,9 +9,17 @@
 import Foundation
 import UIKit
 
-class ShoppingListsViewController: UITableViewController, AddShoppingList {
+protocol UpdateUserWithShoppingList: class {
+    func updateUser(with shoppingList: ShoppingList, at index: Int, update: String)
+    func add(shoppingList: ShoppingList)
+}
+
+class ShoppingListsViewController: UITableViewController, AddShoppingList, UpdateShoppingList {
     
     private var shoppingLists: [ShoppingList] = []
+    private var indexOfShoppingList: Int = -1
+    
+    weak var delegate: UpdateUserWithShoppingList?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,8 +41,11 @@ class ShoppingListsViewController: UITableViewController, AddShoppingList {
         else if let shopListDetail = segue.destination as? ShoppingListDetailViewController,
             segue.identifier == "editShoppingList",
             let indexOfList = sender as? Int {
+            indexOfShoppingList = indexOfList
             
             shopListDetail.setList(list: shoppingLists[indexOfList])
+            
+            shopListDetail.delegate = self
         }
     }
     
@@ -61,7 +72,16 @@ class ShoppingListsViewController: UITableViewController, AddShoppingList {
         let newShoppingList: ShoppingList = ShoppingList(listName: shoppingListName)
         
         shoppingLists.append(newShoppingList)
+        delegate?.add(shoppingList: newShoppingList)
         reloadTable()
+    }
+    
+    func update(shoppingList: ShoppingList, update: String) {
+        
+        switch update {
+        case "add": shoppingLists.append(shoppingList)
+        default: break
+        }
     }
     
     func reloadTable() {
