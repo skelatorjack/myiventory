@@ -200,4 +200,20 @@ class User {
         }
         return nil
     }
+    
+    func updateShoppingList(at index: Int, with: ShoppingList) {
+        if shoppingList(at: index) != nil {
+            self.shoppingLists[index] = with
+        }
+    }
+    
+    func deleteShoppingList(at index: Int) {
+        if shoppingList(at: index) != nil {
+            shoppingLists.remove(at: index)
+        }
+    }
+    
+    func addShoppingList(shoppingList: ShoppingList) {
+        shoppingLists.append(shoppingList)
+    }
 }
