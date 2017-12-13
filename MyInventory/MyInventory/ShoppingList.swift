@@ -45,6 +45,13 @@ class ShoppingList {
         return count
     }
     
+    func getNumberOfItems(with key: String) -> Int? {
+        if doesKeyExist(key: key) {
+            return storeAndItems[key]?.count
+        }
+        return nil
+    }
+    
     
     func createKey(keyName: String) {
         storeAndItems[keyName] = []
@@ -52,8 +59,8 @@ class ShoppingList {
     
     func addItemToKey(item: Item) {
         
-        if storeAndItems[item.shoppingList] != nil {
-            storeAndItems[item.shoppingList]?.append(item)
+        if storeAndItems[item.shopName] != nil {
+            storeAndItems[item.shopName]?.append(item)
         }
     }
     

@@ -33,6 +33,13 @@ class User {
 
     }
     
+    private func isIndexValid(index: Int) -> Bool {
+        if index >= itemList.count || index < 0 {
+            return false
+        }
+        return true
+    }
+
     func item(at index: Int) -> Item? {
         if isIndexValid(index: index) {
             return itemList[index]
@@ -62,6 +69,26 @@ class User {
     
     func getNumberOfItemsFromCoreData() -> Int {
         return coreDataInterface.getNumberOfItemsPersisted()
+    }
+    
+    private func doesShoppingListContain(shopList: ShoppingList) -> Bool {
+        for shoppingList in shoppingLists {
+            if shoppingList.getListName() == shoppingList.getListName() {
+                return true
+            }
+        }
+        return false
+    }
+
+    func setUpShoppingLists() {
+        
+        for item in itemList {
+            let newShoppingList: ShoppingList = ShoppingList(listName: item.shoppingList)
+            
+            if !doesShoppingListContain(shopList: newShoppingList) && !item.shoppingList.isEmpty {
+                shoppingLists.append(newShoppingList)
+            }
+        }
     }
     
     func addItemsToShoppingLists() {
@@ -174,10 +201,19 @@ class User {
         return nil
     }
     
-    private func isIndexValid(index: Int) -> Bool {
-        if index >= itemList.count || index < 0 {
-            return false
+    func updateShoppingList(at index: Int, with: ShoppingList) {
+        if shoppingList(at: index) != nil {
+            self.shoppingLists[index] = with
         }
-        return true
+    }
+    
+    func deleteShoppingList(at index: Int) {
+        if shoppingList(at: index) != nil {
+            shoppingLists.remove(at: index)
+        }
+    }
+    
+    func addShoppingList(shoppingList: ShoppingList) {
+        shoppingLists.append(shoppingList)
     }
 }

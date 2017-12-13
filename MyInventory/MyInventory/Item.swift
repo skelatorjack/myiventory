@@ -13,25 +13,28 @@ struct Item: Equatable {
     var itemOwner: String
     var itemQuantity: Int
     var shoppingList: String
+    var shopName: String
     
-    init(newName: String = "", newOwner: String = "", newQuantity: Int = 0, newShoppingList: String = "") {
+    init(newName: String = "", newOwner: String = "", newQuantity: Int = 0, newShoppingList: String = "", shopName: String = "") {
         self.itemName = newName
         self.itemOwner = newOwner
         self.itemQuantity = newQuantity
         self.shoppingList = newShoppingList
+        self.shopName = shopName
     }
     
     static func == (left: Item, right: Item) -> Bool {
         if left.itemName == right.itemName,
             left.shoppingList == right.shoppingList,
             left.itemOwner == right.itemOwner,
-            left.itemQuantity == right.itemQuantity {
+            left.itemQuantity == right.itemQuantity,
+            left.shopName == right.shopName {
             
             return true
         }
         return false
     }
-    mutating func parseData(name: String, quantity: String, owner: String, list: String) {
+    mutating func parseData(name: String, quantity: String, owner: String) {
         if !name.isEmpty {
             itemName = name
         }
@@ -43,8 +46,6 @@ struct Item: Equatable {
         if !owner.isEmpty {
             itemOwner = owner
         }
-        
-        shoppingList = list
         
     }
     

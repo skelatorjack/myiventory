@@ -14,6 +14,9 @@
 		9407EE531EA1ACB700FC431A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9407EE511EA1ACB700FC431A /* LaunchScreen.storyboard */; };
 		9407EE5E1EA1ACB700FC431A /* MyInventoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9407EE5D1EA1ACB700FC431A /* MyInventoryTests.swift */; };
 		9407EE691EA1ACB800FC431A /* MyInventoryUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9407EE681EA1ACB800FC431A /* MyInventoryUITests.swift */; };
+		941624581F4C9642001C34B7 /* ShoppingListDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 941624571F4C9642001C34B7 /* ShoppingListDetailCell.swift */; };
+		941728841F4F460F00E7D10A /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 941728831F4F460F00E7D10A /* Extensions.swift */; };
+		941728861F51079400E7D10A /* AddItemToListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 941728851F51079400E7D10A /* AddItemToListViewController.swift */; };
 		9417AFDD1F4B2AA300D4D25A /* ShoppingListsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9417AFDC1F4B2AA300D4D25A /* ShoppingListsViewController.swift */; };
 		9417AFDF1F4B2AE400D4D25A /* ShoppingListTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9417AFDE1F4B2AE400D4D25A /* ShoppingListTableCell.swift */; };
 		9417AFE11F4B2CBC00D4D25A /* ShoppingList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9417AFE01F4B2CBC00D4D25A /* ShoppingList.swift */; };
@@ -60,6 +63,9 @@
 		9407EE641EA1ACB700FC431A /* MyInventoryUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MyInventoryUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9407EE681EA1ACB800FC431A /* MyInventoryUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyInventoryUITests.swift; sourceTree = "<group>"; };
 		9407EE6A1EA1ACB800FC431A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		941624571F4C9642001C34B7 /* ShoppingListDetailCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShoppingListDetailCell.swift; sourceTree = "<group>"; };
+		941728831F4F460F00E7D10A /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		941728851F51079400E7D10A /* AddItemToListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddItemToListViewController.swift; sourceTree = "<group>"; };
 		9417AFDC1F4B2AA300D4D25A /* ShoppingListsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShoppingListsViewController.swift; sourceTree = "<group>"; };
 		9417AFDE1F4B2AE400D4D25A /* ShoppingListTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShoppingListTableCell.swift; sourceTree = "<group>"; };
 		9417AFE01F4B2CBC00D4D25A /* ShoppingList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShoppingList.swift; sourceTree = "<group>"; };
@@ -124,10 +130,13 @@
 			isa = PBXGroup;
 			children = (
 				9407EE481EA1ACB700FC431A /* AppDelegate.swift */,
+				941728831F4F460F00E7D10A /* Extensions.swift */,
 				9407EE4A1EA1ACB700FC431A /* ItemListViewController.swift */,
 				9407EE4C1EA1ACB700FC431A /* Main.storyboard */,
 				9417AFE41F4BD56E00D4D25A /* ShoppingListDetailViewController.swift */,
+				941728851F51079400E7D10A /* AddItemToListViewController.swift */,
 				9417AFE21F4BB10900D4D25A /* AddShoppingListViewController.swift */,
+				941624571F4C9642001C34B7 /* ShoppingListDetailCell.swift */,
 				9417AFDC1F4B2AA300D4D25A /* ShoppingListsViewController.swift */,
 				9417AFE01F4B2CBC00D4D25A /* ShoppingList.swift */,
 				9417AFDE1F4B2AE400D4D25A /* ShoppingListTableCell.swift */,
@@ -304,11 +313,14 @@
 				9407EE4B1EA1ACB700FC431A /* ItemListViewController.swift in Sources */,
 				945670A81F24778400E80CED /* User.swift in Sources */,
 				945670A41F24774900E80CED /* AddItemViewController.swift in Sources */,
+				941624581F4C9642001C34B7 /* ShoppingListDetailCell.swift in Sources */,
 				9417AFDD1F4B2AA300D4D25A /* ShoppingListsViewController.swift in Sources */,
 				945670AA1F24778E00E80CED /* Item.swift in Sources */,
 				9407EE491EA1ACB700FC431A /* AppDelegate.swift in Sources */,
 				945670A21F24773800E80CED /* ItemTableCell.swift in Sources */,
+				941728841F4F460F00E7D10A /* Extensions.swift in Sources */,
 				9417AFE31F4BB10900D4D25A /* AddShoppingListViewController.swift in Sources */,
+				941728861F51079400E7D10A /* AddItemToListViewController.swift in Sources */,
 				9417AFE51F4BD56E00D4D25A /* ShoppingListDetailViewController.swift in Sources */,
 				94768F0B1F45318D006B0753 /* CoreDataObject.swift in Sources */,
 				94E2F5AB1F39870D002BEFE6 /* UpdateItemViewController.swift in Sources */,

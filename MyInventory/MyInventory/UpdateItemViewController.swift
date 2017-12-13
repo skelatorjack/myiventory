@@ -18,7 +18,6 @@ class UpdateItemViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var updateNameField: UITextField!
     @IBOutlet weak var updateQuantityField: UITextField!
     @IBOutlet weak var updateOwnerField: UITextField!
-    @IBOutlet weak var updateShopListField: UITextField!
     
     @IBOutlet weak var updateItemButton: UIButton!
     
@@ -39,7 +38,6 @@ class UpdateItemViewController: UIViewController, UITextFieldDelegate {
         updateNameField.text = nameValue
         updateQuantityField.text = quantityValue
         updateOwnerField.text = ownerValue
-        updateShopListField.text = shopListValue
         
         updateNameField.delegate = self
         updateOwnerField.delegate = self
@@ -65,10 +63,9 @@ class UpdateItemViewController: UIViewController, UITextFieldDelegate {
         let name: String = updateNameField.text!
         let quantity: String = updateQuantityField.text!
         let owner: String = updateOwnerField.text!
-        let list: String = updateShopListField.text!
         
         item.clear()
-        item.parseData(name: name, quantity: quantity, owner: owner, list: list)
+        item.parseData(name: name, quantity: quantity, owner: owner)
         
         if item.isItemValid() {
             updateItemButton.isEnabled = true

@@ -9,7 +9,9 @@
 import UIKit
 import CoreData
 
-class ItemListViewController: UITableViewController, AddItemDelegate, UpdateItemDelegate {
+
+
+class ItemListViewController: UITableViewController, AddItemDelegate, UpdateItemDelegate, UpdateUserWithShoppingList {
 
     var user: User = User(appDel: (UIApplication.shared.delegate as? AppDelegate)!)
     
@@ -23,6 +25,7 @@ class ItemListViewController: UITableViewController, AddItemDelegate, UpdateItem
         tableView.dataSource = self
         tableView.rowHeight = 64
         user.fetchFromCoreData()
+        user.setUpShoppingLists()
     }
 
     override func didReceiveMemoryWarning() {
@@ -46,6 +49,12 @@ class ItemListViewController: UITableViewController, AddItemDelegate, UpdateItem
                 print("Updating \(user.item(at: index))")
                 updateItemDest.setValues(name: item.itemName, quantity: String(item.itemQuantity), owner: item.itemOwner, index: index, list: item.shoppingList)
                 updateItemDest.delegate = self
+        }
+        else if let shoppingListVC = segue.destination as? ShoppingListsViewController {
+            
+            shoppingListVC.setShoppingLists(userShoppingLists: user.getShoppingLists())
+            
+            shoppingListVC.delegate = self
         }
     }
     
@@ -96,6 +105,14 @@ class ItemListViewController: UITableViewController, AddItemDelegate, UpdateItem
     func updateItem(item: Item, at index: Int) {
         user.updateItem(at: index, with: item)
         refreshTable()
+    }
+    
+    func updateUser(with shoppingList: ShoppingList, at index: Int, update: String) {
+        user.updateShoppingList(at: index, with: shoppingList)
+    }
+    
+    func add(shoppingList: ShoppingList) {
+        user.addShoppingList(shoppingList: shoppingList)
     }
     
     private func deleteItemFromCoreData(at index: Int) {
