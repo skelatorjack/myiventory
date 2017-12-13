@@ -9,21 +9,21 @@
 import Foundation
 import UIKit
 
-class ShoppingListDetailViewController: UITableViewController {
+protocol UpdateShoppingList: class {
+    func update(shoppingList: ShoppingList, update: String)
+}
+
+class ShoppingListDetailViewController: UITableViewController, AddItemToList {
     
     private var shoppingListToDisplay: ShoppingList = ShoppingList()
     private var shopNames: [String] = []
+    private var shopListName: String = ""
+    
+    weak var delegate: UpdateShoppingList?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        shoppingListToDisplay.createKey(keyName: "Store")
-        let item = Item(newName: "Toothpaste", newOwner: "Jack", newQuantity: 1, newShoppingList: "Store")
-        
-        let item2 = Item(newName: "Mouthwash", newOwner: "Jack", newQuantity: 1, newShoppingList: "Store")
-        
-        shoppingListToDisplay.addItemToKey(item: item)
-        shoppingListToDisplay.addItemToKey(item: item2)
-        
+        shopListName = shoppingListToDisplay.getListName()
         setShopNames()
     }
     
@@ -33,6 +33,22 @@ class ShoppingListDetailViewController: UITableViewController {
     
     func getList() -> ShoppingList {
         return shoppingListToDisplay
+    }
+    
+    func setListName(name: String) {
+        shopListName = name
+    }
+    
+    func getListName() -> String {
+        return shopListName
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let addItemToListVC = segue.destination as? AddItemToListViewController {
+            
+            addItemToListVC.delegate = self
+            addItemToListVC.setShopList(name: shopListName)
+        }
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -48,14 +64,39 @@ class ShoppingListDetailViewController: UITableViewController {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "shopListDetailCell") as? ShoppingListDetailCell
             else { return UITableViewCell() }
         
-        cell.decorate()
+        let sectionName: String = shopNames[indexPath.section]
+        
+        guard let displayItem = shoppingListToDisplay.getValue(key: sectionName, index: indexPath.row) else {
+            return UITableViewCell()
+        }
+        
+        cell.decorate(with: displayItem)
         
         return cell
     }
-    
+ 
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         
         return shopNames[section]
+    }
+    
+    func add(item: Item) {
+        print("Item to add is \(item)")
+        
+        if shoppingListToDisplay.doesKeyExist(key: item.shopName) {
+            shoppingListToDisplay.addItemToKey(item: item)
+        }
+        else {
+            shoppingListToDisplay.createKey(keyName: item.shopName)
+            shoppingListToDisplay.addItemToKey(item: item)
+            shopNames.append(item.shopName)
+        }
+        delegate?.update(shoppingList: shoppingListToDisplay, update: "addItem")
+        reloadTable()
+    }
+    
+    private func reloadTable() {
+        tableView.reloadData()
     }
     
     private func setShopNames() {
