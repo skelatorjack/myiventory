@@ -1,0 +1,2 @@
+#Ignore xcodeproj directory
+./MyInventory/MyInventory/MyInventory.xcodeproj/*
