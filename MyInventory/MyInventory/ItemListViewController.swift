@@ -9,7 +9,9 @@
 import UIKit
 import CoreData
 
-class ItemListViewController: UITableViewController, AddItemDelegate, UpdateItemDelegate {
+
+
+class ItemListViewController: UITableViewController, AddItemDelegate, UpdateItemDelegate, UpdateUserWithShoppingList {
 
     var user: User = User(appDel: (UIApplication.shared.delegate as? AppDelegate)!)
     
@@ -51,6 +53,8 @@ class ItemListViewController: UITableViewController, AddItemDelegate, UpdateItem
         else if let shoppingListVC = segue.destination as? ShoppingListsViewController {
             
             shoppingListVC.setShoppingLists(userShoppingLists: user.getShoppingLists())
+            
+            shoppingListVC.delegate = self
         }
     }
     
@@ -101,6 +105,14 @@ class ItemListViewController: UITableViewController, AddItemDelegate, UpdateItem
     func updateItem(item: Item, at index: Int) {
         user.updateItem(at: index, with: item)
         refreshTable()
+    }
+    
+    func updateUser(with shoppingList: ShoppingList, at index: Int, update: String) {
+        user.updateShoppingList(at: index, with: shoppingList)
+    }
+    
+    func add(shoppingList: ShoppingList) {
+        user.addShoppingList(shoppingList: shoppingList)
     }
     
     private func deleteItemFromCoreData(at index: Int) {
