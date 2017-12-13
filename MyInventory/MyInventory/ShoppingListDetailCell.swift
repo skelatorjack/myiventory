@@ -16,9 +16,9 @@ class ShoppingListDetailCell: UITableViewCell {
     @IBOutlet weak var ownerLabel: UILabel!
     
     
-    func decorate() {
-        nameLabel.text = "Toothpaste"
-        quantityLabel.text = "4"
-        ownerLabel.text = "Jack"
+    func decorate(with item: Item) {
+        nameLabel.text = item.itemName
+        quantityLabel.text = "\(item.itemQuantity)"
+        ownerLabel.text = item.itemOwner
     }
 }
