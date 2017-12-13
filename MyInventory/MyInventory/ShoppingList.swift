@@ -59,8 +59,8 @@ class ShoppingList {
     
     func addItemToKey(item: Item) {
         
-        if storeAndItems[item.shoppingList] != nil {
-            storeAndItems[item.shoppingList]?.append(item)
+        if storeAndItems[item.shopName] != nil {
+            storeAndItems[item.shopName]?.append(item)
         }
     }
     
