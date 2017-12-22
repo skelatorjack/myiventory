@@ -48,7 +48,7 @@ class UpdateItemViewController: UIViewController, UITextFieldDelegate {
         view.addGestureRecognizer(tapGestureRecognizer)
     }
     
-    func backgroundTapped() {
+    @objc func backgroundTapped() {
         view.endEditing(true)
         enableUpdateItem()
     }

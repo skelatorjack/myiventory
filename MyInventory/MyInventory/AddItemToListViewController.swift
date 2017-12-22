@@ -59,7 +59,7 @@ class AddItemToListViewController: UIViewController, UITextFieldDelegate {
         return shopListName
     }
     
-    func backgroundTapped() {
+    @objc func backgroundTapped() {
         view.endEditing(true)
         enableAddItemToList()
     }

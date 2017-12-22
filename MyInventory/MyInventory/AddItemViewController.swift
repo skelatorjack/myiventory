@@ -40,7 +40,7 @@ class AddItemViewController: UIViewController, UITextFieldDelegate {
     
     }
     
-    func backgroundTapped() {
+    @objc func backgroundTapped() {
         view.endEditing(true)
         enableAddItemPressed()
     }

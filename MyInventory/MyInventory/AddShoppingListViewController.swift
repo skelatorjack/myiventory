@@ -38,7 +38,7 @@ class AddShoppingListViewController: UIViewController, UITextFieldDelegate {
         let _ = navigationController?.popViewController(animated: true)
     }
     
-    func backgroundTapped() {
+    @objc func backgroundTapped() {
         view.endEditing(true)
         enableAddShoppingList()
     }
