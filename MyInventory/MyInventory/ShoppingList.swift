@@ -45,6 +45,18 @@ class ShoppingList {
         return count
     }
     
+    func calculateTotalNumberOfItems(with key: String) -> Int {
+        var totalCount: Int = 0
+        
+        for store in storeAndItems {
+            if let countFromKey = getNumberOfItems(with: store.key) {
+                totalCount += countFromKey
+            }
+        }
+        
+        return totalCount
+    }
+    
     func getNumberOfItems(with key: String) -> Int? {
         if doesKeyExist(key: key) {
             return storeAndItems[key]?.count
