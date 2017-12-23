@@ -46,7 +46,7 @@ class ItemListViewController: UITableViewController, AddItemDelegate, UpdateItem
             segue.identifier == UPDATEITEMID,
             let item = user.item(at: index) {
             
-                print("Updating \(user.item(at: index))")
+            print("Updating \(String(describing: user.item(at: index)))")
                 updateItemDest.setValues(name: item.itemName, quantity: String(item.itemQuantity), owner: item.itemOwner, index: index, list: item.shoppingList)
                 updateItemDest.delegate = self
         }
