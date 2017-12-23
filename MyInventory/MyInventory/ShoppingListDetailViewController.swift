@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 protocol UpdateShoppingList: class {
-    func update(shoppingList: ShoppingList, update: String)
+    func update(shoppingList: ShoppingList, update: UpdateShoppingListCase)
 }
 
 class ShoppingListDetailViewController: UITableViewController, AddItemToList {
@@ -91,7 +91,7 @@ class ShoppingListDetailViewController: UITableViewController, AddItemToList {
             shoppingListToDisplay.addItemToKey(item: item)
             shopNames.append(item.shopName)
         }
-        delegate?.update(shoppingList: shoppingListToDisplay, update: "addItem")
+        delegate?.update(shoppingList: shoppingListToDisplay, update: UpdateShoppingListCase.AddItemToShopList)
         reloadTable()
     }
     
