@@ -8,10 +8,14 @@
 
 import Foundation
 
-/*
-extension String {
-    static func == (left: String, right: String) -> Bool {
-        return left == right
+// get element at index
+
+extension Array {
+    func at(index: Int) -> Element? {
+        if (index < 0 || index >= self.count) {
+            return nil
+        }
+        return self[index]
     }
 }
- */
+
