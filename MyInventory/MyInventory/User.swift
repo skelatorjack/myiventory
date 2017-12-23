@@ -183,7 +183,7 @@ class User {
     }
     
     func adaptItemToItemModel(itemToAdapt: Item) -> ItemModel? {
-        var itemModel: ItemModel? = nil
+        let itemModel: ItemModel? = nil
     
         itemModel?.name = itemToAdapt.itemName
         itemModel?.ownerOfItem = itemToAdapt.itemOwner
