@@ -85,7 +85,7 @@ class ShoppingListsViewController: UITableViewController, AddShoppingList, Updat
     }
     
     func add(item: Item) {
-        //let shoppingListToChange: ShoppingList? = 
+        let shoppingListToChange: ShoppingList? = shoppingLists.at(index: indexOfShoppingList)
         
         if shoppingListToChange != nil {
             shoppingListToChange?.addItemToKey(item: item)
@@ -103,7 +103,6 @@ class ShoppingListsViewController: UITableViewController, AddShoppingList, Updat
         case .AddShopList:
             delegate?.updateUser(with: shoppingList, at: indexOfShoppingList, update: "addShopList")
             
-        
         default: break
         }
         
