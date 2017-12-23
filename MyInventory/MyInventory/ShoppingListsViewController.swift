@@ -14,7 +14,15 @@ protocol UpdateUserWithShoppingList: class {
     func add(shoppingList: ShoppingList)
 }
 
-class ShoppingListsViewController: UITableViewController, AddShoppingList, UpdateShoppingList {
+enum UpdateShoppingListCase {
+    case AddShopList
+    case AddItemToShopList
+    case DeleteItemFromShopList
+    case UpdateItemFromShopList
+    case DeleteShopList
+}
+
+class ShoppingListsViewController: UITableViewController, AddShoppingList, UpdateShoppingList, AddItemToList {
     
     private var shoppingLists: [ShoppingList] = []
     private var indexOfShoppingList: Int = -1
@@ -72,16 +80,33 @@ class ShoppingListsViewController: UITableViewController, AddShoppingList, Updat
         let newShoppingList: ShoppingList = ShoppingList(listName: shoppingListName)
         
         shoppingLists.append(newShoppingList)
-        delegate?.add(shoppingList: newShoppingList)
+        update(shoppingList: newShoppingList, update: UpdateShoppingListCase.AddShopList)
         reloadTable()
     }
     
-    func update(shoppingList: ShoppingList, update: String) {
+    func add(item: Item) {
+        //let shoppingListToChange: ShoppingList? = 
+        
+        if shoppingListToChange != nil {
+            shoppingListToChange?.addItemToKey(item: item)
+            
+            update(shoppingList: shoppingListToChange!, update: UpdateShoppingListCase.AddItemToShopList)
+        }
+    }
+    
+    func update(shoppingList: ShoppingList, update: UpdateShoppingListCase) {
         
         switch update {
-        case "add": shoppingLists.append(shoppingList)
+        case .AddItemToShopList:
+            delegate?.updateUser(with: shoppingList, at: indexOfShoppingList, update: "addItem")
+        
+        case .AddShopList:
+            delegate?.updateUser(with: shoppingList, at: indexOfShoppingList, update: "addShopList")
+            
+        
         default: break
         }
+        
     }
     
     func reloadTable() {
