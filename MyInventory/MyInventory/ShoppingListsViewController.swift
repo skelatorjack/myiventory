@@ -75,6 +75,19 @@ class ShoppingListsViewController: UITableViewController, AddShoppingList, Updat
         performSegue(withIdentifier: "editShoppingList", sender: indexPath.row)
     }
     
+    // For table row actions such as delete
+    override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        let del = UITableViewRowAction(style: .destructive, title: "Delete List") { action, index in
+            print("Deleting list at index \(index.row)")
+            let shoppingList:ShoppingList = self.shoppingLists[index.row]
+            self.shoppingLists.remove(at: index.row)
+            self.update(shoppingList: shoppingList, update: UpdateShoppingListCase.DeleteShopList)
+        }
+        del.backgroundColor = UIColor.red
+        
+        return [del]
+    }
+    
     func add(shoppingListName: String) {
         
         let newShoppingList: ShoppingList = ShoppingList(listName: shoppingListName)
@@ -100,6 +113,9 @@ class ShoppingListsViewController: UITableViewController, AddShoppingList, Updat
             
         case .AddShopList:
             delegate?.updateUser(with: shoppingList, at: indexOfShoppingList, update: "addShopList")
+            
+        case .DeleteShopList:
+            break
             
         default: break
         }
