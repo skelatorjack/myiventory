@@ -45,16 +45,25 @@ class ShoppingList {
         return count
     }
     
-    func calculateTotalNumberOfItems(with key: String) -> Int {
+    func getTotalNumberOfItemsInList() -> Int {
+        let listOfShops: [String] = Array(storeAndItems.keys)
         var totalCount: Int = 0
         
-        for store in storeAndItems {
-            if let countFromKey = getNumberOfItems(with: store.key) {
-                totalCount += countFromKey
-            }
+        for shopName in listOfShops {
+            totalCount += calculateTotalNumberOfItems(with: shopName)
         }
         
         return totalCount
+    }
+    
+    func calculateTotalNumberOfItems(with key: String) -> Int {
+        var totalCountInShop: Int = 0
+        
+        if let countFromKey = getNumberOfItems(with: key) {
+            totalCountInShop += countFromKey
+        }
+        
+        return totalCountInShop
     }
     
     func getNumberOfItems(with key: String) -> Int? {
