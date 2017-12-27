@@ -81,7 +81,6 @@ class ShoppingListsViewController: UITableViewController, AddShoppingList, Updat
         
         shoppingLists.append(newShoppingList)
         update(shoppingList: newShoppingList, update: UpdateShoppingListCase.AddShopList)
-        reloadTable()
     }
     
     func add(item: Item) {
@@ -95,19 +94,17 @@ class ShoppingListsViewController: UITableViewController, AddShoppingList, Updat
     }
     
     func update(shoppingList: ShoppingList, update: UpdateShoppingListCase) {
-        
         switch update {
         case .AddItemToShopList:
             delegate?.updateUser(with: shoppingList, at: indexOfShoppingList, update: "addItem")
-            reloadTable()
             
         case .AddShopList:
             delegate?.updateUser(with: shoppingList, at: indexOfShoppingList, update: "addShopList")
-            reloadTable()
             
         default: break
         }
         
+        reloadTable()
     }
     
     func reloadTable() {
