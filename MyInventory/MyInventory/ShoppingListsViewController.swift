@@ -97,6 +97,9 @@ class ShoppingListsViewController: UITableViewController, AddShoppingList, Updat
         switch update {
         case .AddItemToShopList:
             delegate?.updateUser(with: shoppingList, at: indexOfShoppingList, update: "addItem")
+        
+        case .DeleteItemFromShopList:
+            break
             
         case .AddShopList:
             delegate?.updateUser(with: shoppingList, at: indexOfShoppingList, update: "addShopList")
