@@ -90,6 +90,18 @@ class ShoppingListDetailViewController: UITableViewController, AddItemToList {
         return [del]
     }
     
+    func deleteItem(item: Item) {
+        
+    }
+    
+    func deleteEntry(item: Item) {
+        
+    }
+    
+    func deleteKey(key: String) {
+        
+    }
+    
     func add(item: Item) {
         print("Item to add is \(item)")
         
