@@ -101,11 +101,17 @@ class ShoppingList {
         return nil
     }
     
-    func deleteEntry() {
-        
+    func deleteEntry(key: String, index: Int) {
+        if isIndexValidForValue(key: key, index: index) {
+            storeAndItems[key]?.remove(at: index)
+        }
     }
     
-    func updateEntry() {
+    func deleteKey(key: String) {
+        storeAndItems.removeValue(forKey: key)
+    }
+    
+    func updateEntry(item: Item) {
         
     }
     
