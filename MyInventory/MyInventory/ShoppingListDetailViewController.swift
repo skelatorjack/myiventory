@@ -80,6 +80,16 @@ class ShoppingListDetailViewController: UITableViewController, AddItemToList {
         return shopNames[section]
     }
     
+    override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        let del = UITableViewRowAction(style: .destructive, title: "Delete Item") { action, index in
+            print("Deleting item at index \(index.row) in \(self.shopListName)")
+            self.delegate?.update(shoppingList: self.shoppingListToDisplay, update: UpdateShoppingListCase.DeleteItemFromShopList)
+        }
+        del.backgroundColor = UIColor.red
+        
+        return [del]
+    }
+    
     func add(item: Item) {
         print("Item to add is \(item)")
         
