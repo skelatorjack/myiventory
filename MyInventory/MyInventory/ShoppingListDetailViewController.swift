@@ -82,24 +82,32 @@ class ShoppingListDetailViewController: UITableViewController, AddItemToList {
     
     override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         let del = UITableViewRowAction(style: .destructive, title: "Delete Item") { action, index in
-            print("Deleting item at index \(index.row) in \(self.shopListName)")
+            print("Deleting item at index \(index.row) in shop \(self.shopNames[index.section]) in list \(self.shopListName)")
+            let DELETE_KEY: String = self.shopNames[index.row]
+            let DELETE_INDEX: Int = index.row
+            
+            self.deleteEntry(key: DELETE_KEY, index: DELETE_INDEX)
             self.delegate?.update(shoppingList: self.shoppingListToDisplay, update: UpdateShoppingListCase.DeleteItemFromShopList)
+            self.reloadTable()
         }
         del.backgroundColor = UIColor.red
         
         return [del]
     }
     
-    func deleteItem(item: Item) {
-        
+    func deleteItem(key: String, index: Int) {
+        shoppingListToDisplay.deleteEntry(key: key, index: index)
     }
     
-    func deleteEntry(item: Item) {
-        
+    func deleteEntry(key: String, index: Int) {
+        deleteItem(key: key, index: index)
+        deleteKey(key: key)
     }
     
     func deleteKey(key: String) {
-        
+        if shoppingListToDisplay.getNumberOfItems(with: key) == 0 {
+            shoppingListToDisplay.deleteKey(key: key)
+        }
     }
     
     func add(item: Item) {
