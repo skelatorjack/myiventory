@@ -95,6 +95,11 @@ class ShoppingListDetailViewController: UITableViewController, AddItemToList {
         return [del]
     }
     
+    // For editing an item in a shopping list
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+    }
+    
     func deleteItem(key: String, index: Int) {
         shoppingListToDisplay.deleteEntry(key: key, index: index)
     }
