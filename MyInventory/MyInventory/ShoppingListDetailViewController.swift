@@ -107,6 +107,13 @@ class ShoppingListDetailViewController: UITableViewController, AddItemToList {
     func deleteKey(key: String) {
         if shoppingListToDisplay.getNumberOfItems(with: key) == 0 {
             shoppingListToDisplay.deleteKey(key: key)
+            deleteTableSection(shopName: key)
+        }
+    }
+    
+    func deleteTableSection(shopName: String) {
+        if let deleteIndex = shopNames.index(of: shopName) {
+            shopNames.remove(at: deleteIndex)
         }
     }
     
