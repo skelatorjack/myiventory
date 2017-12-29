@@ -9,6 +9,11 @@
 import Foundation
 import UIKit
 
+enum ButtonStatus {
+    case on
+    case off
+}
+
 protocol UpdateItemInShoppingListDelegate: class {
     func updateItem(itemToUpdate: Item, update: UpdateShoppingListCase)
 }
@@ -26,15 +31,31 @@ class UpdateItemInShoppingListViewController: UIViewController, UITextFieldDeleg
     @IBOutlet weak var updateItemButton: UIButton!
     
     @IBAction func updateItemPressed(_ sender: UIButton) {
+        let updatedItem: Item = createItem()
+        
+        delegate?.updateItem(itemToUpdate: updatedItem, update: UpdateShoppingListCase.UpdateItemFromShopList)
+        
+        let _ = navigationController?.popViewController(animated: true)
     }
     
     override func viewDidLoad() {
+        super.viewDidLoad()
+        
         updateNameField.text = itemToChange.itemName
         updateOwnerField.text = itemToChange.itemOwner
         updateQuantityField.text = "\(itemToChange.itemQuantity)"
         updateStoreField.text = itemToChange.shopName
         updateItemButton.isEnabled = false
+    
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(backgroundTapped))
+        view.addGestureRecognizer(tapGestureRecognizer)
     }
+    
+    @objc func backgroundTapped() {
+        view.endEditing(true)
+        validateInput()
+    }
+    
     
     func setItemToChange(newItemToChange: Item) {
         itemToChange = newItemToChange
@@ -44,5 +65,26 @@ class UpdateItemInShoppingListViewController: UIViewController, UITextFieldDeleg
         return itemToChange
     }
     
+    private func validateInput() {
+        let updatedItem: Item = createItem()
+        
+        if updatedItem.isItemValid() {
+            updateItemButton.isEnabled = true
+        }
+        else {
+            updateItemButton.isEnabled = false
+        }
+    }
     
+    private func createItem() -> Item {
+        let updatedName: String = updateNameField.text!
+        let updatedQuantity: String = updateQuantityField.text!
+        let updatedOwner: String = updateOwnerField.text!
+        let updatedStore: String = updateOwnerField.text!
+        let updatedShopList: String = itemToChange.shoppingList
+        
+        let updatedItem: Item = Item(newName: updatedName, newOwner: updatedOwner, newQuantity: Int(updatedQuantity)!, newShoppingList: updatedStore, shopName: updatedShopList)
+        
+        return updatedItem
+    }
 }
