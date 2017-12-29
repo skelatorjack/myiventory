@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum ItemCase {
+enum ItemType {
     case InventoryItem
     case ShoppingListItem
 }
@@ -59,6 +59,14 @@ struct Item: Equatable {
             return true
         }
         return false
+    }
+    
+    func isInventoryItemValid() -> Bool {
+        return true
+    }
+    
+    func isShoppingListItemValid() -> Bool {
+        return true
     }
     
     func isNameValid() -> Bool {
