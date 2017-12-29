@@ -196,7 +196,7 @@
                     </navigationItem>
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <segue destination="IGk-70-qOZ" kind="show" id="JWy-lR-TqP"/>
+                        <segue destination="IGk-70-qOZ" kind="show" identifier="updateItemInList" id="JWy-lR-TqP"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oUe-JS-Zel" userLabel="First Responder" sceneMemberID="firstResponder"/>
