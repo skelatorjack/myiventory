@@ -8,6 +8,11 @@
 
 import Foundation
 
+enum ItemCase {
+    case InventoryItem
+    case ShoppingListItem
+}
+
 struct Item: Equatable {
     var itemName: String
     var itemOwner: String
