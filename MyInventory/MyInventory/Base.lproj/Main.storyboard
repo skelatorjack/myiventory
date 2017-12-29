@@ -323,10 +323,10 @@
             </objects>
             <point key="canvasLocation" x="2588" y="-633"/>
         </scene>
-        <!--View Controller-->
+        <!--Update Item-->
         <scene sceneID="KWI-gE-ehN">
             <objects>
-                <viewController id="IGk-70-qOZ" sceneMemberID="viewController">
+                <viewController title="Update Item" id="IGk-70-qOZ" customClass="UpdateItemInShoppingListViewController" customModule="MyInventory" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Hkh-bJ-IpI"/>
                         <viewControllerLayoutGuide type="bottom" id="zXG-jS-b0x"/>
