@@ -59,7 +59,7 @@ class AddItemViewController: UIViewController, UITextFieldDelegate {
         newItem.clear()
         newItem.parseData(name: name, quantity: quantity, owner: owner)
         
-        if newItem.isItemValid() {
+        if newItem.isItemValid(itemType:ItemType.InventoryItem) {
             addItem.isEnabled = true
         }
         else {

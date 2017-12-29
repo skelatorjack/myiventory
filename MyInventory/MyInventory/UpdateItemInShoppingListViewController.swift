@@ -17,6 +17,7 @@ enum ButtonStatus {
 protocol UpdateItemInShoppingListDelegate: class {
     func updateItem(itemToUpdate: Item, update: UpdateShoppingListCase)
 }
+
 class UpdateItemInShoppingListViewController: UIViewController, UITextFieldDelegate {
     
     private var itemToChange: Item = Item()
@@ -56,6 +57,12 @@ class UpdateItemInShoppingListViewController: UIViewController, UITextFieldDeleg
         validateInput()
     }
     
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        view.endEditing(true)
+        validateInput()
+        
+        return true
+    }
     
     func setItemToChange(newItemToChange: Item) {
         itemToChange = newItemToChange
@@ -68,7 +75,7 @@ class UpdateItemInShoppingListViewController: UIViewController, UITextFieldDeleg
     private func validateInput() {
         let updatedItem: Item = createItem()
         
-        if updatedItem.isItemValid() {
+        if updatedItem.isItemValid(itemType:ItemType.ShoppingListItem) {
             updateItemButton.isEnabled = true
         }
         else {
@@ -80,7 +87,7 @@ class UpdateItemInShoppingListViewController: UIViewController, UITextFieldDeleg
         let updatedName: String = updateNameField.text!
         let updatedQuantity: String = updateQuantityField.text!
         let updatedOwner: String = updateOwnerField.text!
-        let updatedStore: String = updateOwnerField.text!
+        let updatedStore: String = updateStoreField.text!
         let updatedShopList: String = itemToChange.shoppingList
         
         let updatedItem: Item = Item(newName: updatedName, newOwner: updatedOwner, newQuantity: Int(updatedQuantity)!, newShoppingList: updatedStore, shopName: updatedShopList)

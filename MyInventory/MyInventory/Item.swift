@@ -54,19 +54,26 @@ struct Item: Equatable {
         
     }
     
-    func isItemValid() -> Bool {
-        if isNameValid(), isOwnerValid(), isQuantityValid() {
-            return true
+    func isItemValid(itemType: ItemType) -> Bool {
+        var isItemValid: Bool = false
+        
+        switch itemType {
+        case .InventoryItem:
+            isItemValid = isInventoryItemValid()
+        
+        case .ShoppingListItem:
+            isItemValid = isShoppingListItemValid()
         }
-        return false
+        
+        return isItemValid
     }
     
     func isInventoryItemValid() -> Bool {
-        return true
+        return isNameValid() && isQuantityValid()
     }
     
     func isShoppingListItemValid() -> Bool {
-        return true
+        return isInventoryItemValid() && isShoppingListValid()
     }
     
     func isNameValid() -> Bool {
@@ -81,6 +88,9 @@ struct Item: Equatable {
         return isValueNotEqual(value: itemQuantity, to: -1)
     }
     
+    func isShoppingListValid() -> Bool {
+        return !shoppingList.isEmpty
+    }
     func isValueNotEqual(value: Int, to: Int) -> Bool {
         return value != to
     }

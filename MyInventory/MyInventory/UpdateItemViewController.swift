@@ -67,7 +67,7 @@ class UpdateItemViewController: UIViewController, UITextFieldDelegate {
         item.clear()
         item.parseData(name: name, quantity: quantity, owner: owner)
         
-        if item.isItemValid() {
+        if item.isItemValid(itemType:ItemType.InventoryItem) {
             updateItemButton.isEnabled = true
         }
         else {

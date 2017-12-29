@@ -84,7 +84,7 @@ class UserTests: XCTestCase {
     
     func whenItemValid_trueIsReturned() {
         
-        XCTAssertTrue(testItem.isItemValid())
+        XCTAssertTrue(testItem.isItemValid(itemType:ItemType.InventoryItem))
     }
     
     func whenItemIsNotValid_falseIsReturned() {
@@ -93,38 +93,38 @@ class UserTests: XCTestCase {
         var item: Item = Item()
         item.itemQuantity = -1
         
-        XCTAssertFalse(item.isItemValid())
+        XCTAssertFalse(item.isItemValid(itemType:ItemType.InventoryItem))
         
         // Quantity is only true
         item = Item()
         item.itemQuantity = 1
         
-        XCTAssertFalse(item.isItemValid())
+        XCTAssertFalse(item.isItemValid(itemType:ItemType.InventoryItem))
         
         // Owner is only true
         item = Item()
         item.itemQuantity = -1
         item.itemOwner = "Jack"
         
-        XCTAssertFalse(item.isItemValid())
+        XCTAssertFalse(item.isItemValid(itemType:ItemType.InventoryItem))
         
         // Name is only true
         item = Item()
         item.itemName = "Toothpaste"
         item.itemQuantity = -1
         
-        XCTAssertFalse(item.isItemValid())
+        XCTAssertFalse(item.isItemValid(itemType:ItemType.InventoryItem))
         
         // Only name is false
         item = Item()
         item.itemOwner = "Jack"
         
-        XCTAssertFalse(item.isItemValid())
+        XCTAssertFalse(item.isItemValid(itemType:ItemType.InventoryItem))
         
         // Only owner is false
         item = Item()
         
-        XCTAssertFalse(item.isItemValid())
+        XCTAssertFalse(item.isItemValid(itemType:ItemType.InventoryItem))
         
         // Only quantity is false
         item = Item()
@@ -132,7 +132,7 @@ class UserTests: XCTestCase {
         item.itemOwner = "Jack"
         item.itemQuantity = -1
         
-        XCTAssertFalse(item.isItemValid())
+        XCTAssertFalse(item.isItemValid(itemType:ItemType.InventoryItem))
     }
     
     func test_whenItemIsUpdated_ItemIsDifferent() {
