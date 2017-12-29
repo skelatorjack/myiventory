@@ -28,6 +28,14 @@ class UpdateItemInShoppingListViewController: UIViewController, UITextFieldDeleg
     @IBAction func updateItemPressed(_ sender: UIButton) {
     }
     
+    override func viewDidLoad() {
+        updateNameField.text = itemToChange.itemName
+        updateOwnerField.text = itemToChange.itemOwner
+        updateQuantityField.text = "\(itemToChange.itemQuantity)"
+        updateStoreField.text = itemToChange.shopName
+        updateItemButton.isEnabled = false
+    }
+    
     func setItemToChange(newItemToChange: Item) {
         itemToChange = newItemToChange
     }
