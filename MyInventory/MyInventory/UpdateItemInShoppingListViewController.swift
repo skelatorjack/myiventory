@@ -9,6 +9,13 @@
 import Foundation
 import UIKit
 
+protocol UpdateItemInShoppingListDelegate: class {
+    func updateItem(itemToUpdate: Item, update: UpdateShoppingListCase)
+}
 class UpdateItemInShoppingListViewController: UIViewController, UITextFieldDelegate {
     
+    private var itemListToChange: Item = Item()
+    weak var delegate: UpdateItemInShoppingListDelegate?
+    
+    // IBOutlets and actions
 }

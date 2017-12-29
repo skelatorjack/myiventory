@@ -13,7 +13,7 @@ protocol UpdateShoppingList: class {
     func update(shoppingList: ShoppingList, update: UpdateShoppingListCase)
 }
 
-class ShoppingListDetailViewController: UITableViewController, AddItemToList {
+class ShoppingListDetailViewController: UITableViewController, AddItemToList, UpdateItemInShoppingListDelegate {
     
     private var shoppingListToDisplay: ShoppingList = ShoppingList()
     private var shopNames: [String] = []
@@ -51,6 +51,7 @@ class ShoppingListDetailViewController: UITableViewController, AddItemToList {
         }
         else if let updateItemInShoppingListVC = segue.destination as? UpdateItemInShoppingListViewController {
             print("Going to update Item")
+            updateItemInShoppingListVC.delegate = self
         }
     }
     
@@ -103,23 +104,23 @@ class ShoppingListDetailViewController: UITableViewController, AddItemToList {
         
     }
     
-    func deleteItem(key: String, index: Int) {
+    private func deleteItem(key: String, index: Int) {
         shoppingListToDisplay.deleteEntry(key: key, index: index)
     }
     
-    func deleteEntry(key: String, index: Int) {
+    private func deleteEntry(key: String, index: Int) {
         deleteItem(key: key, index: index)
         deleteKey(key: key)
     }
     
-    func deleteKey(key: String) {
+    private func deleteKey(key: String) {
         if shoppingListToDisplay.getNumberOfItems(with: key) == 0 {
             shoppingListToDisplay.deleteKey(key: key)
             deleteTableSection(shopName: key)
         }
     }
     
-    func deleteTableSection(shopName: String) {
+    private func deleteTableSection(shopName: String) {
         if let deleteIndex = shopNames.index(of: shopName) {
             shopNames.remove(at: deleteIndex)
         }
@@ -140,6 +141,9 @@ class ShoppingListDetailViewController: UITableViewController, AddItemToList {
         reloadTable()
     }
     
+    func updateItem(itemToUpdate: Item, update: UpdateShoppingListCase) {
+    
+    }
     private func reloadTable() {
         tableView.reloadData()
     }
