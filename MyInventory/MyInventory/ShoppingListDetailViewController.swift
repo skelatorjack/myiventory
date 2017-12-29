@@ -49,9 +49,10 @@ class ShoppingListDetailViewController: UITableViewController, AddItemToList, Up
             addItemToListVC.delegate = self
             addItemToListVC.setShopList(name: shopListName)
         }
-        else if let updateItemInShoppingListVC = segue.destination as? UpdateItemInShoppingListViewController {
+        else if let updateItemInShoppingListVC = segue.destination as? UpdateItemInShoppingListViewController, segue.identifier == "updateItemInList" {
             print("Going to update Item")
             updateItemInShoppingListVC.delegate = self
+            updateItemInShoppingListVC.setItemToChange(newItemToChange: sender as! Item)
         }
     }
     
@@ -101,9 +102,42 @@ class ShoppingListDetailViewController: UITableViewController, AddItemToList, Up
     
     // For editing an item in a shopping list
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let SECTION_NUMBER = indexPath.section
+        let SELECTED_ITEM_INDEX = indexPath.row
+        
+        let SELECTED_ITEM = getSelectedItem(section: SECTION_NUMBER, index: SELECTED_ITEM_INDEX)
+        
+        performSegue(withIdentifier: "updateItemInList", sender: SELECTED_ITEM!)
         
     }
     
+    private func getSelectedItem(section: Int, index: Int) -> Item? {
+        if !isSectionValid(sectionNumber: section) {
+            return nil
+        }
+        
+        if !isItemValid(sectionNumber: section, index: index) {
+            return nil
+        }
+        let SECTION_NAME: String = shopNames.at(index: section)!
+        return shoppingListToDisplay.getValue(key: SECTION_NAME, index: index)
+    }
+    
+    private func isSectionValid(sectionNumber: Int) -> Bool {
+        return shopNames.at(index: sectionNumber) != nil
+    }
+    
+    private func isItemValid(sectionNumber: Int, index:Int) -> Bool {
+        guard let SECTION_NAME = shopNames.at(index: sectionNumber) else {
+            return false
+        }
+        
+        guard shoppingListToDisplay.getValue(key: SECTION_NAME, index: index) != nil else {
+            return false
+        }
+        
+        return true
+    }
     private func deleteItem(key: String, index: Int) {
         shoppingListToDisplay.deleteEntry(key: key, index: index)
     }
