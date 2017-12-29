@@ -323,10 +323,10 @@
             </objects>
             <point key="canvasLocation" x="2588" y="-633"/>
         </scene>
-        <!--Update Item-->
+        <!--Update Item In List-->
         <scene sceneID="KWI-gE-ehN">
             <objects>
-                <viewController title="Update Item" id="IGk-70-qOZ" customClass="UpdateItemInShoppingListViewController" customModule="MyInventory" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Update Item In List" id="IGk-70-qOZ" customClass="UpdateItemInShoppingListViewController" customModule="MyInventory" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Hkh-bJ-IpI"/>
                         <viewControllerLayoutGuide type="bottom" id="zXG-jS-b0x"/>
@@ -411,9 +411,10 @@
                                     </stackView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ear-6j-CHL">
                                         <rect key="frame" x="0.0" y="160" width="200" height="30"/>
-                                        <state key="normal" title="Add Item To List"/>
+                                        <state key="normal" title="Update Item In List"/>
                                         <connections>
                                             <action selector="addItemToListPressed:" destination="dCs-bt-uCQ" eventType="touchUpInside" id="EbA-Ja-DP8"/>
+                                            <action selector="updateItemPressed:" destination="IGk-70-qOZ" eventType="touchUpInside" id="Bs1-l0-eVe"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -431,6 +432,13 @@
                             <constraint firstItem="DQR-k8-Vy8" firstAttribute="centerX" secondItem="HHB-4G-Zvc" secondAttribute="centerX" id="lzq-6X-4WR"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="updateItemButton" destination="ear-6j-CHL" id="CK9-0U-juB"/>
+                        <outlet property="updateNameField" destination="26w-Fa-qsR" id="Mmw-Xy-6jC"/>
+                        <outlet property="updateOwnerField" destination="TLv-3W-qzm" id="uxy-1j-LJW"/>
+                        <outlet property="updateQuantityField" destination="EnI-6I-axx" id="GD5-h2-WwG"/>
+                        <outlet property="updateStoreField" destination="tYn-CA-3s5" id="5YG-eN-rqx"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ypc-cB-XOG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
