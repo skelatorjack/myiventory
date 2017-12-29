@@ -49,6 +49,9 @@ class ShoppingListDetailViewController: UITableViewController, AddItemToList {
             addItemToListVC.delegate = self
             addItemToListVC.setShopList(name: shopListName)
         }
+        else if let updateItemInShoppingListVC = segue.destination as? UpdateItemInShoppingListViewController {
+            print("Going to update Item")
+        }
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
