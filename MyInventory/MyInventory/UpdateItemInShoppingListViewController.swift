@@ -14,8 +14,27 @@ protocol UpdateItemInShoppingListDelegate: class {
 }
 class UpdateItemInShoppingListViewController: UIViewController, UITextFieldDelegate {
     
-    private var itemListToChange: Item = Item()
+    private var itemToChange: Item = Item()
     weak var delegate: UpdateItemInShoppingListDelegate?
     
     // IBOutlets and actions
+    @IBOutlet weak var updateNameField: UITextField!
+    @IBOutlet weak var updateQuantityField: UITextField!
+    @IBOutlet weak var updateOwnerField: UITextField!
+    @IBOutlet weak var updateStoreField: UITextField!
+    
+    @IBOutlet weak var updateItemButton: UIButton!
+    
+    @IBAction func updateItemPressed(_ sender: UIButton) {
+    }
+    
+    func setItemToChange(newItemToChange: Item) {
+        itemToChange = newItemToChange
+    }
+    
+    func getItemToChange() -> Item {
+        return itemToChange
+    }
+    
+    
 }
