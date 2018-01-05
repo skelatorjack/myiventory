@@ -15,7 +15,7 @@ enum ButtonStatus {
 }
 
 protocol UpdateItemInShoppingListDelegate: class {
-    func updateItem(itemToUpdate: Item, update: UpdateShoppingListCase)
+    func updateItem(updatedItem: Item, update: UpdateShoppingListCase)
 }
 
 class UpdateItemInShoppingListViewController: UIViewController, UITextFieldDelegate {
@@ -34,7 +34,7 @@ class UpdateItemInShoppingListViewController: UIViewController, UITextFieldDeleg
     @IBAction func updateItemPressed(_ sender: UIButton) {
         let updatedItem: Item = createItem()
         
-        delegate?.updateItem(itemToUpdate: updatedItem, update: UpdateShoppingListCase.UpdateItemFromShopList)
+        delegate?.updateItem(updatedItem: updatedItem, update: UpdateShoppingListCase.UpdateItemFromShopList)
         
         let _ = navigationController?.popViewController(animated: true)
     }
@@ -90,7 +90,7 @@ class UpdateItemInShoppingListViewController: UIViewController, UITextFieldDeleg
         let updatedStore: String = updateStoreField.text!
         let updatedShopList: String = itemToChange.shoppingList
         
-        let updatedItem: Item = Item(newName: updatedName, newOwner: updatedOwner, newQuantity: Int(updatedQuantity)!, newShoppingList: updatedStore, shopName: updatedShopList)
+        let updatedItem: Item = Item(newName: updatedName, newOwner: updatedOwner, newQuantity: Int(updatedQuantity)!, newShoppingList: updatedShopList, shopName: updatedStore)
         
         return updatedItem
     }
