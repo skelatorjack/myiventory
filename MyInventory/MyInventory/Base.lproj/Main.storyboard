@@ -66,7 +66,61 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CVX-u3-1Zd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1329" y="-632"/>
+            <point key="canvasLocation" x="699" y="-634"/>
+        </scene>
+        <!--Update List Name-->
+        <scene sceneID="11B-sO-xLJ">
+            <objects>
+                <viewController title="Update List Name" id="eaa-I2-bb9" customClass="UpdateListNameViewController" customModule="MyInventory" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="XuW-Dx-BaU"/>
+                        <viewControllerLayoutGuide type="bottom" id="d1Q-N8-Jgh"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="3Nn-xO-CFf">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="pRM-bT-FbA" userLabel="Main Stack View">
+                                <rect key="frame" x="60" y="249" width="200" height="70"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="UyT-fT-oaW" userLabel="Name Stack View">
+                                        <rect key="frame" x="0.0" y="0.0" width="200" height="30"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="List Name:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WMR-iV-6f4" userLabel="List Name">
+                                                <rect key="frame" x="0.0" y="0.0" width="95" height="30"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="rMP-RJ-p8R" userLabel="List Name Field">
+                                                <rect key="frame" x="105" y="0.0" width="95" height="30"/>
+                                                <nil key="textColor"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                        </subviews>
+                                    </stackView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="y5W-W5-dEu" userLabel="Update List Name">
+                                        <rect key="frame" x="0.0" y="40" width="200" height="30"/>
+                                        <state key="normal" title="Update List Name"/>
+                                        <connections>
+                                            <action selector="addShoppingListPressed:" destination="HyN-4H-wa6" eventType="touchUpInside" id="sfl-bd-fUc"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="pRM-bT-FbA" firstAttribute="centerY" secondItem="3Nn-xO-CFf" secondAttribute="centerY" id="NiP-un-0lb"/>
+                            <constraint firstItem="pRM-bT-FbA" firstAttribute="centerX" secondItem="3Nn-xO-CFf" secondAttribute="centerX" id="gBt-LP-eBQ"/>
+                            <constraint firstItem="pRM-bT-FbA" firstAttribute="leading" secondItem="3Nn-xO-CFf" secondAttribute="leadingMargin" constant="44" id="juj-Xf-jJ6"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0FS-8C-jmh" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1329" y="-634"/>
         </scene>
         <!--Shopping Lists-->
         <scene sceneID="L5h-Bp-khB">
