@@ -93,12 +93,28 @@ class ShoppingList {
     }
     
     func getValue(key: String, index: Int) -> Item? {
-        if doesKeyExist(key: key) && isIndexValidForValue(key: key, index: index) {
+        if isValidItem(key: key, index: index) {
             let value = storeAndItems[key]?.map { $0 }
             
             return value?[index]
         }
         return nil
+    }
+    
+    func setValue(key: String, index: Int, item: Item) {
+        if isValidItem(key: key, index: index) {
+            setItemInShoppingList(key: key, index: index, newItem: item)
+        }
+    }
+    
+    func setItemInShoppingList(key: String, index: Int, newItem: Item) {
+        if storeAndItems[key]?.at(index: index) != nil {
+            storeAndItems[key]?[index] = newItem
+        }
+    }
+    
+    func isValidItem(key: String, index: Int) -> Bool {
+        return doesKeyExist(key: key) && isIndexValidForValue(key: key, index: index)
     }
     
     func deleteEntry(key: String, index: Int) {
@@ -111,8 +127,8 @@ class ShoppingList {
         storeAndItems.removeValue(forKey: key)
     }
     
-    func updateEntry(item: Item) {
-        
+    func updateEntry(item: Item, indexOfUpdate: Int) {
+        setValue(key: item.shopName, index: indexOfUpdate, item: item)
     }
     
     func item(at index: Int) {
