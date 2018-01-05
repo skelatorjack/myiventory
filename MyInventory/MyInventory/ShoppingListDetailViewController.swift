@@ -19,6 +19,11 @@ class ShoppingListDetailViewController: UITableViewController, AddItemToList, Up
     private var shopNames: [String] = []
     private var shopListName: String = ""
     
+    private var indexOfUpdatedItem: Int = -1
+    private var indexOfDeletedItem: Int = -1
+    
+    private var oldItem: Item = Item()
+    
     weak var delegate: UpdateShoppingList?
     
     override func viewDidLoad() {
@@ -41,6 +46,51 @@ class ShoppingListDetailViewController: UITableViewController, AddItemToList, Up
     
     func getListName() -> String {
         return shopListName
+    }
+    
+    private func setShopNames() {
+        let storesAndItems = shoppingListToDisplay.getStoresAndItems()
+        
+        for item in storesAndItems {
+            if !shopNames.contains(item.key) {
+                shopNames.append(item.key)
+            }
+        }
+    }
+    
+    private func getNumberOfRowsInSection(index: Int) -> Int? {
+        
+        let key: String = shopNames[index]
+        
+        guard let count = shoppingListToDisplay.getNumberOfItems(with: key) else {
+            return nil
+        }
+        
+        return count
+    }
+    
+    func setOldItem(item: Item) {
+        oldItem = item
+    }
+    
+    func getOldItem() -> Item {
+        return oldItem
+    }
+    
+    func getUpdateIndex() -> Int {
+        return indexOfUpdatedItem
+    }
+    
+    func setUpdateIndex(newIndex: Int) {
+        indexOfUpdatedItem = newIndex
+    }
+    
+    func getDeleteIndex() -> Int {
+        return indexOfDeletedItem
+    }
+    
+    func setDeleteIndex(newIndex: Int) {
+        indexOfDeletedItem = newIndex
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -106,6 +156,9 @@ class ShoppingListDetailViewController: UITableViewController, AddItemToList, Up
         let SELECTED_ITEM_INDEX = indexPath.row
         
         let SELECTED_ITEM = getSelectedItem(section: SECTION_NUMBER, index: SELECTED_ITEM_INDEX)
+        
+        setOldItem(item: SELECTED_ITEM!)
+        setUpdateIndex(newIndex: SELECTED_ITEM_INDEX)
         
         performSegue(withIdentifier: "updateItemInList", sender: SELECTED_ITEM!)
         
@@ -175,31 +228,29 @@ class ShoppingListDetailViewController: UITableViewController, AddItemToList, Up
         reloadTable()
     }
     
-    func updateItem(itemToUpdate: Item, update: UpdateShoppingListCase) {
-    
+    func updateItem(updatedItem: Item, update: UpdateShoppingListCase) {
+        addItemToShoppingList(oldItem: getOldItem(), updatedItem: updatedItem)
+        reloadTable()
     }
+    
+    func addItemToShoppingList(oldItem: Item, updatedItem: Item) {
+        let KEY: String = getOldItem().shopName
+        let UPDATE_INDEX: Int = getUpdateIndex()
+        
+        if (!doStoresMatch(oldStore: oldItem.shopName, newStore: updatedItem.shopName)) {
+            deleteEntry(key: KEY, index: UPDATE_INDEX)
+            add(item: updatedItem)
+        }
+        else {
+            shoppingListToDisplay.updateEntry(item: updatedItem, indexOfUpdate: UPDATE_INDEX)
+        }
+    }
+    
+    func doStoresMatch(oldStore: String, newStore: String) -> Bool {
+        return oldStore == newStore
+    }
+    
     private func reloadTable() {
         tableView.reloadData()
-    }
-    
-    private func setShopNames() {
-        let storesAndItems = shoppingListToDisplay.getStoresAndItems()
-        
-        for item in storesAndItems {
-            if !shopNames.contains(item.key) {
-                shopNames.append(item.key)
-            }
-        }
-    }
-    
-    private func getNumberOfRowsInSection(index: Int) -> Int? {
-    
-        let key: String = shopNames[index]
-        
-        guard let count = shoppingListToDisplay.getNumberOfItems(with: key) else {
-            return nil
-        }
-        
-        return count
     }
 }
