@@ -1,3 +1,4 @@
+
 //
 //  UpdateItemInShoppingListViewController.swift
 //  MyInventory
@@ -47,7 +48,7 @@ class UpdateItemInShoppingListViewController: UIViewController, UITextFieldDeleg
         updateQuantityField.text = "\(itemToChange.itemQuantity)"
         updateStoreField.text = itemToChange.shopName
         updateItemButton.isEnabled = false
-    
+        
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(backgroundTapped))
         view.addGestureRecognizer(tapGestureRecognizer)
     }
