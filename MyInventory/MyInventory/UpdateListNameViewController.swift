@@ -9,6 +9,10 @@
 import Foundation
 import UIKit
 
+protocol UpdateShoppingListName: class {
+    func update(shoppingListName: String)
+}
+
 class UpdateListNameViewController: UIViewController, UITextFieldDelegate {
     
     private var newListName: String = ""
