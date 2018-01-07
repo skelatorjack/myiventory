@@ -22,7 +22,7 @@ enum UpdateShoppingListCase {
     case DeleteShopList
 }
 
-class ShoppingListsViewController: UITableViewController, AddShoppingList, UpdateShoppingList, AddItemToList {
+class ShoppingListsViewController: UITableViewController, AddShoppingList, UpdateShoppingList, AddItemToList, UpdateShoppingListName {
     
     private var shoppingLists: [ShoppingList] = []
     private var indexOfShoppingList: Int = -1
@@ -54,6 +54,10 @@ class ShoppingListsViewController: UITableViewController, AddShoppingList, Updat
             shopListDetail.setList(list: shoppingLists[indexOfList])
             
             shopListDetail.delegate = self
+        }
+        else if let updateListName = segue.destination as? UpdateListNameViewController,
+            segue.identifier == "updateListName" {
+            updateListName.delegate = self
         }
     }
     
@@ -128,6 +132,12 @@ class ShoppingListsViewController: UITableViewController, AddShoppingList, Updat
         default: break
         }
         
+        reloadTable()
+    }
+    
+    func update(shoppingListName: String) {
+        shoppingLists[indexOfShoppingList].setListName(name: shoppingListName)
+        shoppingLists[indexOfShoppingList].updateItemsInShoppingList()
         reloadTable()
     }
     
