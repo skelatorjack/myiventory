@@ -33,6 +33,9 @@ class UpdateListNameViewController: UIViewController, UITextFieldDelegate {
     
     @IBAction func updateListNamePressed(_ sender: UIButton) {
         print("Button pressed. The shop list name is \(listNameField.text!)")
+        setNewListName(newName: listNameField.text!)
+        delegate?.update(shoppingListName: getNewListName())
+        let _ = navigationController?.popViewController(animated: true)
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
