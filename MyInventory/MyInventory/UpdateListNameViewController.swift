@@ -11,7 +11,27 @@ import UIKit
 
 class UpdateListNameViewController: UIViewController, UITextFieldDelegate {
     
+    private var newListName: String = ""
+    
+    @IBOutlet weak var listNameField: UITextField!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
+    
+    @IBAction func updateListNamePressed(_ sender: UIButton) {
+    }
+    
+    func setNewListName(newName: String) {
+        newListName = newName
+    }
+    
+    func getNewListName() -> String {
+        return newListName
+    }
+    
+    func isNameValid(listName: String) -> Bool {
+        return true
+    }
+    
 }

@@ -105,6 +105,7 @@
                                         <state key="normal" title="Update List Name"/>
                                         <connections>
                                             <action selector="addShoppingListPressed:" destination="HyN-4H-wa6" eventType="touchUpInside" id="sfl-bd-fUc"/>
+                                            <action selector="updateListNamePressed:" destination="eaa-I2-bb9" eventType="touchUpInside" id="koz-Ud-JQr"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -117,6 +118,9 @@
                             <constraint firstItem="pRM-bT-FbA" firstAttribute="leading" secondItem="3Nn-xO-CFf" secondAttribute="leadingMargin" constant="44" id="juj-Xf-jJ6"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="listNameField" destination="rMP-RJ-p8R" id="bwe-GB-k38"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0FS-8C-jmh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
