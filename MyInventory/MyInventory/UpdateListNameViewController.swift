@@ -32,11 +32,12 @@ class UpdateListNameViewController: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func updateListNamePressed(_ sender: UIButton) {
+        print("Button pressed. The shop list name is \(listNameField.text!)")
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         view.endEditing(true)
-        
+        enableButton()
         return true
     }
     func setNewListName(newName: String) {
@@ -48,11 +49,21 @@ class UpdateListNameViewController: UIViewController, UITextFieldDelegate {
     }
     
     private func isNameValid(listName: String) -> Bool {
-        return true
+        return !listName.isEmpty && listNameField.text != nil
+    }
+    
+    private func enableButton() {
+        if isNameValid(listName: listNameField.text!) {
+            updateListNameButton.isEnabled = true
+        }
+        else {
+            updateListNameButton.isEnabled = false
+        }
     }
     
     @objc private func backgroundTapped() {
-        
+        view.endEditing(true)
+        enableButton()
     }
     
 }
