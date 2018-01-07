@@ -73,6 +73,12 @@ class ShoppingList {
         return nil
     }
     
+    func getItemList(with key: String) -> [Item] {
+        guard let itemList = storeAndItems[key] else {
+            return []
+        }
+        return itemList
+    }
     
     func createKey(keyName: String) {
         storeAndItems[keyName] = []
@@ -149,4 +155,30 @@ class ShoppingList {
         return true
     }
     
+    // This method changes all items shopping list to match the shoppinglist name
+    func updateItemsInShoppingList() {
+        let LIST_OF_KEYS: [String] = getStores()
+        
+        for key in LIST_OF_KEYS {
+            for (index, item) in getItemList(with: key).enumerated() {
+                setItemInShoppingList(key: key, index: index, newItem: changeShoppingList(oldItem: item))
+            }
+        }
+    }
+    
+    private func doShoppingListNamesMatch(itemShoppingList: String) -> Bool {
+        return getListName() == itemShoppingList
+    }
+    
+    private func getStores() -> [String] {
+        return Array(storeAndItems.keys)
+    }
+    
+    private func changeShoppingList(oldItem: Item) -> Item {
+        var newItem: Item = oldItem
+        
+        newItem.shoppingList = getListName()
+        
+        return newItem
+    }
 }
