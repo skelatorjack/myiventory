@@ -34,6 +34,11 @@ class UpdateListNameViewController: UIViewController, UITextFieldDelegate {
     @IBAction func updateListNamePressed(_ sender: UIButton) {
     }
     
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        view.endEditing(true)
+        
+        return true
+    }
     func setNewListName(newName: String) {
         newListName = newName
     }
