@@ -83,9 +83,14 @@ class ShoppingListsViewController: UITableViewController, AddShoppingList, Updat
             self.shoppingLists.remove(at: index.row)
             self.update(shoppingList: shoppingList, update: UpdateShoppingListCase.DeleteShopList)
         }
+        let updateListName = UITableViewRowAction(style: .normal, title: "Update List Name") { action, index in
+            print("Updating list name at index \(index.row)")
+            self.performSegue(withIdentifier: "updateListName", sender: index.row)
+        }
         del.backgroundColor = UIColor.red
+        updateListName.backgroundColor = UIColor.orange
         
-        return [del]
+        return [del, updateListName]
     }
     
     func add(shoppingListName: String) {
