@@ -120,6 +120,7 @@
                     </view>
                     <connections>
                         <outlet property="listNameField" destination="rMP-RJ-p8R" id="bwe-GB-k38"/>
+                        <outlet property="updateListNameButton" destination="y5W-W5-dEu" id="gK1-Ae-LMt"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0FS-8C-jmh" userLabel="First Responder" sceneMemberID="firstResponder"/>

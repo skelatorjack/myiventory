@@ -18,6 +18,7 @@ class UpdateListNameViewController: UIViewController, UITextFieldDelegate {
     private var newListName: String = ""
     
     @IBOutlet weak var listNameField: UITextField!
+    @IBOutlet weak var updateListNameButton: UIButton!
     
     weak var delegate: UpdateShoppingListName?
     
@@ -27,7 +28,7 @@ class UpdateListNameViewController: UIViewController, UITextFieldDelegate {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(backgroundTapped))
         view.addGestureRecognizer(tapGesture)
         
-        
+        updateListNameButton.isEnabled = false
     }
     
     @IBAction func updateListNamePressed(_ sender: UIButton) {
