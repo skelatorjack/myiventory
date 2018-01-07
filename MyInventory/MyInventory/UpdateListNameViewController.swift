@@ -19,6 +19,8 @@ class UpdateListNameViewController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var listNameField: UITextField!
     
+    weak var delegate: UpdateShoppingListName?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
