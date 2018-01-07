@@ -23,6 +23,11 @@ class UpdateListNameViewController: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(backgroundTapped))
+        view.addGestureRecognizer(tapGesture)
+        
+        
     }
     
     @IBAction func updateListNamePressed(_ sender: UIButton) {
@@ -36,8 +41,12 @@ class UpdateListNameViewController: UIViewController, UITextFieldDelegate {
         return newListName
     }
     
-    func isNameValid(listName: String) -> Bool {
+    private func isNameValid(listName: String) -> Bool {
         return true
+    }
+    
+    @objc private func backgroundTapped() {
+        
     }
     
 }
