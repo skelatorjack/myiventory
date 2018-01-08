@@ -17,10 +17,13 @@ class ShoppingListDetailViewController: UITableViewController, AddItemToList, Up
     
     private var shoppingListToDisplay: ShoppingList = ShoppingList()
     private var shopNames: [String] = []
+    private var shoppingListNames: [String] = []
+    
     private var shopListName: String = ""
     
     private var indexOfUpdatedItem: Int = -1
     private var indexOfDeletedItem: Int = -1
+    private var indexOfMovedItem: Int = -1
     
     private var oldItem: Item = Item()
     
@@ -38,6 +41,14 @@ class ShoppingListDetailViewController: UITableViewController, AddItemToList, Up
     
     func getList() -> ShoppingList {
         return shoppingListToDisplay
+    }
+    
+    func setShoppingListNames(newList: [String]) {
+        shoppingListNames = newList
+    }
+    
+    func getShoppingListNames() -> [String] {
+        return shoppingListNames
     }
     
     func setListName(name: String) {
@@ -104,6 +115,10 @@ class ShoppingListDetailViewController: UITableViewController, AddItemToList, Up
             updateItemInShoppingListVC.delegate = self
             updateItemInShoppingListVC.setItemToChange(newItemToChange: sender as! Item)
         }
+        else if let changeItemShoppingListVC = segue.destination as? ChangeItemShoppingListViewController, segue.identifier == "changeShoppingList" {
+            print("Going to change item's shopping list")
+            changeItemShoppingListVC.setListOfShoppingListNames(newList: shoppingListNames)
+        }
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -145,9 +160,19 @@ class ShoppingListDetailViewController: UITableViewController, AddItemToList, Up
             self.delegate?.update(shoppingList: self.shoppingListToDisplay, update: UpdateShoppingListCase.DeleteItemFromShopList)
             self.reloadTable()
         }
+        let changeShoppingListOfItem = UITableViewRowAction(style: .normal, title: "Change List") { action, index in
+            
+            let CHANGE_KEY: String = self.shopNames[index.section]
+            self.indexOfMovedItem = index.row
+            
+            print("Changing item at shop \(CHANGE_KEY) at index \(self.indexOfMovedItem)")
+            
+            self.performSegue(withIdentifier: "changeShoppingList", sender: index.row)
+        }
         del.backgroundColor = UIColor.red
+        changeShoppingListOfItem.backgroundColor = UIColor.green
         
-        return [del]
+        return [del, changeShoppingListOfItem]
     }
     
     // For editing an item in a shopping list
