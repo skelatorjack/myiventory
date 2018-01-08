@@ -1,5 +1,5 @@
 //
-//  ChangeShoppingListViewController.swift
+//  ChangeItemShoppingListViewController.swift
 //  MyInventory
 //
 //  Allows the user to move a shopping list item to a new list that
@@ -11,7 +11,7 @@
 import Foundation
 import UIKit
 
-class ChangeShoppingListViewController: UIViewController {
+class ChangeItemShoppingListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
