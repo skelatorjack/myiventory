@@ -257,11 +257,58 @@
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
                         <segue destination="IGk-70-qOZ" kind="show" identifier="updateItemInList" id="JWy-lR-TqP"/>
+                        <segue destination="4Xd-xu-MdS" kind="show" identifier="changeShoppingList" id="8TT-fs-oaQ"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oUe-JS-Zel" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2588" y="40"/>
+        </scene>
+        <!--Change Shopping List-->
+        <scene sceneID="Z0v-0J-ib7">
+            <objects>
+                <viewController title="Change Shopping List" id="4Xd-xu-MdS" customClass="ChangeItemShoppingListViewController" customModule="MyInventory" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="A42-Ir-B60"/>
+                        <viewControllerLayoutGuide type="bottom" id="UOG-xP-3Xk"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Gge-Bq-53T">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="jcx-R8-LGL" userLabel="Main Stack View">
+                                <rect key="frame" x="0.0" y="156" width="320" height="256"/>
+                                <subviews>
+                                    <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IQ0-XP-Qhh" userLabel="Shopping List Picker">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="216"/>
+                                    </pickerView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JkU-Dq-Zm2">
+                                        <rect key="frame" x="0.0" y="226" width="320" height="30"/>
+                                        <state key="normal" title="Change Shopping List"/>
+                                        <connections>
+                                            <action selector="changeShoppingListPressed:" destination="4Xd-xu-MdS" eventType="touchUpInside" id="os8-HB-5LI"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="IQ0-XP-Qhh" firstAttribute="centerX" secondItem="jcx-R8-LGL" secondAttribute="centerX" id="qb8-CD-Z0B"/>
+                                </constraints>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="jcx-R8-LGL" firstAttribute="centerX" secondItem="Gge-Bq-53T" secondAttribute="centerX" id="UjO-Wo-ZWZ"/>
+                            <constraint firstItem="jcx-R8-LGL" firstAttribute="centerY" secondItem="Gge-Bq-53T" secondAttribute="centerY" id="eKU-Iv-dcA"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="changeShoppingListButton" destination="JkU-Dq-Zm2" id="6EX-5f-gQl"/>
+                        <outlet property="shoppingListPicker" destination="IQ0-XP-Qhh" id="h1j-tY-gfb"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gXm-s5-8CX" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3309" y="57"/>
         </scene>
         <!--Add Item To List-->
         <scene sceneID="ERu-uS-H4S">
