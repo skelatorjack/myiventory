@@ -25,6 +25,8 @@ enum UpdateShoppingListCase {
 class ShoppingListsViewController: UITableViewController, AddShoppingList, UpdateShoppingList, AddItemToList, UpdateShoppingListName {
     
     private var shoppingLists: [ShoppingList] = []
+    private var shoppingListNames: [String] = []
+    
     private var indexOfShoppingList: Int = -1
     
     weak var delegate: UpdateUserWithShoppingList?
@@ -35,6 +37,20 @@ class ShoppingListsViewController: UITableViewController, AddShoppingList, Updat
     
     func setShoppingLists(userShoppingLists: [ShoppingList]) {
         shoppingLists = userShoppingLists
+    }
+    
+    func setShoppingListNames() {
+        for shoppingList in shoppingLists {
+            addShoppingListName(newName: shoppingList.getListName())
+        }
+    }
+    
+    private func addShoppingListName(newName: String) {
+        shoppingListNames.append(newName)
+    }
+    
+    private func removeShoppingListName(at index: Int) {
+        shoppingListNames.remove(at: index)
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -52,6 +68,7 @@ class ShoppingListsViewController: UITableViewController, AddShoppingList, Updat
             indexOfShoppingList = indexOfList
             
             shopListDetail.setList(list: shoppingLists[indexOfList])
+            shopListDetail.setShoppingListNames(newList: shoppingListNames)
             
             shopListDetail.delegate = self
         }
@@ -85,10 +102,12 @@ class ShoppingListsViewController: UITableViewController, AddShoppingList, Updat
             print("Deleting list at index \(index.row)")
             let shoppingList:ShoppingList = self.shoppingLists[index.row]
             self.shoppingLists.remove(at: index.row)
+            self.removeShoppingListName(at: index.row)
             self.update(shoppingList: shoppingList, update: UpdateShoppingListCase.DeleteShopList)
         }
         let updateListName = UITableViewRowAction(style: .normal, title: "Update List Name") { action, index in
             print("Updating list name at index \(index.row)")
+            self.indexOfShoppingList = index.row
             self.performSegue(withIdentifier: "updateListName", sender: index.row)
         }
         del.backgroundColor = UIColor.red
@@ -124,6 +143,7 @@ class ShoppingListsViewController: UITableViewController, AddShoppingList, Updat
             break
             
         case .AddShopList:
+           addShoppingListName(newName: shoppingList.getListName())
            delegate?.add(shoppingList: shoppingList)
             
         case .DeleteShopList:
@@ -137,6 +157,7 @@ class ShoppingListsViewController: UITableViewController, AddShoppingList, Updat
     
     func update(shoppingListName: String) {
         shoppingLists[indexOfShoppingList].setListName(name: shoppingListName)
+        shoppingListNames[indexOfShoppingList] = shoppingLists[indexOfShoppingList].getListName()
         shoppingLists[indexOfShoppingList].updateItemsInShoppingList()
         reloadTable()
     }
