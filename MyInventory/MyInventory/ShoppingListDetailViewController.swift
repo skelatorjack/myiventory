@@ -13,7 +13,7 @@ protocol UpdateShoppingList: class {
     func update(shoppingList: ShoppingList, update: UpdateShoppingListCase)
 }
 
-class ShoppingListDetailViewController: UITableViewController, AddItemToList, UpdateItemInShoppingListDelegate {
+class ShoppingListDetailViewController: UITableViewController, AddItemToList, UpdateItemInShoppingListDelegate, ChangeItemShoppingListDelegate {
     
     private var shoppingListToDisplay: ShoppingList = ShoppingList()
     private var shopNames: [String] = []
@@ -118,6 +118,7 @@ class ShoppingListDetailViewController: UITableViewController, AddItemToList, Up
         else if let changeItemShoppingListVC = segue.destination as? ChangeItemShoppingListViewController, segue.identifier == "changeShoppingList" {
             print("Going to change item's shopping list")
             changeItemShoppingListVC.setListOfShoppingListNames(newList: shoppingListNames)
+            changeItemShoppingListVC.delegate = self
         }
     }
     
@@ -269,6 +270,10 @@ class ShoppingListDetailViewController: UITableViewController, AddItemToList, Up
         else {
             shoppingListToDisplay.updateEntry(item: updatedItem, indexOfUpdate: UPDATE_INDEX)
         }
+    }
+    
+    func move(list: String) {
+        print("Moving item to \(list)")
     }
     
     func doStoresMatch(oldStore: String, newStore: String) -> Bool {
