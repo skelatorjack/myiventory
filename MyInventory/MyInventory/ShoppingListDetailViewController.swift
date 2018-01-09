@@ -11,6 +11,7 @@ import UIKit
 
 protocol UpdateShoppingList: class {
     func update(shoppingList: ShoppingList, update: UpdateShoppingListCase)
+    func move(item: Item)
 }
 
 class ShoppingListDetailViewController: UITableViewController, AddItemToList, UpdateItemInShoppingListDelegate, ChangeItemShoppingListDelegate {
@@ -26,6 +27,8 @@ class ShoppingListDetailViewController: UITableViewController, AddItemToList, Up
     private var indexOfMovedItem: Int = -1
     
     private var oldItem: Item = Item()
+    
+    private var moveItemSection: String = ""
     
     weak var delegate: UpdateShoppingList?
     
@@ -164,6 +167,7 @@ class ShoppingListDetailViewController: UITableViewController, AddItemToList, Up
         let changeShoppingListOfItem = UITableViewRowAction(style: .normal, title: "Change List") { action, index in
             
             let CHANGE_KEY: String = self.shopNames[index.section]
+            self.moveItemSection = CHANGE_KEY
             self.indexOfMovedItem = index.row
             
             print("Changing item at shop \(CHANGE_KEY) at index \(self.indexOfMovedItem)")
@@ -274,6 +278,13 @@ class ShoppingListDetailViewController: UITableViewController, AddItemToList, Up
     
     func move(list: String) {
         print("Moving item to \(list)")
+        guard let ITEM_TO_DELETE: Item = shoppingListToDisplay.getValue(key: moveItemSection, index: indexOfMovedItem) else {
+            return
+        }
+        let NEW_ITEM: Item = shoppingListToDisplay.changeShoppingList(oldItem: ITEM_TO_DELETE, newListName: list)
+        delegate?.move(item: NEW_ITEM)
+        shoppingListToDisplay.deleteItemFromList(key: moveItemSection, index: indexOfMovedItem)
+        reloadTable()
     }
     
     func doStoresMatch(oldStore: String, newStore: String) -> Bool {
