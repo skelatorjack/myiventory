@@ -89,6 +89,10 @@ class ShoppingList {
         if storeAndItems[item.shopName] != nil {
             storeAndItems[item.shopName]?.append(item)
         }
+        else {
+            storeAndItems[item.shopName] = []
+            storeAndItems[item.shopName]?.append(item)
+        }
     }
     
     func doesKeyExist(key: String) -> Bool {
@@ -133,6 +137,14 @@ class ShoppingList {
         storeAndItems.removeValue(forKey: key)
     }
     
+    func deleteItemFromList(key: String, index: Int) {
+        deleteEntry(key: key, index: index)
+        
+        guard let itemCount = getNumberOfItems(with: key), itemCount == 0 else {
+            return
+        }
+        deleteKey(key: key)
+    }
     func updateEntry(item: Item, indexOfUpdate: Int) {
         setValue(key: item.shopName, index: indexOfUpdate, item: item)
     }
@@ -161,7 +173,7 @@ class ShoppingList {
         
         for key in LIST_OF_KEYS {
             for (index, item) in getItemList(with: key).enumerated() {
-                setItemInShoppingList(key: key, index: index, newItem: changeShoppingList(oldItem: item))
+                setItemInShoppingList(key: key, index: index, newItem: changeShoppingList(oldItem: item, newListName: getListName()))
             }
         }
     }
@@ -174,15 +186,20 @@ class ShoppingList {
         return Array(storeAndItems.keys)
     }
     
-    private func changeShoppingList(oldItem: Item) -> Item {
+    func changeShoppingList(oldItem: Item, newListName: String) -> Item {
         var newItem: Item = oldItem
         
-        newItem.shoppingList = getListName()
+        newItem.shoppingList = newListName
         
         return newItem
     }
     
-    private func moveItem(newListName: String, section: String, index: Int) {
-        
+    func moveItem(newListName: String, section: String, index: Int) {
+        guard let ITEM_TO_DELETE: Item = getValue(key: section, index: index) else {
+            return
+        }
+        let newItem: Item = changeShoppingList(oldItem: ITEM_TO_DELETE, newListName: newListName)
+        deleteItemFromList(key: section, index: index)
+        addItemToKey(item: newItem)
     }
 }
