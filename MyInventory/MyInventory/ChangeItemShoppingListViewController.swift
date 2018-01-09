@@ -11,12 +11,18 @@
 import Foundation
 import UIKit
 
+protocol ChangeItemShoppingListDelegate: class {
+    func move(list: String)
+}
+
 class ChangeItemShoppingListViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     
     @IBOutlet weak var changeShoppingListButton: UIButton!
     @IBOutlet weak var shoppingListPicker: UIPickerView!
     
     private var listOfShoppingListNames: [String] = []
+    
+    weak var delegate: ChangeItemShoppingListDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,7 +50,18 @@ class ChangeItemShoppingListViewController: UIViewController, UIPickerViewDelega
     func getListOfShoppingListNames() -> [String] {
         return listOfShoppingListNames
     }
+    
     @IBAction func changeShoppingListPressed(_ sender: UIButton) {
+        var newListName: String = ""
+        
+        newListName = listOfShoppingListNames[shoppingListPicker.selectedRow(inComponent: 0)]
+        
+        delegate?.move(list: newListName)
+        popViewController()
+    }
+    
+    private func popViewController() {
+        let _ = navigationController?.popViewController(animated: true)
     }
     
 }
