@@ -181,4 +181,8 @@ class ShoppingList {
         
         return newItem
     }
+    
+    private func moveItem(newListName: String, section: String, index: Int) {
+        
+    }
 }
