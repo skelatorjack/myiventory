@@ -162,6 +162,13 @@ class ShoppingListsViewController: UITableViewController, AddShoppingList, Updat
         reloadTable()
     }
     
+    func move(item: Item) {
+        let INDEX_OF_ITEM: Int = shoppingLists.index(where: { $0.getListName().hasPrefix(item.shoppingList) })!
+        
+        shoppingLists[INDEX_OF_ITEM].addItemToKey(item: item)
+        reloadTable()
+    }
+    
     func reloadTable() {
         tableView.reloadData()
     }
