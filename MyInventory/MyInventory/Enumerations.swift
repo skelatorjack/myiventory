@@ -7,3 +7,16 @@
 //
 
 import Foundation
+
+enum TypeOfAssign {
+    case String
+    case Int
+}
+
+enum ItemMember {
+    case Name
+    case Owner
+    case Quantity
+    case ShoppingList
+    case ShopName
+}
