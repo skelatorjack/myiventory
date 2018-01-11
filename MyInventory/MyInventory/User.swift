@@ -15,7 +15,7 @@ import CoreData
 class User {
     private var itemList: [Item]
     private var coreDataInterface: CoreDataObject
-    //private var coreDataShoppingList: CoreDataShoppingList
+    private var coreDataShoppingList: CoreDataShoppingList
     private var shoppingLists: [ShoppingList]
     
     init(itemList: [Item] = [], appDel: AppDelegate, shoppingLists: [ShoppingList] = []) {
@@ -26,11 +26,14 @@ class User {
         let fetchRequest =
             NSFetchRequest<NSManagedObject>(entityName: "ItemModel")
         
+        let shoppingListFetchRequest: NSFetchRequest<NSManagedObject> = NSFetchRequest(entityName: "ShoppingListModel")
+        
         let entity = NSEntityDescription.entity(forEntityName: "ItemModel", in: managedContext)
+        let shoppingListEntity = NSEntityDescription.entity(forEntityName: "ShoppingListModel", in: managedContext)
         
         self.coreDataInterface = CoreDataObject(appDel: appDel, managedContext: managedContext, fetchReq: fetchRequest, entity: entity!)
         
-        //self.coreDataShoppingList(
+        self.coreDataShoppingList = CoreDataShoppingList(appDel: appDel, newManagedContext: managedContext, newFetchReq: shoppingListFetchRequest, newEntity: shoppingListEntity!)
         self.shoppingLists = shoppingLists
 
     }
@@ -77,24 +80,31 @@ class User {
         return coreDataInterface.getNumberOfItemsPersisted()
     }
     
-    private func doesShoppingListContain(shopList: ShoppingList) -> Bool {
+    private func doesShoppingListContain(shopListName: String) -> Bool {
         for shoppingList in shoppingLists {
-            if shoppingList.getListName() == shoppingList.getListName() {
+            if shoppingList.getListName() == shopListName {
                 return true
             }
         }
         return false
     }
 
-    func setUpShoppingLists() {
-        
-        for item in itemList {
-            let newShoppingList: ShoppingList = ShoppingList(listName: item.shoppingList)
-            
-            if !doesShoppingListContain(shopList: newShoppingList) && !item.shoppingList.isEmpty {
-                shoppingLists.append(newShoppingList)
+    func setUpShoppingLists(shoppingListItems: [Item]) {
+        for item in shoppingListItems {
+            if doesShoppingListContain(shopListName: item.shoppingList) {
+                guard let INDEX = getIndexOfShoppingList(shoppingListName: item.shoppingList) else {
+                    return
+                }
+                shoppingLists[INDEX].addItemToKey(item: item)
             }
         }
+    }
+    
+    private func getIndexOfShoppingList(shoppingListName: String) -> Int? {
+        guard let index = shoppingLists.index(where: { $0.getListName() == shoppingListName }) else {
+            return nil
+        }
+        return index
     }
     
     func addItemsToShoppingLists() {
@@ -157,17 +167,41 @@ class User {
         }
     }
     
+    func adaptShoppingListModelToShoppingListList(shoppingListModels: [ShoppingListModel]) {
+        var shoppingListsList: [ShoppingList] = []
+        
+        if shoppingListsList.isEmpty, !shoppingListModels.isEmpty {
+            for model in shoppingListModels {
+                if let shoppingList = adaptShoppingListModelToShoppingList(shoppingListModel: model) {
+                    shoppingListsList.append(shoppingList)
+                }
+            }
+            shoppingLists = shoppingListsList
+        }
+    }
+    
+    func setUpUser() {
+        fetchSaveDataFromCoreData()
+    }
+    
+    private func fetchSaveDataFromCoreData() {
+        fetchInventorySaveData()
+        fetchShoppingLists()
+        fetchShoppingListItems()
+    }
     func fetchInventorySaveData() {
         let itemModels: [ItemModel] = coreDataInterface.fetchSavedData()
         adaptItemModelToItemList(itemModels: itemModels)
     }
     
     func fetchShoppingListItems() {
-        
+        let shoppingListItemModels: [ItemModel] = coreDataInterface.fetchShoppingListItems()
+        setUpShoppingLists(shoppingListItems: adaptShoppingListItemModelToItem(itemModels: shoppingListItemModels))
     }
     
     func fetchShoppingLists() {
-        
+        let shoppingListModels: [ShoppingListModel] = coreDataShoppingList.fetchSavedData()
+        adaptShoppingListModelToShoppingListList(shoppingListModels: shoppingListModels)
     }
     
     func adaptItemModelToItem(itemModel: ItemModel) -> Item? {
@@ -194,6 +228,17 @@ class User {
             }
         }
         return itemMods
+    }
+    
+    func adaptShoppingListItemModelToItem(itemModels: [ItemModel]) -> [Item] {
+        var items: [Item] = []
+        
+        for itemModel in itemModels {
+            if let ITEM = adaptItemModelToItem(itemModel: itemModel) {
+                items.append(ITEM)
+            }
+        }
+        return items
     }
     
     func adaptShoppingListModelToShoppingList(shoppingListModel: ShoppingListModel) -> ShoppingList?  {
@@ -255,5 +300,6 @@ class User {
     
     func addShoppingList(shoppingList: ShoppingList) {
         shoppingLists.append(shoppingList)
+        coreDataShoppingList.saveShoppingList(shoppingList: shoppingList)
     }
 }

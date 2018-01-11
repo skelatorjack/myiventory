@@ -55,6 +55,21 @@ class CoreDataObject {
         return items as! [ItemModel]
     }
     
+    func fetchShoppingListItems() -> [ItemModel] {
+        var shoppingListItems: [NSManagedObject] = []
+        let shoppingListItemSearchCriteria: [NSPredicate] = getShoppingListItemCriteria()
+    
+        fetchRequest.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: shoppingListItemSearchCriteria)
+        
+        do {
+            shoppingListItems = try managedContext.fetch(fetchRequest)
+        } catch {
+            print("Failed to fetch save data")
+        }
+        
+        return shoppingListItems as! [ItemModel]
+    }
+    
     func saveItem(item: Item, itemList: inout [Item]) {
         let itemToSave = NSManagedObject(entity: entity, insertInto: managedContext)
         

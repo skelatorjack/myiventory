@@ -24,8 +24,7 @@ class ItemListViewController: UITableViewController, AddItemDelegate, UpdateItem
         // Do any additional setup after loading the view, typically from a nib.
         tableView.dataSource = self
         tableView.rowHeight = 64
-        user.fetchInventorySaveData()
-        user.setUpShoppingLists()
+        user.setUpUser()
     }
 
     override func didReceiveMemoryWarning() {

@@ -61,7 +61,7 @@ class CoreDataShoppingList {
     
     private func updateCoreDataShoppingList(coreDataList: NSManagedObject, with shoppingList: ShoppingList) {
         coreDataList.setValue(shoppingList.getListName(), forKey: "listName")
-        coreDataList.setValue(shoppingList.getTotalNumberOfItemsInList(), forKey: "numberOfItems")
+        coreDataList.setValue(shoppingList.getTotalNumberOfItemsInList(), forKey: "numberOfItemsInList")
     }
     
     func updateList(oldShoppingList: ShoppingList, newShoppingList: ShoppingList) {
