@@ -229,14 +229,14 @@ class UserTests: XCTestCase {
     func test_didFetchDataFromCoreData() {
         
         var itemCountFromFetch: Int = 0
-        
-        testUser.fetchFromCoreData()
+        testUser.add(item: testItem)
+        testUser.fetchInventorySaveData()
         
         itemCountFromFetch = testUser.getNumberOfItemsFromCoreData()
         
         XCTAssertFalse(testUser.isListEmpty())
         XCTAssertEqual(testUser.getItemCount(), itemCountFromFetch)
-
+        testUser.delete(at: 0)
     }
     
     func test_whenListIsNotEmptyAndCoreDataListIsEmpty_DonotSetItemList() {
@@ -254,7 +254,7 @@ class UserTests: XCTestCase {
     func test_whenListIsNotEmptyAndCoreDataListIsNotEmpty_DonotSetItemList() {
         
         testUser.add(item: testItem)
-        testUser.fetchFromCoreData()
+        testUser.fetchInventorySaveData()
         
         XCTAssertTrue(testUser.getItemCount() == 1)
         deleteAfterTest(item: testItem)
@@ -269,7 +269,9 @@ class UserTests: XCTestCase {
     }
     
     func test_whenListIsEmptyAndCoreDataListIsNotEmpty_DoSetItemList() {
-        testUser.fetchFromCoreData()
+        testUser.add(item: testItem)
+        testUser.fetchInventorySaveData()
         XCTAssertFalse(testUser.isListEmpty())
+        testUser.delete(at: 0)
     }
 }
