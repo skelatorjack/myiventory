@@ -56,6 +56,18 @@ class ShoppingList {
         return totalCount
     }
     
+    func getAllItemsInShoppingList() -> [Item] {
+        var listOfAllItems: [Item] = []
+        let ALL_KEYS = getStores()
+        
+        for store in ALL_KEYS {
+            listOfAllItems.append(contentsOf: getItemList(with: store))
+        }
+        
+        return listOfAllItems
+    }
+    
+    
     func calculateTotalNumberOfItems(with key: String) -> Int {
         var totalCountInShop: Int = 0
         

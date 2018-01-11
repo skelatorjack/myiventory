@@ -24,7 +24,7 @@ class ItemListViewController: UITableViewController, AddItemDelegate, UpdateItem
         // Do any additional setup after loading the view, typically from a nib.
         tableView.dataSource = self
         tableView.rowHeight = 64
-        user.fetchFromCoreData()
+        user.fetchInventorySaveData()
         user.setUpShoppingLists()
     }
 
@@ -107,14 +107,38 @@ class ItemListViewController: UITableViewController, AddItemDelegate, UpdateItem
         refreshTable()
     }
     
+    func updateItem(oldItem: Item, newItem: Item, indexOfUpdate: Int, listIndex: Int) {
+        print("Updating \(oldItem) at index \(indexOfUpdate) with \(newItem) in shopping list \(listIndex)")
+    }
+    
     func updateUser(with shoppingList: ShoppingList, at index: Int, update: String) {
-        user.updateShoppingList(at: index, with: shoppingList)
+        if update == "addItem" {
+            print("Need to figure out what item to add.")
+        }
+        else if update == "deleteItemFromShoppingList" {
+            print("Need to delete item from shopping list")
+        }
     }
     
     func add(shoppingList: ShoppingList) {
         user.addShoppingList(shoppingList: shoppingList)
     }
     
+    func remove(shoppingList: ShoppingList, index: Int) {
+        user.deleteShoppingList(at: index)
+    }
+    
+    func addItem(to list: Int, item: Item) {
+        print("Adding item to list \(list)")
+    }
+    
+    func update(shoppingListName: String, at index: Int) {
+        print("Updating shopping list \(index) with \(shoppingListName)")
+    }
+    
+    func removeItemFromShoppingList(listIndex: Int, itemToDelete: Item) {
+        print("Need to delete item from shopping list")
+    }
     private func deleteItemFromCoreData(at index: Int) {
         user.delete(at: index)
         refreshTable()

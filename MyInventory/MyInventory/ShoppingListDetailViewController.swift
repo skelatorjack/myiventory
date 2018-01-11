@@ -10,8 +10,10 @@ import Foundation
 import UIKit
 
 protocol UpdateShoppingList: class {
-    func update(shoppingList: ShoppingList, update: UpdateShoppingListCase)
-    func move(item: Item)
+    func deleteItemFromList(key: String, index: Int)
+    func updateItemFromList(key: String, index: Int, newItem: Item)
+    func move(item: Item, to newShoppingList: String, oldItem: Item, indexOfMovedItem: Int)
+    func addItemToShoppingList(item: Item)
 }
 
 class ShoppingListDetailViewController: UITableViewController, AddItemToList, UpdateItemInShoppingListDelegate, ChangeItemShoppingListDelegate {
@@ -159,9 +161,8 @@ class ShoppingListDetailViewController: UITableViewController, AddItemToList, Up
             print("Deleting item at index \(index.row) in shop \(self.shopNames[index.section]) in list \(self.shopListName)")
             let DELETE_KEY: String = self.shopNames[index.section]
             let DELETE_INDEX: Int = index.row
-            
+            self.delegate?.deleteItemFromList(key: DELETE_KEY, index: DELETE_INDEX)
             self.deleteEntry(key: DELETE_KEY, index: DELETE_INDEX)
-            self.delegate?.update(shoppingList: self.shoppingListToDisplay, update: UpdateShoppingListCase.DeleteItemFromShopList)
             self.reloadTable()
         }
         let changeShoppingListOfItem = UITableViewRowAction(style: .normal, title: "Change List") { action, index in
@@ -254,11 +255,12 @@ class ShoppingListDetailViewController: UITableViewController, AddItemToList, Up
             shoppingListToDisplay.addItemToKey(item: item)
             shopNames.append(item.shopName)
         }
-        delegate?.update(shoppingList: shoppingListToDisplay, update: UpdateShoppingListCase.AddItemToShopList)
+        delegate?.addItemToShoppingList(item: item)
         reloadTable()
     }
     
     func updateItem(updatedItem: Item, update: UpdateShoppingListCase) {
+        delegate?.updateItemFromList(key: getOldItem().shopName, index: indexOfUpdatedItem, newItem: updatedItem)
         addItemToShoppingList(oldItem: getOldItem(), updatedItem: updatedItem)
         reloadTable()
     }
@@ -278,11 +280,12 @@ class ShoppingListDetailViewController: UITableViewController, AddItemToList, Up
     
     func move(list: String) {
         print("Moving item to \(list)")
-        guard let ITEM_TO_DELETE: Item = shoppingListToDisplay.getValue(key: moveItemSection, index: indexOfMovedItem) else {
+        guard let OLD_ITEM: Item = shoppingListToDisplay.getValue(key: moveItemSection, index: indexOfMovedItem) else {
             return
         }
-        let NEW_ITEM: Item = shoppingListToDisplay.changeShoppingList(oldItem: ITEM_TO_DELETE, newListName: list)
-        delegate?.move(item: NEW_ITEM)
+        let NEW_ITEM: Item = shoppingListToDisplay.changeShoppingList(oldItem: OLD_ITEM, newListName: list)
+        
+        delegate?.move(item: NEW_ITEM, to: list, oldItem: OLD_ITEM, indexOfMovedItem: indexOfMovedItem)
         shoppingListToDisplay.deleteItemFromList(key: moveItemSection, index: indexOfMovedItem)
         reloadTable()
     }

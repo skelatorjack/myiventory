@@ -12,6 +12,11 @@ import UIKit
 protocol UpdateUserWithShoppingList: class {
     func updateUser(with shoppingList: ShoppingList, at index: Int, update: String)
     func add(shoppingList: ShoppingList)
+    func remove(shoppingList: ShoppingList, index: Int)
+    func removeItemFromShoppingList(listIndex: Int, itemToDelete: Item)
+    func addItem(to list: Int, item: Item)
+    func update(shoppingListName: String, at index: Int)
+    func updateItem(oldItem: Item, newItem: Item, indexOfUpdate: Int, listIndex: Int)
 }
 
 enum UpdateShoppingListCase {
@@ -20,6 +25,7 @@ enum UpdateShoppingListCase {
     case DeleteItemFromShopList
     case UpdateItemFromShopList
     case DeleteShopList
+    case UpdateListName
 }
 
 class ShoppingListsViewController: UITableViewController, AddShoppingList, UpdateShoppingList, AddItemToList, UpdateShoppingListName {
@@ -100,10 +106,10 @@ class ShoppingListsViewController: UITableViewController, AddShoppingList, Updat
     override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         let del = UITableViewRowAction(style: .destructive, title: "Delete List") { action, index in
             print("Deleting list at index \(index.row)")
-            let shoppingList:ShoppingList = self.shoppingLists[index.row]
+            self.indexOfShoppingList = index.row
+            self.delegate?.remove(shoppingList: self.shoppingLists[self.indexOfShoppingList], index: self.indexOfShoppingList)
             self.shoppingLists.remove(at: index.row)
             self.removeShoppingListName(at: index.row)
-            self.update(shoppingList: shoppingList, update: UpdateShoppingListCase.DeleteShopList)
         }
         let updateListName = UITableViewRowAction(style: .normal, title: "Update List Name") { action, index in
             print("Updating list name at index \(index.row)")
@@ -121,52 +127,49 @@ class ShoppingListsViewController: UITableViewController, AddShoppingList, Updat
         let newShoppingList: ShoppingList = ShoppingList(listName: shoppingListName)
         
         shoppingLists.append(newShoppingList)
-        update(shoppingList: newShoppingList, update: UpdateShoppingListCase.AddShopList)
-    }
-    
-    func add(item: Item) {
-        let shoppingListToChange: ShoppingList? = shoppingLists.at(index: indexOfShoppingList)
-        
-        if shoppingListToChange != nil {
-            shoppingListToChange?.addItemToKey(item: item)
-            
-            update(shoppingList: shoppingListToChange!, update: UpdateShoppingListCase.AddItemToShopList)
-        }
-    }
-    
-    func update(shoppingList: ShoppingList, update: UpdateShoppingListCase) {
-        switch update {
-        case .AddItemToShopList:
-            delegate?.updateUser(with: shoppingList, at: indexOfShoppingList, update: "addItem")
-        
-        case .DeleteItemFromShopList:
-            break
-            
-        case .AddShopList:
-           addShoppingListName(newName: shoppingList.getListName())
-           delegate?.add(shoppingList: shoppingList)
-            
-        case .DeleteShopList:
-            break
-            
-        default: break
-        }
-        
+        shoppingListNames.append(shoppingListName)
+        delegate?.add(shoppingList: newShoppingList)
         reloadTable()
     }
     
+    func add(item: Item) {
+        delegate?.addItem(to: indexOfShoppingList, item: item)
+    }
+    
+    func addItemToShoppingList(item: Item) {
+        add(item: item)
+    }
+    
     func update(shoppingListName: String) {
+        delegate?.update(shoppingListName: shoppingListName, at: indexOfShoppingList)
         shoppingLists[indexOfShoppingList].setListName(name: shoppingListName)
         shoppingListNames[indexOfShoppingList] = shoppingLists[indexOfShoppingList].getListName()
         shoppingLists[indexOfShoppingList].updateItemsInShoppingList()
         reloadTable()
     }
     
-    func move(item: Item) {
-        let INDEX_OF_ITEM: Int = shoppingLists.index(where: { $0.getListName().hasPrefix(item.shoppingList) })!
+    func deleteItemFromList(key: String, index: Int) {
+        let SHOP_LIST: ShoppingList = shoppingLists[indexOfShoppingList]
         
-        shoppingLists[INDEX_OF_ITEM].addItemToKey(item: item)
-        reloadTable()
+        guard let DELETE_ITEM: Item = SHOP_LIST.getValue(key: key, index: index) else {
+            return
+        }
+        delegate?.removeItemFromShoppingList(listIndex: indexOfShoppingList, itemToDelete: DELETE_ITEM)
+    }
+    
+    func updateItemFromList(key: String, index: Int, newItem: Item) {
+        let SHOP_LIST = shoppingLists[indexOfShoppingList]
+        
+        guard let UPDATE_ITEM = SHOP_LIST.getValue(key: key, index: index) else {
+            return
+        }
+        
+        delegate?.updateItem(oldItem: UPDATE_ITEM, newItem: newItem, indexOfUpdate: index, listIndex: indexOfShoppingList)
+        
+    }
+    
+    func move(item: Item, to newShoppingList: String, oldItem: Item, indexOfMovedItem: Int) {
+        delegate?.updateItem(oldItem: oldItem, newItem: item, indexOfUpdate: indexOfMovedItem, listIndex: indexOfShoppingList)
     }
     
     func reloadTable() {

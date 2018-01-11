@@ -15,6 +15,7 @@ import CoreData
 class User {
     private var itemList: [Item]
     private var coreDataInterface: CoreDataObject
+    //private var coreDataShoppingList: CoreDataShoppingList
     private var shoppingLists: [ShoppingList]
     
     init(itemList: [Item] = [], appDel: AppDelegate, shoppingLists: [ShoppingList] = []) {
@@ -29,6 +30,7 @@ class User {
         
         self.coreDataInterface = CoreDataObject(appDel: appDel, managedContext: managedContext, fetchReq: fetchRequest, entity: entity!)
         
+        //self.coreDataShoppingList(
         self.shoppingLists = shoppingLists
 
     }
@@ -38,6 +40,10 @@ class User {
             return false
         }
         return true
+    }
+    
+    private func isShoppingListIndexValid(index: Int) -> Bool {
+        return index < shoppingLists.count || index > 0
     }
 
     func item(at index: Int) -> Item? {
@@ -151,9 +157,17 @@ class User {
         }
     }
     
-    func fetchFromCoreData() {
+    func fetchInventorySaveData() {
         let itemModels: [ItemModel] = coreDataInterface.fetchSavedData()
         adaptItemModelToItemList(itemModels: itemModels)
+    }
+    
+    func fetchShoppingListItems() {
+        
+    }
+    
+    func fetchShoppingLists() {
+        
     }
     
     func adaptItemModelToItem(itemModel: ItemModel) -> Item? {
@@ -182,6 +196,33 @@ class User {
         return itemMods
     }
     
+    func adaptShoppingListModelToShoppingList(shoppingListModel: ShoppingListModel) -> ShoppingList?  {
+        guard let name = shoppingListModel.listName else {
+                return nil
+        }
+        return ShoppingList(listName: name)
+    }
+    func adaptShoppingListsToShoppingListModels(shoppingLists: [ShoppingList]) -> [ShoppingListModel] {
+        var shoppingListModels: [ShoppingListModel] = []
+        
+        for shoppingList in shoppingLists {
+            if let shopListMod = adaptShoppingListToShoppingListModel(shoppingListToAdapt: shoppingList){
+                shoppingListModels.append(shopListMod)
+            }
+        }
+        
+        return shoppingListModels
+    }
+    
+    func adaptShoppingListToShoppingListModel(shoppingListToAdapt: ShoppingList) -> ShoppingListModel? {
+        let shoppingListModel: ShoppingListModel? = nil
+        
+        shoppingListModel?.listName = shoppingListToAdapt.getListName()
+        shoppingListModel?.numberOfItemsInList = Int16(shoppingListToAdapt.getTotalNumberOfItemsInList())
+        
+        return shoppingListModel
+    }
+    
     func adaptItemToItemModel(itemToAdapt: Item) -> ItemModel? {
         let itemModel: ItemModel? = nil
     
@@ -194,8 +235,7 @@ class User {
     }
     
     func shoppingList(at index: Int) -> ShoppingList? {
-        
-        if isIndexValid(index: index) {
+        if isShoppingListIndexValid(index: index) {
             return shoppingLists[index]
         }
         return nil
