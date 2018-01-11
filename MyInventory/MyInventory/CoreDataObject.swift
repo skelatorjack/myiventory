@@ -122,5 +122,13 @@ class CoreDataObject {
         
         return searchCriteria
     }
+    
+    func getShoppingListItemCriteria() -> [NSPredicate] {
+        let shoppingListSearchCriteria: [NSPredicate] = [
+            NSPredicate(format: "shoppingListId != %@", "")
+        ]
+        
+        return shoppingListSearchCriteria
+    }
 
 }
