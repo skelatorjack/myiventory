@@ -191,9 +191,12 @@ class User {
     }
     func fetchInventorySaveData() {
         let itemModels: [ItemModel] = coreDataInterface.fetchSavedData()
-        adaptItemModelToItemList(itemModels: itemModels)
+        let items = adaptShoppingListItemModelToItem(itemModels: itemModels)
     }
     
+    private func filterOutShoppingListItems(itemList: [Item]) {
+        
+    }
     func fetchShoppingListItems() {
         let shoppingListItemModels: [ItemModel] = coreDataInterface.fetchShoppingListItems()
         setUpShoppingLists(shoppingListItems: adaptShoppingListItemModelToItem(itemModels: shoppingListItemModels))
@@ -210,12 +213,13 @@ class User {
         
         guard let name = itemModel.name,
             let owner = itemModel.ownerOfItem,
-            let shoppingList = itemModel.shoppingListId else {
+            let shoppingList = itemModel.shoppingListId,
+            let shopName = itemModel.shopName else {
                 
                 return nil
         }
         
-        return Item(newName: name, newOwner: owner, newQuantity: quant, newShoppingList: shoppingList)
+        return Item(newName: name, newOwner: owner, newQuantity: quant, newShoppingList: shoppingList, shopName: shopName)
     }
     
     func adaptItemsToItemModels(items: [Item]) -> [ItemModel] {
@@ -298,8 +302,23 @@ class User {
         }
     }
     
+    func deleteItemFromShoppingList(itemToDelete: Item) {
+        coreDataInterface.deleteShoppingListItem(itemToDelete: itemToDelete)
+    }
+    
     func addShoppingList(shoppingList: ShoppingList) {
         shoppingLists.append(shoppingList)
         coreDataShoppingList.saveShoppingList(shoppingList: shoppingList)
+    }
+    
+    func updateItemInShoppingList(oldItem: Item, newItem: Item) {
+        coreDataInterface.updateItem(oldItem: oldItem, newItem: newItem, itemList: &itemList)
+    }
+    
+    func addItemToShoppingList(index: Int, item: Item) {
+        if isShoppingListIndexValid(index: index) {
+            // shoppingLists[index].addItemToKey(item: item)
+            add(item: item)
+        }
     }
 }

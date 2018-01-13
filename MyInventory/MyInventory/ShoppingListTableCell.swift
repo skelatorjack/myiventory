@@ -16,6 +16,6 @@ class ShoppingListTableCell: UITableViewCell {
     
     func decorate(with shoppingList: ShoppingList) {
         shoppingListNameLabel.text = shoppingList.getListName()
-        shoppingListCountLabel.text = "\(shoppingList.getTotalNumberOfItemsInList())"
+        shoppingListCountLabel.text = "\(shoppingList.getTotalNumberOfItems())"
     }
 }

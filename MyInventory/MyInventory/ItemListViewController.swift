@@ -108,6 +108,7 @@ class ItemListViewController: UITableViewController, AddItemDelegate, UpdateItem
     
     func updateItem(oldItem: Item, newItem: Item, indexOfUpdate: Int, listIndex: Int) {
         print("Updating \(oldItem) at index \(indexOfUpdate) with \(newItem) in shopping list \(listIndex)")
+        user.updateItemInShoppingList(oldItem: oldItem, newItem: newItem)
     }
     
     func updateUser(with shoppingList: ShoppingList, at index: Int, update: String) {
@@ -129,6 +130,7 @@ class ItemListViewController: UITableViewController, AddItemDelegate, UpdateItem
     
     func addItem(to list: Int, item: Item) {
         print("Adding item to list \(list)")
+        user.addItemToShoppingList(index: list, item: item)
     }
     
     func update(shoppingListName: String, at index: Int) {
@@ -137,6 +139,7 @@ class ItemListViewController: UITableViewController, AddItemDelegate, UpdateItem
     
     func removeItemFromShoppingList(listIndex: Int, itemToDelete: Item) {
         print("Need to delete item from shopping list")
+        user.deleteItemFromShoppingList(itemToDelete: itemToDelete)
     }
     private func deleteItemFromCoreData(at index: Int) {
         user.delete(at: index)
