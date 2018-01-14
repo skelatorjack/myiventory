@@ -39,6 +39,7 @@ class ShoppingListsViewController: UITableViewController, AddShoppingList, Updat
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setShoppingListNames()
     }
     
     func setShoppingLists(userShoppingLists: [ShoppingList]) {
