@@ -315,6 +315,12 @@ class User {
         coreDataInterface.updateItem(oldItem: oldItem, newItem: newItem, itemList: &itemList)
     }
     
+    func updateShoppingListName(newShoppingListName: String, index: Int) {
+        print("Updating shopping list \(index)\n")
+        print("Before: \(shoppingLists[index].getListName())\n")
+        print("After: \(newShoppingListName)\n")
+    }
+    
     func addItemToShoppingList(index: Int, item: Item) {
         if isShoppingListIndexValid(index: index) {
             // shoppingLists[index].addItemToKey(item: item)
