@@ -135,6 +135,7 @@ class ItemListViewController: UITableViewController, AddItemDelegate, UpdateItem
     
     func update(shoppingListName: String, at index: Int) {
         print("Updating shopping list \(index) with \(shoppingListName)")
+        user.updateShoppingListName(newShoppingListName: shoppingListName, index: index)
     }
     
     func removeItemFromShoppingList(listIndex: Int, itemToDelete: Item) {
