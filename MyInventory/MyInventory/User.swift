@@ -298,6 +298,10 @@ class User {
     
     func deleteShoppingList(at index: Int) {
         if shoppingList(at: index) != nil {
+            let shoppingListToDelete = shoppingLists[index]
+            
+            coreDataShoppingList.deleteShoppingList(shoppingListToDelete: shoppingListToDelete)
+            coreDataInterface.deleteShoppingListItems(shoppingListName: shoppingListToDelete.getListName())
             shoppingLists.remove(at: index)
         }
     }
@@ -319,6 +323,11 @@ class User {
         print("Updating shopping list \(index)\n")
         print("Before: \(shoppingLists[index].getListName())\n")
         print("After: \(newShoppingListName)\n")
+        
+        let shoppingListToUpdate = shoppingLists[index]
+        
+        coreDataShoppingList.updateListName(shoppingList: shoppingListToUpdate, newShoppingListName: newShoppingListName)
+        coreDataInterface.updateItemsOfChangedList(oldListName: shoppingListToUpdate.getListName(), newListName: newShoppingListName)
     }
     
     func addItemToShoppingList(index: Int, item: Item) {

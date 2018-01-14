@@ -111,6 +111,7 @@ class ShoppingListsViewController: UITableViewController, AddShoppingList, Updat
             self.delegate?.remove(shoppingList: self.shoppingLists[self.indexOfShoppingList], index: self.indexOfShoppingList)
             self.shoppingLists.remove(at: index.row)
             self.removeShoppingListName(at: index.row)
+            self.reloadTable()
         }
         let updateListName = UITableViewRowAction(style: .normal, title: "Update List Name") { action, index in
             print("Updating list name at index \(index.row)")

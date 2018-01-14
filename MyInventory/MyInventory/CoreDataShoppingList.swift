@@ -40,7 +40,6 @@ class CoreDataShoppingList {
     private func getSearchCriteria(shoppingList: ShoppingList) -> [NSPredicate] {
         let searchCriteria: [NSPredicate] = [
             NSPredicate(format: "listName == %@", shoppingList.getListName()),
-            NSPredicate(format: "numberOfItems == %@", shoppingList.getTotalNumberOfItemsInList())
         ]
         
         return searchCriteria
@@ -64,6 +63,10 @@ class CoreDataShoppingList {
         coreDataList.setValue(shoppingList.getTotalNumberOfItemsInList(), forKey: "numberOfItemsInList")
     }
     
+    private func updateCoreDataShoppingListName(coreDataList: NSManagedObject, newListName: String) {
+        coreDataList.setValue(newListName, forKey: "listName")
+    }
+    
     func updateList(oldShoppingList: ShoppingList, newShoppingList: ShoppingList) {
         let searchCriteria: [NSPredicate] = getSearchCriteria(shoppingList: oldShoppingList)
         
@@ -76,6 +79,21 @@ class CoreDataShoppingList {
             try managedContext.save()
         } catch {
             print("Could not update list \(error)")
+        }
+    }
+    
+    func updateListName(shoppingList: ShoppingList, newShoppingListName: String) {
+        let searchCriteria: [NSPredicate] = getSearchCriteria(shoppingList: shoppingList)
+        
+        fetchRequest.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: searchCriteria)
+        
+        do {
+            let searchedShoppingLists = try managedContext.fetch(fetchRequest)
+            guard let firstList = searchedShoppingLists.first else { return }
+            updateCoreDataShoppingListName(coreDataList: firstList, newListName: newShoppingListName)
+            try managedContext.save()
+        } catch {
+            print("Could not update list name")
         }
     }
     
