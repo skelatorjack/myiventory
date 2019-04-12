@@ -19,7 +19,7 @@ protocol UpdateItemInShoppingListDelegate: class {
     func updateItem(updatedItem: Item, update: UpdateShoppingListCase)
 }
 
-class UpdateItemInShoppingListViewController: UIViewController, UITextFieldDelegate {
+class UpdateItemInShoppingListViewController: UIViewController, UITextFieldDelegate, UIPickerViewDataSource, UIPickerViewDelegate {
     
     private var itemToChange: Item = Item()
     weak var delegate: UpdateItemInShoppingListDelegate?
@@ -29,7 +29,7 @@ class UpdateItemInShoppingListViewController: UIViewController, UITextFieldDeleg
     @IBOutlet weak var updateQuantityField: UITextField!
     @IBOutlet weak var updateOwnerField: UITextField!
     @IBOutlet weak var updateStoreField: UITextField!
-    
+     @IBOutlet weak var itemTypePicker: UIPickerView!
     @IBOutlet weak var updateItemButton: UIButton!
     
     @IBAction func updateItemPressed(_ sender: UIButton) {
@@ -40,6 +40,8 @@ class UpdateItemInShoppingListViewController: UIViewController, UITextFieldDeleg
         let _ = navigationController?.popViewController(animated: true)
     }
     
+     private let itemCategoryList: Array<ItemCategory> = [ItemCategory.Food, ItemCategory.Cleaning, ItemCategory.Clothes, ItemCategory.Fashion, ItemCategory.Tech, ItemCategory.Tools, ItemCategory.Yard, ItemCategory.Other]
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -48,6 +50,9 @@ class UpdateItemInShoppingListViewController: UIViewController, UITextFieldDeleg
         updateQuantityField.text = "\(itemToChange.itemQuantity)"
         updateStoreField.text = itemToChange.shopName
         updateItemButton.isEnabled = false
+        
+        itemTypePicker.delegate = self
+        itemTypePicker.dataSource = self
         
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(backgroundTapped))
         view.addGestureRecognizer(tapGestureRecognizer)
@@ -73,6 +78,16 @@ class UpdateItemInShoppingListViewController: UIViewController, UITextFieldDeleg
         return itemToChange
     }
     
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return itemCategoryList.count
+    }
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return itemCategoryList[row].rawValue
+    }
+    
     private func validateInput() {
         let updatedItem: Item = createItem()
         
@@ -91,8 +106,12 @@ class UpdateItemInShoppingListViewController: UIViewController, UITextFieldDeleg
         let updatedStore: String = updateStoreField.text!
         let updatedShopList: String = itemToChange.shoppingList
         
-        let updatedItem: Item = Item(newName: updatedName, newOwner: updatedOwner, newQuantity: Int(updatedQuantity)!, newShoppingList: updatedShopList, shopName: updatedStore)
+        let updatedItem: Item = Item(newName: updatedName, newOwner: updatedOwner, newQuantity: Int(updatedQuantity)!, newShoppingList: updatedShopList, shopName: updatedStore, newCategory: getItemCategory())
         
         return updatedItem
+    }
+    private func getItemCategory() -> ItemCategory {
+        print("Selected \(itemTypePicker.selectedRow(inComponent: 0))")
+        return itemCategoryList[itemTypePicker.selectedRow(inComponent: 0)]
     }
 }

@@ -124,8 +124,8 @@ class User {
     }
     
     func add(item: Item) {
-        // itemList.append(item)
-        //coreDataInterface.saveItem(item: item, itemList: &itemList)
+        itemList.append(item)
+        coreDataInterface.saveItem(item: item, itemList: &itemList)
     }
     
     func delete(at index: Int) {
@@ -207,19 +207,35 @@ class User {
         adaptShoppingListModelToShoppingListList(shoppingListModels: shoppingListModels)
     }
     
+    private func convertStringToType(type: String) -> ItemCategory {
+        switch type {
+        case "Food": return ItemCategory.Food
+        case "Tech": return ItemCategory.Tech
+        case "Cleaning": return ItemCategory.Cleaning
+        case "Clothes" : return ItemCategory.Clothes
+        case "Fashion" : return ItemCategory.Fashion
+        case "Tools" : return ItemCategory.Tools
+        case "Yard" : return ItemCategory.Yard
+        default: return ItemCategory.Other
+        }
+    }
     func adaptItemModelToItem(itemModel: ItemModel) -> Item? {
         
-        let quant = Int(itemModel.quantityOfItem)
+        let quantity = Int(itemModel.quantityOfItem)
+        var id: UUID? = nil
+        let category = convertStringToType(type: itemModel.itemCategory!)
         
         guard let name = itemModel.name,
             let owner = itemModel.ownerOfItem,
-            let shoppingList = itemModel.shoppingListId,
+            let shoppingList = itemModel.shoppingListName,
             let shopName = itemModel.shopName else {
-                
-                return nil
+            return nil
+        }
+        if let shopListId = itemModel.shoppingListId, shopListId != "None" {
+            id = UUID(uuidString: shopListId)
         }
         
-        return Item(newName: name, newOwner: owner, newQuantity: quant, newShoppingList: shoppingList, shopName: shopName)
+        return Item(newName: name, newOwner: owner, newQuantity: quantity, newShoppingList: shoppingList, shopName: shopName, newCategory: category, newListID: id)
     }
     
     func adaptItemsToItemModels(items: [Item]) -> [ItemModel] {
@@ -278,7 +294,6 @@ class User {
         itemModel?.name = itemToAdapt.itemName
         itemModel?.ownerOfItem = itemToAdapt.itemOwner
         itemModel?.quantityOfItem = Int16(itemToAdapt.itemQuantity)
-        itemModel?.shoppingListId = itemToAdapt.shoppingList
         
         return itemModel
     }
@@ -312,7 +327,7 @@ class User {
     
     func addShoppingList(shoppingList: ShoppingList) {
         shoppingLists.append(shoppingList)
-        coreDataShoppingList.saveShoppingList(shoppingList: shoppingList)
+        //coreDataShoppingList.saveShoppingList(shoppingList: shoppingList)
     }
     
     func updateItemInShoppingList(oldItem: Item, newItem: Item) {

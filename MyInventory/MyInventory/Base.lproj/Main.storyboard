@@ -322,7 +322,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="cdp-OU-R9z" userLabel="Main Stack View">
-                                <rect key="frame" x="60" y="189" width="200" height="190"/>
+                                <rect key="frame" x="60" y="61" width="200" height="446.5"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Opl-fy-g1x" userLabel="Item Name Stack View">
                                         <rect key="frame" x="0.0" y="0.0" width="200" height="30"/>
@@ -395,8 +395,17 @@
                                             </textField>
                                         </subviews>
                                     </stackView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Item Category" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zHQ-VK-0vE" userLabel="Item Category">
+                                        <rect key="frame" x="0.0" y="160" width="200" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0Wl-p3-DSh">
+                                        <rect key="frame" x="0.0" y="190.5" width="200" height="216"/>
+                                    </pickerView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5aS-eh-Vwz">
-                                        <rect key="frame" x="0.0" y="160" width="200" height="30"/>
+                                        <rect key="frame" x="0.0" y="416.5" width="200" height="30"/>
                                         <state key="normal" title="Add Item To List"/>
                                         <connections>
                                             <action selector="addItemToListPressed:" destination="dCs-bt-uCQ" eventType="touchUpInside" id="9So-vz-20s"/>
@@ -419,6 +428,7 @@
                     </view>
                     <connections>
                         <outlet property="addItemToList" destination="5aS-eh-Vwz" id="ub9-3z-Zqs"/>
+                        <outlet property="itemTypePicker" destination="0Wl-p3-DSh" id="Jaa-Gw-SxF"/>
                         <outlet property="nameField" destination="2j7-SP-qr9" id="ZEd-JE-tan"/>
                         <outlet property="ownerField" destination="TGW-pS-miE" id="Gud-Sb-eRF"/>
                         <outlet property="quantityField" destination="4IT-WR-EeL" id="Sx3-h5-n05"/>
@@ -442,7 +452,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="DQR-k8-Vy8" userLabel="Main Stack View">
-                                <rect key="frame" x="60" y="189" width="200" height="190"/>
+                                <rect key="frame" x="60" y="61" width="200" height="446.5"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="1Ac-ej-vQq" userLabel="Item Name Stack View">
                                         <rect key="frame" x="0.0" y="0.0" width="200" height="30"/>
@@ -515,8 +525,17 @@
                                             </textField>
                                         </subviews>
                                     </stackView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Item Category" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5hP-RE-mNn">
+                                        <rect key="frame" x="0.0" y="160" width="200" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PFa-rz-jl5" userLabel="Item Type Picker">
+                                        <rect key="frame" x="0.0" y="190.5" width="200" height="216"/>
+                                    </pickerView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ear-6j-CHL">
-                                        <rect key="frame" x="0.0" y="160" width="200" height="30"/>
+                                        <rect key="frame" x="0.0" y="416.5" width="200" height="30"/>
                                         <state key="normal" title="Update Item In List"/>
                                         <connections>
                                             <action selector="addItemToListPressed:" destination="dCs-bt-uCQ" eventType="touchUpInside" id="EbA-Ja-DP8"/>
@@ -539,6 +558,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="itemTypePicker" destination="PFa-rz-jl5" id="jku-jd-MsN"/>
                         <outlet property="updateItemButton" destination="ear-6j-CHL" id="CK9-0U-juB"/>
                         <outlet property="updateNameField" destination="26w-Fa-qsR" id="Mmw-Xy-6jC"/>
                         <outlet property="updateOwnerField" destination="TLv-3W-qzm" id="uxy-1j-LJW"/>
@@ -751,7 +771,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="dAF-oR-PE3" userLabel="Main Stack View">
-                                <rect key="frame" x="60" y="209" width="200" height="150"/>
+                                <rect key="frame" x="60" y="81" width="200" height="406.5"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IVW-OT-A1c" userLabel="Name Stack View">
                                         <rect key="frame" x="0.0" y="0.0" width="200" height="30"/>
@@ -804,8 +824,17 @@
                                             </textField>
                                         </subviews>
                                     </stackView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Item Category" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="buR-58-MNu">
+                                        <rect key="frame" x="0.0" y="120" width="200" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="umq-uD-NKQ" userLabel="Item Category Picker View">
+                                        <rect key="frame" x="0.0" y="150.5" width="200" height="216"/>
+                                    </pickerView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4bm-dq-yd7">
-                                        <rect key="frame" x="0.0" y="120" width="200" height="30"/>
+                                        <rect key="frame" x="0.0" y="376.5" width="200" height="30"/>
                                         <state key="normal" title="Update Item"/>
                                         <connections>
                                             <action selector="addItemPressed:" destination="kNB-iK-tjt" eventType="touchUpInside" id="tQP-P7-mSx"/>
@@ -827,6 +856,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="itemTypePicker" destination="umq-uD-NKQ" id="7zq-XN-BCs"/>
                         <outlet property="updateItemButton" destination="4bm-dq-yd7" id="6Nu-t8-AMm"/>
                         <outlet property="updateNameField" destination="8mO-y4-7kj" id="dBW-Zx-kd0"/>
                         <outlet property="updateOwnerField" destination="33f-Hm-Lsb" id="Xbg-PV-02s"/>

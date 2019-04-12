@@ -182,8 +182,16 @@ class CoreDataObject {
         managedObject.setValue(item.itemName, forKey: "name")
         managedObject.setValue(item.itemOwner, forKey: "ownerOfItem")
         managedObject.setValue(item.itemQuantity, forKey: "quantityOfItem")
-        managedObject.setValue(item.shoppingList, forKey: "shoppingListId")
+        managedObject.setValue(item.shoppingList, forKey: "shoppingListName")
         managedObject.setValue(item.shopName, forKey: "shopName")
+        managedObject.setValue(item.itemCategory.rawValue, forKey: "itemCategory")
+        
+        if let shoppingListId = item.shoppingListID {
+            let idString = shoppingListId.uuidString
+            managedObject.setValue(idString, forKey: "shoppingListId")
+        } else {
+            managedObject.setValue("None", forKey: "shoppingListId")
+        }
     }
     
     private func updateManagedObjectShoppingListName(managedObject: NSManagedObject, shoppingListName: String) {
@@ -195,7 +203,7 @@ class CoreDataObject {
             NSPredicate(format: "name == %@", item.itemName),
             NSPredicate(format: "ownerOfItem == %@", item.itemOwner),
             NSPredicate(format: "quantityOfItem == %@", String(item.itemQuantity)),
-            NSPredicate(format: "shoppingListId == %@", item.shoppingList),
+            NSPredicate(format: "shoppingListName == %@", item.shoppingList),
             NSPredicate(format: "shopName == %@", item.shopName)
         ]
         
