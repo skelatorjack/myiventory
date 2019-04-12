@@ -13,10 +13,13 @@ enum TypeOfAssign {
     case Int
 }
 
-enum ItemMember {
-    case Name
-    case Owner
-    case Quantity
-    case ShoppingList
-    case ShopName
+enum ItemCategory: String {
+    case Food = "Food"
+    case Tech = "Tech"
+    case Cleaning = "Cleaning"
+    case Clothes = "Clothes"
+    case Fashion = "Fashion"
+    case Tools = "Tools"
+    case Yard = "Yard"
+    case Other = "Other"
 }
