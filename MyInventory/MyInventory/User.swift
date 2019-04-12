@@ -125,7 +125,7 @@ class User {
     
     func add(item: Item) {
         // itemList.append(item)
-        coreDataInterface.saveItem(item: item, itemList: &itemList)
+        //coreDataInterface.saveItem(item: item, itemList: &itemList)
     }
     
     func delete(at index: Int) {

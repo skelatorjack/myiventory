@@ -19,13 +19,18 @@ struct Item: Equatable {
     var itemQuantity: Int
     var shoppingList: String
     var shopName: String
+    var itemCategory: ItemCategory
+    var shoppingListID: UUID?
     
-    init(newName: String = "", newOwner: String = "", newQuantity: Int = 0, newShoppingList: String = "", shopName: String = "") {
+    init(newName: String = "", newOwner: String = "", newQuantity: Int = 0, newShoppingList: String = "", shopName: String = "",
+         newCategory: ItemCategory = ItemCategory.Other, newListID: UUID? = nil) {
         self.itemName = newName
         self.itemOwner = newOwner
         self.itemQuantity = newQuantity
         self.shoppingList = newShoppingList
         self.shopName = shopName
+        self.itemCategory = newCategory
+        self.shoppingListID = newListID
     }
     
     static func == (left: Item, right: Item) -> Bool {
@@ -33,7 +38,9 @@ struct Item: Equatable {
             left.shoppingList == right.shoppingList,
             left.itemOwner == right.itemOwner,
             left.itemQuantity == right.itemQuantity,
-            left.shopName == right.shopName {
+            left.shopName == right.shopName,
+            left.itemCategory == right.itemCategory,
+            left.shoppingListID == right.shoppingListID {
             
             return true
         }

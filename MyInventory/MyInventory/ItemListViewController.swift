@@ -97,6 +97,7 @@ class ItemListViewController: UITableViewController, AddItemDelegate, UpdateItem
     }
     
     func addItem(item: Item) {
+        print("Adding item: \(item)")
         user.add(item: item)
         refreshTable()
     }

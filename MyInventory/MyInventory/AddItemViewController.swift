@@ -14,17 +14,18 @@ protocol AddItemDelegate: class {
 }
 
 
-class AddItemViewController: UIViewController, UITextFieldDelegate {
+class AddItemViewController: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
     @IBOutlet weak var nameField: UITextField!
     @IBOutlet weak var quantityField: UITextField!
     @IBOutlet weak var ownerField: UITextField!
-    
+    @IBOutlet weak var itemTypePicker: UIPickerView!
     @IBOutlet weak var addItem: UIButton!
     
     weak var delegate: AddItemDelegate?
     
     private var newItem: Item = Item()
-    
+    private let itemCategoryList: Array<ItemCategory> = [ItemCategory.Food, ItemCategory.Cleaning, ItemCategory.Clothes, ItemCategory.Fashion, ItemCategory.Tech, ItemCategory.Tools, ItemCategory.Yard, ItemCategory.Other]
+
     override func viewDidLoad() {
         super.viewDidLoad()
         addItem.isEnabled = false
@@ -34,7 +35,10 @@ class AddItemViewController: UIViewController, UITextFieldDelegate {
         quantityField.delegate = self
         ownerField.delegate = self
         
-        // set tap gesture recognizer
+        itemTypePicker.delegate = self
+        itemTypePicker.dataSource = self
+        
+        // set tap gesture recognize
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(backgroundTapped))
         view.addGestureRecognizer(tapGestureRecognizer)
     
@@ -49,6 +53,16 @@ class AddItemViewController: UIViewController, UITextFieldDelegate {
         view.endEditing(true)
         enableAddItemPressed()
         return true
+    }
+    
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return itemCategoryList.count
+    }
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return itemCategoryList[row].rawValue
     }
     
     func enableAddItemPressed() {
@@ -68,8 +82,13 @@ class AddItemViewController: UIViewController, UITextFieldDelegate {
     }
     @IBAction func addItemPressed(_ sender: UIButton) {
         print("Add Item pressed.")
-        
+        newItem.itemCategory = getItemCategory()
         delegate?.addItem(item: newItem)
         let _ = navigationController?.popViewController(animated: true)
+    }
+    
+    private func getItemCategory() -> ItemCategory {
+        print("Selected \(itemTypePicker.selectedRow(inComponent: 0))")
+        return itemCategoryList[itemTypePicker.selectedRow(inComponent: 0)]
     }
 }
