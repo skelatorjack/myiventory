@@ -239,7 +239,7 @@ class ShoppingListDetailViewController: UITableViewController, AddItemToList, Up
     }
     
     private func deleteTableSection(shopName: String) {
-        if let deleteIndex = shopNames.index(of: shopName) {
+        if let deleteIndex = shopNames.firstIndex(of: shopName) {
             shopNames.remove(at: deleteIndex)
         }
     }

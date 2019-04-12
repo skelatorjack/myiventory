@@ -17,5 +17,17 @@ extension Array {
         }
         return self[index]
     }
+    func first() -> Element? {
+        if self.count > 0 {
+            return self.first
+        }
+        return nil
+    }
+    func last() -> Element? {
+        if self.count > 0 {
+            return self.last
+        }
+        return nil
+    }
 }
 

@@ -69,7 +69,7 @@ class User {
     }
     
     func getIndexOfItem(itemToFind: Item) -> Int? {
-        return itemList.index(of: itemToFind)
+        return itemList.firstIndex(of: itemToFind)
     }
     
     func getShoppingLists() -> [ShoppingList] {
@@ -101,7 +101,7 @@ class User {
     }
     
     private func getIndexOfShoppingList(shoppingListName: String) -> Int? {
-        guard let index = shoppingLists.index(where: { $0.getListName() == shoppingListName }) else {
+        guard let index = shoppingLists.firstIndex(where: { $0.getListName() == shoppingListName }) else {
             return nil
         }
         return index
