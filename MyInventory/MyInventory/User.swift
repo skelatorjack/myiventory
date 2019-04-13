@@ -124,7 +124,7 @@ class User {
     }
     
     func add(item: Item) {
-        itemList.append(item)
+        //itemList.append(item)
         coreDataInterface.saveItem(item: item, itemList: &itemList)
     }
     
@@ -187,11 +187,11 @@ class User {
     private func fetchSaveDataFromCoreData() {
         fetchInventorySaveData()
         fetchShoppingLists()
-        fetchShoppingListItems()
+        //fetchShoppingListItems()
     }
     func fetchInventorySaveData() {
         let itemModels: [ItemModel] = coreDataInterface.fetchSavedData()
-        let items = adaptShoppingListItemModelToItem(itemModels: itemModels)
+        itemList = adaptShoppingListItemModelToItem(itemModels: itemModels)
     }
     
     private func filterOutShoppingListItems(itemList: [Item]) {
@@ -327,7 +327,7 @@ class User {
     
     func addShoppingList(shoppingList: ShoppingList) {
         shoppingLists.append(shoppingList)
-        //coreDataShoppingList.saveShoppingList(shoppingList: shoppingList)
+        coreDataShoppingList.saveShoppingList(shoppingList: shoppingList)
     }
     
     func updateItemInShoppingList(oldItem: Item, newItem: Item) {

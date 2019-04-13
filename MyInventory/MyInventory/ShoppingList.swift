@@ -13,10 +13,12 @@ class ShoppingList {
     
     private var listName: String
     private var storeAndItems: [String : [Item]]
+    private let shoppingListID: UUID
     
-    init(storeAndItems: [String : [Item]] = [:], listName: String = "") {
+    init(storeAndItems: [String : [Item]] = [:], listName: String = "", shoppingListId: UUID = UUID()) {
         self.storeAndItems = storeAndItems
         self.listName = listName
+        self.shoppingListID = shoppingListId
     }
     
     func setListName(name: String) {
@@ -33,6 +35,14 @@ class ShoppingList {
     
     func getStoresAndItems() -> [String : [Item]] {
         return storeAndItems
+    }
+    
+    func getShoppingListId() -> UUID {
+        return shoppingListID
+    }
+    
+    func convertUUIDToString() -> String {
+        return shoppingListID.uuidString
     }
     
     func getTotalNumberOfItems() -> Int {
