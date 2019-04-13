@@ -44,7 +44,7 @@ class CoreDataObject {
     
     func fetchSavedData() -> [ItemModel] {
         var items: [NSManagedObject] = []
-        let searchCriteria: [NSPredicate] = []
+        let searchCriteria: [NSPredicate] = getInventoryItems()
         
         fetchRequest.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: searchCriteria)
         
@@ -58,9 +58,9 @@ class CoreDataObject {
         return items as! [ItemModel]
     }
     
-    func fetchShoppingListItems() -> [ItemModel] {
+    func fetchShoppingListItems(shoppingList: ShoppingList) -> [ItemModel] {
         var shoppingListItems: [NSManagedObject] = []
-        let shoppingListItemSearchCriteria: [NSPredicate] = getShoppingListItemCriteria()
+        let shoppingListItemSearchCriteria: [NSPredicate] = getShoppingListItemCriteria(shoppingListId: shoppingList.getShoppingListId()!)
     
         fetchRequest.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: shoppingListItemSearchCriteria)
         
@@ -107,8 +107,8 @@ class CoreDataObject {
         }
     }
     
-    func deleteShoppingListItems(shoppingListName: String) {
-        let searchCriteria: [NSPredicate] = getShoppingListSearchCriteria(shoppingListName: shoppingListName)
+    func deleteShoppingListItems(shoppingList: ShoppingList) {
+        let searchCriteria: [NSPredicate] = getShoppingListSearchCriteria(shoppingList: shoppingList)
         
         fetchRequest.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: searchCriteria)
         
@@ -161,23 +161,24 @@ class CoreDataObject {
         }
     }
     
-    func updateItemsOfChangedList(oldListName: String, newListName: String) {
-        let searchCriteria: [NSPredicate] = getShoppingListSearchCriteria(shoppingListName: oldListName)
+    
+    func updateItemsOfChangedList(oldList: ShoppingList, newListName: String) {
+        let searchCriteria: [NSPredicate] = getShoppingListSearchCriteria(shoppingList: oldList)
         
         fetchRequest.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: searchCriteria)
+        let newShoppingList: ShoppingList = ShoppingList(listName: newListName, shoppingListId: oldList.getShoppingListId())
         
         do {
             let searchedForItems = try managedContext.fetch(fetchRequest)
             
             for item in searchedForItems {
-                updateManagedObjectShoppingListName(managedObject: item, shoppingListName: newListName)
+                updateManagedObjectShoppingListName(managedObject: item, shoppingList: newShoppingList)
             }
             try managedContext.save()
         } catch {
             print("Couldn't update list item")
         }
     }
-    
     private func updateManagedObject(managedObject: NSManagedObject, with item: Item) {
         managedObject.setValue(item.itemName, forKey: "name")
         managedObject.setValue(item.itemOwner, forKey: "ownerOfItem")
@@ -194,8 +195,8 @@ class CoreDataObject {
         }
     }
     
-    private func updateManagedObjectShoppingListName(managedObject: NSManagedObject, shoppingListName: String) {
-        managedObject.setValue(shoppingListName, forKey: "shoppingListId")
+    private func updateManagedObjectShoppingListName(managedObject: NSManagedObject, shoppingList: ShoppingList) {
+        managedObject.setValue(shoppingList.getListName(), forKey: "shoppingList")
     }
     
     private func getSearchCriteria(item: Item) -> [NSPredicate] {
@@ -204,14 +205,21 @@ class CoreDataObject {
             NSPredicate(format: "ownerOfItem == %@", item.itemOwner),
             NSPredicate(format: "quantityOfItem == %@", String(item.itemQuantity)),
             NSPredicate(format: "shoppingListName == %@", item.shoppingList),
-            NSPredicate(format: "shopName == %@", item.shopName)
+            NSPredicate(format: "shopName == %@", item.shopName),
+            NSPredicate(format: "shoppingListId == %@", "None")
         ]
         
         return searchCriteria
     }
     
-    private func getShoppingListSearchCriteria(shoppingListName: String) -> [NSPredicate] {
-        return [NSPredicate(format: "shoppingListId == %@", shoppingListName)]
+    private func getInventoryItems() -> [NSPredicate] {
+        return [NSPredicate(format: "shoppingListId == %@", "None")]
+    }
+    
+    private func getShoppingListSearchCriteria(shoppingList: ShoppingList) -> [NSPredicate] {
+        return [NSPredicate(format: "shoppingListName == %@", shoppingList.getListName()),
+                NSPredicate(format: "shoppingListId == %@", shoppingList.convertUUIDToString())
+        ]
     }
     
     private func getInventoryItemSearchCriteria() -> [NSPredicate] {
@@ -221,9 +229,9 @@ class CoreDataObject {
         return searchCriteria
     }
     
-    func getShoppingListItemCriteria() -> [NSPredicate] {
+    func getShoppingListItemCriteria(shoppingListId: UUID) -> [NSPredicate] {
         let shoppingListSearchCriteria: [NSPredicate] = [
-            NSPredicate(format: "shoppingListId != %@", "")
+            NSPredicate(format: "shoppingListId == %@", shoppingListId.uuidString)
         ]
         
         return shoppingListSearchCriteria

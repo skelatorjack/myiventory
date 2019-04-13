@@ -13,9 +13,9 @@ class ShoppingList {
     
     private var listName: String
     private var storeAndItems: [String : [Item]]
-    private let shoppingListID: UUID
+    private let shoppingListID: UUID?
     
-    init(storeAndItems: [String : [Item]] = [:], listName: String = "", shoppingListId: UUID = UUID()) {
+    init(storeAndItems: [String : [Item]] = [:], listName: String = "", shoppingListId: UUID? = nil) {
         self.storeAndItems = storeAndItems
         self.listName = listName
         self.shoppingListID = shoppingListId
@@ -37,12 +37,12 @@ class ShoppingList {
         return storeAndItems
     }
     
-    func getShoppingListId() -> UUID {
+    func getShoppingListId() -> UUID? {
         return shoppingListID
     }
     
     func convertUUIDToString() -> String {
-        return shoppingListID.uuidString
+        return shoppingListID!.uuidString
     }
     
     func getTotalNumberOfItems() -> Int {

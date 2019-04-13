@@ -24,7 +24,7 @@ class AddItemToListViewController: UIViewController, UITextFieldDelegate, UIPick
     
     weak var delegate: AddItemToList?
     
-    private var shopListName: String = ""
+    private var shoppingListToChange: ShoppingList = ShoppingList()
     
     private let itemCategoryList: Array<ItemCategory> = [ItemCategory.Food, ItemCategory.Cleaning, ItemCategory.Clothes, ItemCategory.Fashion, ItemCategory.Tech, ItemCategory.Tools, ItemCategory.Yard, ItemCategory.Other]
     
@@ -50,18 +50,14 @@ class AddItemToListViewController: UIViewController, UITextFieldDelegate, UIPick
             let ownerText = ownerField.text,
             let storeText = storeField.text  else { return }
         
-        let item = Item(newName: nameText, newOwner: ownerText, newQuantity: quantityText, newShoppingList: shopListName, shopName: storeText, newCategory: getItemCategory())
+        let item = Item(newName: nameText, newOwner: ownerText, newQuantity: quantityText, newShoppingList: shoppingListToChange.getListName(), shopName: storeText, newCategory: getItemCategory(), newListID: shoppingListToChange.getShoppingListId())
         
         delegate?.add(item: item)
         let _ = navigationController?.popViewController(animated: true)
     }
     
-    func setShopList(name: String) {
-        shopListName = name
-    }
-    
-    func getShopListName() -> String {
-        return shopListName
+    func setShoppingList(newShoppingList: ShoppingList) {
+        shoppingListToChange = newShoppingList
     }
     
     @objc func backgroundTapped() {

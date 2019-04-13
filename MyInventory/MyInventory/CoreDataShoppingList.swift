@@ -28,6 +28,8 @@ class CoreDataShoppingList {
     func fetchSavedData() -> [ShoppingListModel] {
         var listOfShoppingLists: [NSManagedObject] = []
         
+        fetchRequest.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [])
+        
         do {
             listOfShoppingLists = try managedContext.fetch(fetchRequest)
         } catch {
@@ -62,7 +64,7 @@ class CoreDataShoppingList {
     private func updateCoreDataShoppingList(coreDataList: NSManagedObject, with shoppingList: ShoppingList) {
         coreDataList.setValue(shoppingList.getListName(), forKey: "listName")
         coreDataList.setValue(shoppingList.getTotalNumberOfItemsInList(), forKey: "numberOfItemsInList")
-        coreDataList.setValue(shoppingList.getShoppingListId(), forKey: "shoppingListId")
+        coreDataList.setValue(shoppingList.convertUUIDToString(), forKey: "shoppingListId")
     }
     
     private func updateCoreDataShoppingListName(coreDataList: NSManagedObject, newListName: String) {

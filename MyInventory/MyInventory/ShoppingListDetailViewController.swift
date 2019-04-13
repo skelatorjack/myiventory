@@ -113,7 +113,7 @@ class ShoppingListDetailViewController: UITableViewController, AddItemToList, Up
         if let addItemToListVC = segue.destination as? AddItemToListViewController {
             
             addItemToListVC.delegate = self
-            addItemToListVC.setShopList(name: shopListName)
+            addItemToListVC.setShoppingList(newShoppingList: shoppingListToDisplay)
         }
         else if let updateItemInShoppingListVC = segue.destination as? UpdateItemInShoppingListViewController, segue.identifier == "updateItemInList" {
             print("Going to update Item")

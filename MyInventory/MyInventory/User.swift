@@ -107,20 +107,14 @@ class User {
         return index
     }
     
-    func addItemsToShoppingLists() {
-        let shoppingList: ShoppingList = ShoppingList()
+    func addItemsToShoppingLists(itemList: [Item], shoppingList: ShoppingList) -> ShoppingList {
+        let newShoppingList: ShoppingList = ShoppingList(listName: shoppingList.getListName(), shoppingListId: shoppingList.getShoppingListId())
         
         for item in itemList {
-            if shoppingList.doesKeyExist(key: item.shoppingList) {
-                shoppingList.addItemToKey(item: item)
-            }
-            else {
-                shoppingList.createKey(keyName: item.shoppingList)
-                shoppingList.addItemToKey(item: item)
-            }
+           newShoppingList.addItemToKey(item: item)
         }
         
-        shoppingLists.append(shoppingList)
+        return newShoppingList
     }
     
     func add(item: Item) {
@@ -187,7 +181,7 @@ class User {
     private func fetchSaveDataFromCoreData() {
         fetchInventorySaveData()
         fetchShoppingLists()
-        //fetchShoppingListItems()
+        fetchShoppingListItems()
     }
     func fetchInventorySaveData() {
         let itemModels: [ItemModel] = coreDataInterface.fetchSavedData()
@@ -198,8 +192,15 @@ class User {
         
     }
     func fetchShoppingListItems() {
-        let shoppingListItemModels: [ItemModel] = coreDataInterface.fetchShoppingListItems()
-        setUpShoppingLists(shoppingListItems: adaptShoppingListItemModelToItem(itemModels: shoppingListItemModels))
+        var newShoppingLists: Array<ShoppingList> = Array()
+        print("Size of shoppinglist is \(shoppingLists.count)")
+        for shoppingList in shoppingLists {
+            let shoppingListItemModels: [ItemModel] = coreDataInterface.fetchShoppingListItems(shoppingList: shoppingList)
+            let shoppingListItems = adaptShoppingListItemModelToItem(itemModels: shoppingListItemModels)
+            let newShoppingList = addItemsToShoppingLists(itemList: shoppingListItems, shoppingList: shoppingList)
+            newShoppingLists.append(newShoppingList)
+        }
+        shoppingLists = newShoppingLists
     }
     
     func fetchShoppingLists() {
@@ -262,10 +263,11 @@ class User {
     }
     
     func adaptShoppingListModelToShoppingList(shoppingListModel: ShoppingListModel) -> ShoppingList?  {
+        let id = UUID(uuidString: shoppingListModel.shoppingListId!)
         guard let name = shoppingListModel.listName else {
                 return nil
         }
-        return ShoppingList(listName: name)
+        return ShoppingList(listName: name, shoppingListId: id)
     }
     func adaptShoppingListsToShoppingListModels(shoppingLists: [ShoppingList]) -> [ShoppingListModel] {
         var shoppingListModels: [ShoppingListModel] = []
@@ -315,8 +317,8 @@ class User {
         if shoppingList(at: index) != nil {
             let shoppingListToDelete = shoppingLists[index]
             
+            coreDataInterface.deleteShoppingListItems(shoppingList: shoppingListToDelete)
             coreDataShoppingList.deleteShoppingList(shoppingListToDelete: shoppingListToDelete)
-            coreDataInterface.deleteShoppingListItems(shoppingListName: shoppingListToDelete.getListName())
             shoppingLists.remove(at: index)
         }
     }
@@ -342,7 +344,7 @@ class User {
         let shoppingListToUpdate = shoppingLists[index]
         
         coreDataShoppingList.updateListName(shoppingList: shoppingListToUpdate, newShoppingListName: newShoppingListName)
-        coreDataInterface.updateItemsOfChangedList(oldListName: shoppingListToUpdate.getListName(), newListName: newShoppingListName)
+        coreDataInterface.updateItemsOfChangedList(oldList: shoppingListToUpdate, newListName: newShoppingListName)
     }
     
     func addItemToShoppingList(index: Int, item: Item) {

@@ -126,7 +126,7 @@ class ShoppingListsViewController: UITableViewController, AddShoppingList, Updat
     
     func add(shoppingListName: String) {
         
-        let newShoppingList: ShoppingList = ShoppingList(listName: shoppingListName)
+        let newShoppingList: ShoppingList = ShoppingList(listName: shoppingListName, shoppingListId: UUID())
         
         shoppingLists.append(newShoppingList)
         shoppingListNames.append(shoppingListName)
