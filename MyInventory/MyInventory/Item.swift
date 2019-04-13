@@ -46,6 +46,11 @@ struct Item: Equatable {
         }
         return false
     }
+    
+    func isInventoryItem() -> Bool {
+        return shoppingListID == nil
+    }
+    
     mutating func parseData(name: String, quantity: String, owner: String) {
         if !name.isEmpty {
             itemName = name
