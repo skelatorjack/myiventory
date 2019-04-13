@@ -343,7 +343,9 @@ class User {
         
         let shoppingListToUpdate = shoppingLists[index]
         
+        print("Before updating list.")
         coreDataShoppingList.updateListName(shoppingList: shoppingListToUpdate, newShoppingListName: newShoppingListName)
+        print("After updating list.")
         coreDataInterface.updateItemsOfChangedList(oldList: shoppingListToUpdate, newListName: newShoppingListName)
     }
     

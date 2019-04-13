@@ -140,6 +140,7 @@ class ShoppingListsViewController: UITableViewController, AddShoppingList, Updat
     
     func addItemToShoppingList(item: Item) {
         add(item: item)
+        reloadTable()
     }
     
     func update(shoppingListName: String) {

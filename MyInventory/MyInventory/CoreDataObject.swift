@@ -196,7 +196,7 @@ class CoreDataObject {
     }
     
     private func updateManagedObjectShoppingListName(managedObject: NSManagedObject, shoppingList: ShoppingList) {
-        managedObject.setValue(shoppingList.getListName(), forKey: "shoppingList")
+        managedObject.setValue(shoppingList.getListName(), forKey: "shoppingListName")
     }
     
     private func getSearchCriteria(item: Item) -> [NSPredicate] {
