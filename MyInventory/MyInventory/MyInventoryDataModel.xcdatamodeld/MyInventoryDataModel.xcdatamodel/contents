@@ -14,11 +14,12 @@
     <entity name="ShoppingListModel" representedClassName="ShoppingListModel" syncable="YES" codeGenerationType="class">
         <attribute name="listName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="numberOfItemsInList" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="shoppingListId" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="ItemModel" positionX="-68.703125" positionY="-175.23046875" width="128" height="148"/>
-        <element name="ShoppingListModel" positionX="-63" positionY="18" width="128" height="75"/>
         <element name="Entity" positionX="-63" positionY="-63" width="128" height="45"/>
         <element name="Entity1" positionX="-54" positionY="-54" width="128" height="45"/>
+        <element name="ItemModel" positionX="-68.703125" positionY="-175.23046875" width="128" height="148"/>
+        <element name="ShoppingListModel" positionX="-63" positionY="18" width="128" height="90"/>
     </elements>
 </model>

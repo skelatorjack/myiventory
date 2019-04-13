@@ -40,6 +40,7 @@ class CoreDataShoppingList {
     private func getSearchCriteria(shoppingList: ShoppingList) -> [NSPredicate] {
         let searchCriteria: [NSPredicate] = [
             NSPredicate(format: "listName == %@", shoppingList.getListName()),
+            NSPredicate(format: "shoppingListId == %@", shoppingList.convertUUIDToString())
         ]
         
         return searchCriteria
@@ -61,6 +62,7 @@ class CoreDataShoppingList {
     private func updateCoreDataShoppingList(coreDataList: NSManagedObject, with shoppingList: ShoppingList) {
         coreDataList.setValue(shoppingList.getListName(), forKey: "listName")
         coreDataList.setValue(shoppingList.getTotalNumberOfItemsInList(), forKey: "numberOfItemsInList")
+        coreDataList.setValue(shoppingList.getShoppingListId(), forKey: "shoppingListId")
     }
     
     private func updateCoreDataShoppingListName(coreDataList: NSManagedObject, newListName: String) {
