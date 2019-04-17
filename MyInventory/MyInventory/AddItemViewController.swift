@@ -22,7 +22,7 @@ class AddItemViewController: UIViewController, UITextFieldDelegate, UIPickerView
     @IBOutlet weak var addItem: UIButton!
     
     weak var delegate: AddItemDelegate?
-    
+
     private var newItem: Item = Item()
     private let itemCategoryList: Array<ItemCategory> = [ItemCategory.Food, ItemCategory.Cleaning, ItemCategory.Clothes, ItemCategory.Fashion, ItemCategory.Tech, ItemCategory.Tools, ItemCategory.Yard, ItemCategory.Other]
 

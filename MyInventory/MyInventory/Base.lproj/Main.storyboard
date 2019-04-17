@@ -695,6 +695,24 @@
             </objects>
             <point key="canvasLocation" x="122" y="898"/>
         </scene>
+        <!--Add Image View Controller-->
+        <scene sceneID="egz-PU-pEO">
+            <objects>
+                <viewController id="yfi-KR-xJs" customClass="AddImageViewController" customModule="MyInventory" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="oG8-VV-fi7"/>
+                        <viewControllerLayoutGuide type="bottom" id="yVZ-ey-PcY"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="NO9-bV-BMl">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1e4-Cc-ZYi" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="889" y="903"/>
+        </scene>
         <!--Item List-->
         <scene sceneID="uZP-d9-dob">
             <objects>

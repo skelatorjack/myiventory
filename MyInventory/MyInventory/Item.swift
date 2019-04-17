@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit.UIImage
 
 enum ItemType {
     case InventoryItem
@@ -21,9 +22,10 @@ struct Item: Equatable {
     var shopName: String
     var itemCategory: ItemCategory
     var shoppingListID: UUID?
+    var itemImage: UIImage?
     
     init(newName: String = "", newOwner: String = "", newQuantity: Int = 0, newShoppingList: String = "", shopName: String = "",
-         newCategory: ItemCategory = ItemCategory.Other, newListID: UUID? = nil) {
+         newCategory: ItemCategory = ItemCategory.Other, newListID: UUID? = nil, newImage: UIImage? = nil) {
         self.itemName = newName
         self.itemOwner = newOwner
         self.itemQuantity = newQuantity
@@ -31,6 +33,7 @@ struct Item: Equatable {
         self.shopName = shopName
         self.itemCategory = newCategory
         self.shoppingListID = newListID
+        self.itemImage = newImage
     }
     
     static func == (left: Item, right: Item) -> Bool {
@@ -40,7 +43,8 @@ struct Item: Equatable {
             left.itemQuantity == right.itemQuantity,
             left.shopName == right.shopName,
             left.itemCategory == right.itemCategory,
-            left.shoppingListID == right.shoppingListID {
+            left.shoppingListID == right.shoppingListID,
+            left.itemImage == right.itemImage {
             
             return true
         }
@@ -105,6 +109,10 @@ struct Item: Equatable {
     }
     func isValueNotEqual(value: Int, to: Int) -> Bool {
         return value != to
+    }
+    
+    func doesItemHaveImage() -> Bool {
+        return itemImage == nil
     }
     
     mutating func clear() {
