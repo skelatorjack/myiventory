@@ -662,13 +662,25 @@
                                     <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NTO-GR-Ewr" userLabel="Item Type Picker View">
                                         <rect key="frame" x="0.0" y="150.5" width="200" height="216"/>
                                     </pickerView>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kwT-z3-tT1">
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="qKT-WN-Cgy">
                                         <rect key="frame" x="0.0" y="376.5" width="200" height="30"/>
-                                        <state key="normal" title="Add Item"/>
-                                        <connections>
-                                            <action selector="addItemPressed:" destination="kNB-iK-tjt" eventType="touchUpInside" id="U0D-CA-utE"/>
-                                        </connections>
-                                    </button>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kwT-z3-tT1">
+                                                <rect key="frame" x="0.0" y="0.0" width="100" height="30"/>
+                                                <state key="normal" title="Add Item"/>
+                                                <connections>
+                                                    <action selector="addItemPressed:" destination="kNB-iK-tjt" eventType="touchUpInside" id="U0D-CA-utE"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="r0H-vt-ykV">
+                                                <rect key="frame" x="100" y="0.0" width="100" height="30"/>
+                                                <state key="normal" title="Add Image"/>
+                                                <connections>
+                                                    <action selector="onAddImagePressed:" destination="kNB-iK-tjt" eventType="touchUpInside" id="0NA-eK-bb8"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="zrH-Jp-Cmk" firstAttribute="width" secondItem="sfy-H2-zsl" secondAttribute="width" id="IyN-xB-CVb"/>
@@ -689,6 +701,7 @@
                         <outlet property="nameField" destination="Lkm-MJ-x3b" id="2gc-VU-Nxb"/>
                         <outlet property="ownerField" destination="sfy-H2-zsl" id="MI5-xp-U2x"/>
                         <outlet property="quantityField" destination="zrH-Jp-Cmk" id="cyh-0I-iyK"/>
+                        <segue destination="yfi-KR-xJs" kind="show" identifier="addImageSegue" id="llS-M8-dYh"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mop-FO-cBO" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -706,12 +719,60 @@
                     <view key="view" contentMode="scaleToFill" id="NO9-bV-BMl">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="HGC-2G-1Mb">
+                                <rect key="frame" x="0.0" y="69" width="320" height="460"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="gxG-7E-wMV">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="400"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="400" id="DhL-TS-Dqj"/>
+                                        </constraints>
+                                    </imageView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="yb3-nE-2LJ">
+                                        <rect key="frame" x="0.0" y="400" width="320" height="60"/>
+                                        <subviews>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="jMz-eh-c6w">
+                                                <rect key="frame" x="0.0" y="0.0" width="160" height="60"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f79-zr-UNm">
+                                                        <rect key="frame" x="0.0" y="0.0" width="160" height="30"/>
+                                                        <state key="normal" title="Choose Image"/>
+                                                        <connections>
+                                                            <action selector="onChooseImagePressed:" destination="yfi-KR-xJs" eventType="touchUpInside" id="Ciy-PF-8fQ"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9J6-Wi-gvW" userLabel="Take Image">
+                                                        <rect key="frame" x="0.0" y="30" width="160" height="30"/>
+                                                        <state key="normal" title="Take Image"/>
+                                                        <connections>
+                                                            <action selector="onTakeImagePressed:" destination="yfi-KR-xJs" eventType="touchUpInside" id="3zk-sR-38O"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                            </stackView>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pXs-ki-z2L">
+                                                <rect key="frame" x="160" y="0.0" width="160" height="60"/>
+                                                <state key="normal" title="Submit"/>
+                                                <connections>
+                                                    <action selector="onSubmitButtonPressed:" destination="yfi-KR-xJs" eventType="touchUpInside" id="hJ2-f5-LYf"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                            </stackView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </view>
+                    <connections>
+                        <outlet property="itemImageView" destination="gxG-7E-wMV" id="q0V-xV-W4I"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1e4-Cc-ZYi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="889" y="903"/>
+            <point key="canvasLocation" x="888.75" y="902.11267605633805"/>
         </scene>
         <!--Item List-->
         <scene sceneID="uZP-d9-dob">

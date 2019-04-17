@@ -23,3 +23,7 @@ enum ItemCategory: String {
     case Yard = "Yard"
     case Other = "Other"
 }
+
+enum Segues: String {
+    case AddImage = "addImageSegue"
+}

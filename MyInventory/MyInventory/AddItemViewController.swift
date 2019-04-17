@@ -14,7 +14,7 @@ protocol AddItemDelegate: class {
 }
 
 
-class AddItemViewController: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
+class AddItemViewController: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource, AddImageDelegate {
     @IBOutlet weak var nameField: UITextField!
     @IBOutlet weak var quantityField: UITextField!
     @IBOutlet weak var ownerField: UITextField!
@@ -65,6 +65,12 @@ class AddItemViewController: UIViewController, UITextFieldDelegate, UIPickerView
         return itemCategoryList[row].rawValue
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let addImageVC = segue.destination as? AddImageViewController, segue.identifier == Segues.AddImage.rawValue {
+            print("Segueing to AddImageViewController.")
+            addImageVC.delegate = self
+        }
+    }
     func enableAddItemPressed() {
         let name: String = nameField.text!
         let quantity: String = quantityField.text!
@@ -80,6 +86,11 @@ class AddItemViewController: UIViewController, UITextFieldDelegate, UIPickerView
             addItem.isEnabled = false
         }
     }
+    
+    func add(image: UIImage?) {
+        print("Adding image to item.")
+        newItem.itemImage = image
+    }
     @IBAction func addItemPressed(_ sender: UIButton) {
         print("Add Item pressed.")
         newItem.itemCategory = getItemCategory()
@@ -87,6 +98,10 @@ class AddItemViewController: UIViewController, UITextFieldDelegate, UIPickerView
         let _ = navigationController?.popViewController(animated: true)
     }
     
+    @IBAction func onAddImagePressed(_ sender: Any) {
+        print("Add Image Pressed")
+        performSegue(withIdentifier: Segues.AddImage.rawValue, sender: nil)
+    }
     private func getItemCategory() -> ItemCategory {
         print("Selected \(itemTypePicker.selectedRow(inComponent: 0))")
         return itemCategoryList[itemTypePicker.selectedRow(inComponent: 0)]
