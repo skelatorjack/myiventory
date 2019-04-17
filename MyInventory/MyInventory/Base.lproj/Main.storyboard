@@ -201,28 +201,44 @@
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="kMg-BY-EeC">
+                                        <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="kMg-BY-EeC">
                                             <rect key="frame" x="10" y="0.0" width="300" height="43.5"/>
                                             <subviews>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="qaw-Fx-Bol">
+                                                    <rect key="frame" x="0.0" y="0.0" width="75" height="43.5"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="75" id="gAu-jJ-nxo"/>
+                                                    </constraints>
+                                                </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rh2-km-gN8">
-                                                    <rect key="frame" x="0.0" y="11.5" width="100" height="20.5"/>
+                                                    <rect key="frame" x="96" y="12" width="46.5" height="19.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Quantity" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O33-XH-mGG">
-                                                    <rect key="frame" x="100" y="11.5" width="100" height="20.5"/>
+                                                    <rect key="frame" x="163.5" y="12" width="65" height="19.5"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="65" id="U7o-pQ-tfx"/>
+                                                    </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Owner" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8dH-FV-Ygn">
-                                                    <rect key="frame" x="200" y="11.5" width="100" height="20.5"/>
+                                                    <rect key="frame" x="249.5" y="12" width="50.5" height="19.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstItem="O33-XH-mGG" firstAttribute="baseline" secondItem="8dH-FV-Ygn" secondAttribute="baseline" id="526-yJ-3rX"/>
+                                                <constraint firstItem="O33-XH-mGG" firstAttribute="leading" secondItem="Rh2-km-gN8" secondAttribute="trailing" constant="21" id="5Sd-NZ-qUf"/>
+                                                <constraint firstItem="Rh2-km-gN8" firstAttribute="baseline" secondItem="O33-XH-mGG" secondAttribute="baseline" id="8en-uW-OxA"/>
+                                                <constraint firstItem="Rh2-km-gN8" firstAttribute="top" secondItem="kMg-BY-EeC" secondAttribute="top" constant="12" id="YFw-fx-yxK"/>
+                                                <constraint firstItem="qaw-Fx-Bol" firstAttribute="top" secondItem="kMg-BY-EeC" secondAttribute="top" id="nba-YE-IVX"/>
+                                            </constraints>
                                         </stackView>
                                     </subviews>
                                     <constraints>
@@ -233,6 +249,7 @@
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
+                                    <outlet property="cellIcon" destination="qaw-Fx-Bol" id="EUS-bv-58q"/>
                                     <outlet property="nameLabel" destination="Rh2-km-gN8" id="lkv-pn-wLH"/>
                                     <outlet property="ownerLabel" destination="8dH-FV-Ygn" id="5zf-0D-SqH"/>
                                     <outlet property="quantityLabel" destination="O33-XH-mGG" id="PjD-Kb-C2g"/>
