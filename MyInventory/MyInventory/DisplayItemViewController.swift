@@ -26,6 +26,9 @@ class DisplayItemViewController: UIViewController {
             viewImageButton.isEnabled = false
         }
         // Do any additional setup after loading the view.
+        setItemNameLabel(with: displayItem.itemName)
+        setItemTypeLabel(with: displayItem.itemCategory)
+        setItemQuantityLabel(with: displayItem.itemQuantity)
     }
     
 

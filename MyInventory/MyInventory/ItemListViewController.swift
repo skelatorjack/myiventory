@@ -54,6 +54,8 @@ class ItemListViewController: UITableViewController, AddItemDelegate, UpdateItem
             shoppingListVC.setShoppingLists(userShoppingLists: user.getShoppingLists())
             
             shoppingListVC.delegate = self
+        } else if let displayItemVC = segue.destination as? DisplayItemViewController, segue.identifier == Segues.DisplayItemItemList.rawValue, let index = sender as? Int, let selectedItem = user.item(at: index) {
+            displayItemVC.displayItem = selectedItem
         }
     }
     
@@ -96,6 +98,7 @@ class ItemListViewController: UITableViewController, AddItemDelegate, UpdateItem
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("Selected item at row \(indexPath.row)")
+        performSegue(withIdentifier: Segues.DisplayItemItemList.rawValue, sender: indexPath.row)
     }
     
     private func refreshTable() {

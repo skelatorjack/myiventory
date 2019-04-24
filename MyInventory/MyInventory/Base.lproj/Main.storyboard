@@ -914,7 +914,7 @@
                     </navigationItem>
                     <connections>
                         <segue destination="fyr-rr-6CU" kind="show" identifier="updateItem" id="ts4-Jd-T0r"/>
-                        <segue destination="8j7-lq-Hl0" kind="show" id="3CH-FH-OWq"/>
+                        <segue destination="8j7-lq-Hl0" kind="show" identifier="displayItemItemList" id="3CH-FH-OWq"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Uer-Vg-Gcb" userLabel="First Responder" sceneMemberID="firstResponder"/>

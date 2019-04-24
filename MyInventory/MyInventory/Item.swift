@@ -112,7 +112,7 @@ struct Item: Equatable {
     }
     
     func doesItemHaveImage() -> Bool {
-        return itemImage == nil
+        return itemImage != nil
     }
     
     mutating func clear() {
