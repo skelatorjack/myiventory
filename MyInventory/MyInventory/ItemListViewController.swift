@@ -78,18 +78,24 @@ class ItemListViewController: UITableViewController, AddItemDelegate, UpdateItem
     
     
     override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-        let del = UITableViewRowAction(style: .destructive, title: "Delete") { action, index in
+        let delete = UITableViewRowAction(style: .destructive, title: "Delete") { action, index in
             print("Deleting item at index \(index.row)")
             self.deleteItemFromCoreData(at: index.row)
         }
-        del.backgroundColor = UIColor.red
-        return [del]
+        let update = UITableViewRowAction(style: .normal, title: "Update") { action, index in
+            print("Updating item at index \(index.row)")
+            self.performSegue(withIdentifier: self.UPDATEITEMID, sender: index.row)
+        }
+        update.backgroundColor = UIColor.green
+        delete.backgroundColor = UIColor.red
+        
+        return [delete, update]
     }
     
     // For updating an item
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        performSegue(withIdentifier: UPDATEITEMID, sender: indexPath.row)
+        print("Selected item at row \(indexPath.row)")
     }
     
     private func refreshTable() {
