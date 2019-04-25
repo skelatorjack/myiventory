@@ -124,6 +124,8 @@ class ShoppingListDetailViewController: UITableViewController, AddItemToList, Up
             print("Going to change item's shopping list")
             changeItemShoppingListVC.setListOfShoppingListNames(newList: shoppingListNames)
             changeItemShoppingListVC.delegate = self
+        } else if let displayItemVC = segue.destination as? DisplayShoppingListItemViewController, segue.identifier == Segues.DisplayItemShoppingList.rawValue, let SELECTED_ITEM = sender as? Item {
+            displayItemVC.displayItem = SELECTED_ITEM
         }
     }
     
@@ -197,18 +199,11 @@ class ShoppingListDetailViewController: UITableViewController, AddItemToList, Up
     
     // For editing an item in a shopping list
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        /*
-        let SECTION_NUMBER = indexPath.section
-        let SELECTED_ITEM_INDEX = indexPath.row
-        
-        let SELECTED_ITEM = getSelectedItem(section: SECTION_NUMBER, index: SELECTED_ITEM_INDEX)
-        
-        setOldItem(item: SELECTED_ITEM!)
-        setUpdateIndex(newIndex: SELECTED_ITEM_INDEX)
-        
-        performSegue(withIdentifier: "updateItemInList", sender: SELECTED_ITEM!)
-        */
+        guard let SHOP_NAME = shopNames.at(index: indexPath.section), let SELECTED_ITEM = shoppingListToDisplay.getValue(key: SHOP_NAME, index: indexPath.row) else {
+            return
+        }
         print("Selected item in \(indexPath.section) at \(indexPath.row)")
+        performSegue(withIdentifier: Segues.DisplayItemShoppingList.rawValue, sender: SELECTED_ITEM)
     }
     
     private func getSelectedItem(section: Int, index: Int) -> Item? {

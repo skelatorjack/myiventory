@@ -171,9 +171,6 @@ class ShoppingList {
         setValue(key: item.shopName, index: indexOfUpdate, item: item)
     }
     
-    func item(at index: Int) {
-        
-    }
     private func isIndexValidForValue(key: String, index: Int) -> Bool {
         if let value = storeAndItems[key]?.count,
             isIndexValid(index: index, MAX: value, MIN: 0){
