@@ -175,14 +175,29 @@ class ShoppingListDetailViewController: UITableViewController, AddItemToList, Up
             
             self.performSegue(withIdentifier: "changeShoppingList", sender: index.row)
         }
+        let updateShoppingListItem = UITableViewRowAction(style: .normal, title: "Update") { action, index in
+            print("Updating item at index \(index.row)")
+            let SECTION_NUMBER = index.section
+            let SELECTED_INDEX = index.row
+            
+            guard let SELECTED_ITEM = self.getSelectedItem(section: SECTION_NUMBER, index: SELECTED_INDEX) else {
+                return
+            }
+            
+            self.setOldItem(item: SELECTED_ITEM)
+            self.setUpdateIndex(newIndex: SELECTED_INDEX)
+            self.performSegue(withIdentifier: "updateItemInList", sender: SELECTED_ITEM)
+        }
         del.backgroundColor = UIColor.red
         changeShoppingListOfItem.backgroundColor = UIColor.green
+        updateShoppingListItem.backgroundColor = UIColor.darkGray
         
-        return [del, changeShoppingListOfItem]
+        return [del, changeShoppingListOfItem, updateShoppingListItem]
     }
     
     // For editing an item in a shopping list
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        /*
         let SECTION_NUMBER = indexPath.section
         let SELECTED_ITEM_INDEX = indexPath.row
         
@@ -192,7 +207,8 @@ class ShoppingListDetailViewController: UITableViewController, AddItemToList, Up
         setUpdateIndex(newIndex: SELECTED_ITEM_INDEX)
         
         performSegue(withIdentifier: "updateItemInList", sender: SELECTED_ITEM!)
-        
+        */
+        print("Selected item in \(indexPath.section) at \(indexPath.row)")
     }
     
     private func getSelectedItem(section: Int, index: Int) -> Item? {

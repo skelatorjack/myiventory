@@ -333,11 +333,30 @@
                     <connections>
                         <segue destination="IGk-70-qOZ" kind="show" identifier="updateItemInList" id="JWy-lR-TqP"/>
                         <segue destination="4Xd-xu-MdS" kind="show" identifier="changeShoppingList" id="8TT-fs-oaQ"/>
+                        <segue destination="Wxh-lO-hEc" kind="show" identifier="displayItemShoppingList" id="zeb-FK-Oby"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oUe-JS-Zel" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2588" y="40"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="R3i-hb-3eU">
+            <objects>
+                <viewController id="Wxh-lO-hEc" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="hdh-j4-bp6"/>
+                        <viewControllerLayoutGuide type="bottom" id="EBK-l8-mNE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="XLy-l0-rlB">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="wgQ-6c-qlb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2593" y="746"/>
         </scene>
         <!--Change Shopping List-->
         <scene sceneID="Z0v-0J-ib7">

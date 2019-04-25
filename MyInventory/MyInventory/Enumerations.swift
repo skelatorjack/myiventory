@@ -27,4 +27,5 @@ enum ItemCategory: String {
 enum Segues: String {
     case AddImage = "addImageSegue"
     case DisplayItemItemList = "displayItemItemList"
+    case DisplayItemShoppingList = "displayItemShoppingList"
 }
