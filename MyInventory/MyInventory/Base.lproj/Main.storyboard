@@ -853,59 +853,48 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="HGC-2G-1Mb">
-                                <rect key="frame" x="0.0" y="69" width="320" height="460"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Pe3-ze-MaJ">
+                                <rect key="frame" x="0.0" y="96" width="414" height="280"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="280" id="cVK-sP-9BR"/>
+                                </constraints>
+                            </imageView>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Ymz-W6-Ltv">
+                                <rect key="frame" x="108" y="824" width="198" height="30"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="gxG-7E-wMV">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="400"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="400" id="DhL-TS-Dqj"/>
-                                        </constraints>
-                                    </imageView>
-                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="yb3-nE-2LJ">
-                                        <rect key="frame" x="0.0" y="400" width="320" height="60"/>
-                                        <subviews>
-                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="jMz-eh-c6w">
-                                                <rect key="frame" x="0.0" y="0.0" width="160" height="60"/>
-                                                <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f79-zr-UNm">
-                                                        <rect key="frame" x="0.0" y="0.0" width="160" height="30"/>
-                                                        <state key="normal" title="Choose Image"/>
-                                                        <connections>
-                                                            <action selector="onChooseImagePressed:" destination="yfi-KR-xJs" eventType="touchUpInside" id="Ciy-PF-8fQ"/>
-                                                        </connections>
-                                                    </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9J6-Wi-gvW" userLabel="Take Image">
-                                                        <rect key="frame" x="0.0" y="30" width="160" height="30"/>
-                                                        <state key="normal" title="Take Image"/>
-                                                        <connections>
-                                                            <action selector="onTakeImagePressed:" destination="yfi-KR-xJs" eventType="touchUpInside" id="3zk-sR-38O"/>
-                                                        </connections>
-                                                    </button>
-                                                </subviews>
-                                            </stackView>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pXs-ki-z2L">
-                                                <rect key="frame" x="160" y="0.0" width="160" height="60"/>
-                                                <state key="normal" title="Submit"/>
-                                                <connections>
-                                                    <action selector="onSubmitButtonPressed:" destination="yfi-KR-xJs" eventType="touchUpInside" id="hJ2-f5-LYf"/>
-                                                </connections>
-                                            </button>
-                                        </subviews>
-                                    </stackView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f79-zr-UNm">
+                                        <rect key="frame" x="0.0" y="0.0" width="99" height="30"/>
+                                        <state key="normal" title="Choose Image"/>
+                                        <connections>
+                                            <action selector="onChooseImagePressed:" destination="yfi-KR-xJs" eventType="touchUpInside" id="Ciy-PF-8fQ"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pXs-ki-z2L">
+                                        <rect key="frame" x="99" y="0.0" width="99" height="30"/>
+                                        <state key="normal" title="Submit"/>
+                                        <connections>
+                                            <action selector="onSubmitButtonPressed:" destination="yfi-KR-xJs" eventType="touchUpInside" id="hJ2-f5-LYf"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                             </stackView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="Ymz-W6-Ltv" firstAttribute="centerX" secondItem="Pe3-ze-MaJ" secondAttribute="centerX" id="RgV-UT-dIw"/>
+                            <constraint firstAttribute="trailing" secondItem="Pe3-ze-MaJ" secondAttribute="trailing" id="SZi-V3-b9E"/>
+                            <constraint firstItem="Pe3-ze-MaJ" firstAttribute="leading" secondItem="NO9-bV-BMl" secondAttribute="leading" id="auy-3b-iI5"/>
+                            <constraint firstItem="yVZ-ey-PcY" firstAttribute="top" secondItem="Ymz-W6-Ltv" secondAttribute="bottom" constant="8" symbolic="YES" id="n6s-qx-EPH"/>
+                            <constraint firstItem="Pe3-ze-MaJ" firstAttribute="top" secondItem="oG8-VV-fi7" secondAttribute="bottom" constant="8" id="yd6-ji-Ksy"/>
+                        </constraints>
                     </view>
                     <connections>
-                        <outlet property="itemImageView" destination="gxG-7E-wMV" id="q0V-xV-W4I"/>
+                        <outlet property="itemImageView" destination="Pe3-ze-MaJ" id="zdw-Qs-cJ5"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1e4-Cc-ZYi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="888.75" y="902.11267605633805"/>
+            <point key="canvasLocation" x="888.40579710144937" y="902.00892857142856"/>
         </scene>
         <!--Item List-->
         <scene sceneID="uZP-d9-dob">
