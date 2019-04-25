@@ -185,11 +185,14 @@ class User {
     }
     func fetchInventorySaveData() {
         let itemModels: [ItemModel] = coreDataInterface.fetchSavedData()
-        itemList = adaptShoppingListItemModelToItem(itemModels: itemModels)
+        filterOutShoppingListItems(itemModelList: itemModels)
     }
     
-    private func filterOutShoppingListItems(itemList: [Item]) {
+    private func filterOutShoppingListItems(itemModelList: [ItemModel]) {
+        let inventoryItems = itemModelList.filter({ $0.shoppingListId == "None"})
         
+        print("Adapting inventory items")
+        adaptItemModelToItemList(itemModels: inventoryItems)
     }
     func fetchShoppingListItems() {
         var newShoppingLists: Array<ShoppingList> = Array()
@@ -257,6 +260,7 @@ class User {
         for itemModel in itemModels {
             if let ITEM = adaptItemModelToItem(itemModel: itemModel) {
                 items.append(ITEM)
+                print("Added \(ITEM)")
             }
         }
         return items
