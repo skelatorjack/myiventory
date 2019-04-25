@@ -19,7 +19,7 @@ class AddImageViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        imagePicker.delegate = self
         // Do any additional setup after loading the view.
     }
     
@@ -37,7 +37,7 @@ class AddImageViewController: UIViewController {
     
     private func presentImageController(didSelectCamera: Bool) {
         if didSelectCamera {
-            print("Choose Image Pressed.")
+            print("Take Image Pressed.")
             imagePicker.sourceType = .camera
             
         } else {
@@ -59,7 +59,7 @@ class AddImageViewController: UIViewController {
 
 }
 
-extension AddImageViewController : UIImagePickerControllerDelegate {
+extension AddImageViewController : UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
             itemImageView.image = image

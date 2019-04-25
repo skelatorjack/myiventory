@@ -90,6 +90,7 @@ class AddItemViewController: UIViewController, UITextFieldDelegate, UIPickerView
     func add(image: UIImage?) {
         print("Adding image to item.")
         newItem.itemImage = image
+        print("The item is \(newItem)")
     }
     @IBAction func addItemPressed(_ sender: UIButton) {
         print("Add Item pressed.")
