@@ -28,7 +28,7 @@ class DisplayShoppingListItemViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        if displayItem.doesItemHaveImage() {
+        if displayItem.hasImage {
             displayImageButton.isEnabled = true
         } else {
             displayImageButton.isEnabled = false

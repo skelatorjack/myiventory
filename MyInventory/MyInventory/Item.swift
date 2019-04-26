@@ -22,10 +22,12 @@ struct Item: Equatable {
     var shopName: String
     var itemCategory: ItemCategory
     var shoppingListID: UUID?
-    var itemImage: UIImage?
+    let itemId: UUID
+    var hasImage: Bool
+    var isInventoryItem: Bool
     
     init(newName: String = "", newOwner: String = "", newQuantity: Int = 0, newShoppingList: String = "", shopName: String = "",
-         newCategory: ItemCategory = ItemCategory.Other, newListID: UUID? = nil, newImage: UIImage? = nil) {
+         newCategory: ItemCategory = ItemCategory.Other, newListID: UUID? = nil, itemId: UUID = UUID(), hasImage: Bool = false, isInventoryItem: Bool = false) {
         self.itemName = newName
         self.itemOwner = newOwner
         self.itemQuantity = newQuantity
@@ -33,7 +35,9 @@ struct Item: Equatable {
         self.shopName = shopName
         self.itemCategory = newCategory
         self.shoppingListID = newListID
-        self.itemImage = newImage
+        self.itemId = itemId
+        self.hasImage = hasImage
+        self.isInventoryItem = isInventoryItem
     }
     
     static func == (left: Item, right: Item) -> Bool {
@@ -43,16 +47,15 @@ struct Item: Equatable {
             left.itemQuantity == right.itemQuantity,
             left.shopName == right.shopName,
             left.itemCategory == right.itemCategory,
-            left.shoppingListID == right.shoppingListID,
-            left.itemImage == right.itemImage {
+            left.shoppingListID == right.shoppingListID {
             
             return true
         }
         return false
     }
     
-    func isInventoryItem() -> Bool {
-        return shoppingListID == nil
+    static func isInventoryItemValid(name: String, itemOwner: String, itemQuantity: Int) -> Bool {
+        return !(name.isEmpty || itemOwner.isEmpty) && itemQuantity > 0
     }
     
     mutating func parseData(name: String, quantity: String, owner: String) {
@@ -109,10 +112,6 @@ struct Item: Equatable {
     }
     func isValueNotEqual(value: Int, to: Int) -> Bool {
         return value != to
-    }
-    
-    func doesItemHaveImage() -> Bool {
-        return itemImage != nil
     }
     
     mutating func clear() {

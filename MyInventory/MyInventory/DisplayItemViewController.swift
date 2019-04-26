@@ -20,7 +20,7 @@ class DisplayItemViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        if displayItem.doesItemHaveImage() {
+        if displayItem.hasImage {
             viewImageButton.isEnabled = true
         } else {
             viewImageButton.isEnabled = false

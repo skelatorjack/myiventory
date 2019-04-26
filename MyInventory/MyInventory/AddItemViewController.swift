@@ -22,8 +22,8 @@ class AddItemViewController: UIViewController, UITextFieldDelegate, UIPickerView
     @IBOutlet weak var addItem: UIButton!
     
     weak var delegate: AddItemDelegate?
-
-    private var newItem: Item = Item()
+    var itemImage: UIImage? = nil
+    
     private let itemCategoryList: Array<ItemCategory> = [ItemCategory.Food, ItemCategory.Cleaning, ItemCategory.Clothes, ItemCategory.Fashion, ItemCategory.Tech, ItemCategory.Tools, ItemCategory.Yard, ItemCategory.Other]
 
     override func viewDidLoad() {
@@ -73,29 +73,32 @@ class AddItemViewController: UIViewController, UITextFieldDelegate, UIPickerView
     }
     func enableAddItemPressed() {
         let name: String = nameField.text!
-        let quantity: String = quantityField.text!
+        guard let quantityString = quantityField.text, let quantity = Int(quantityString) else {
+            return
+        }
         let owner: String = ownerField.text!
         
-        newItem.clear()
-        newItem.parseData(name: name, quantity: quantity, owner: owner)
         
-        if newItem.isItemValid(itemType:ItemType.InventoryItem) {
+        if Item.isInventoryItemValid(name: name, itemOwner: owner, itemQuantity: quantity) {
             addItem.isEnabled = true
         }
         else {
             addItem.isEnabled = false
         }
     }
-    
+
     func add(image: UIImage?) {
         print("Adding image to item.")
-        newItem.itemImage = image
-        print("The item is \(newItem)")
+        itemImage = image
     }
+ 
     @IBAction func addItemPressed(_ sender: UIButton) {
         print("Add Item pressed.")
-        newItem.itemCategory = getItemCategory()
-        delegate?.addItem(item: newItem)
+        
+        guard let newItem = setUpNewItem() else {
+            return
+        }
+        print("Adding new item as \(newItem)")
         let _ = navigationController?.popViewController(animated: true)
     }
     
@@ -106,5 +109,23 @@ class AddItemViewController: UIViewController, UITextFieldDelegate, UIPickerView
     private func getItemCategory() -> ItemCategory {
         print("Selected \(itemTypePicker.selectedRow(inComponent: 0))")
         return itemCategoryList[itemTypePicker.selectedRow(inComponent: 0)]
+    }
+    
+    private func setUpNewItem() -> Item? {
+        var isImageSelected = false
+        guard let name = nameField.text, let owner = ownerField.text, let quantity = convertQuantityToInt(quantity: quantityField.text) else {
+            return nil
+        }
+        if itemImage != nil {
+            isImageSelected = true
+        }
+        return Item(newName: name, newOwner: owner, newQuantity: quantity, newCategory: getItemCategory(), hasImage: isImageSelected, isInventoryItem: true)
+    }
+    
+    private func convertQuantityToInt(quantity: String?) -> Int? {
+        guard let quantityString = quantity, let quantityInt = Int(quantityString) else {
+            return nil
+        }
+        return quantityInt
     }
 }

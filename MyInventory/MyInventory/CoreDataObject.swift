@@ -206,7 +206,7 @@ class CoreDataObject {
             NSPredicate(format: "shoppingListName == %@", item.shoppingList),
             NSPredicate(format: "shopName == %@", item.shopName),
         ]
-        if item.isInventoryItem() {
+        if item.isInventoryItem {
             searchCriteria.append(NSPredicate(format: "shoppingListId == %@", "None"))
         } else {
             searchCriteria.append(NSPredicate(format: "shoppingListId == %@", item.shoppingListID!.uuidString))
