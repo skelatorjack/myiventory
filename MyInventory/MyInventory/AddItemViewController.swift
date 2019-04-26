@@ -99,6 +99,7 @@ class AddItemViewController: UIViewController, UITextFieldDelegate, UIPickerView
             return
         }
         print("Adding new item as \(newItem)")
+        delegate?.addItem(item: newItem)
         let _ = navigationController?.popViewController(animated: true)
     }
     

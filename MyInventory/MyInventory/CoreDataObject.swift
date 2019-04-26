@@ -9,6 +9,19 @@
 import Foundation
 import CoreData
 
+enum CoreDateItemKeys: String {
+    case isInventoryItem
+    case quantityOfItem
+    case itemCategory
+    case name
+    case ownerOfItem
+    case shopName
+    case shoppingListId
+    case shoppingListName
+    case hasImage
+    case itemId
+}
+
 class CoreDataObject {
     
     private let appDelegate: AppDelegate
@@ -44,8 +57,8 @@ class CoreDataObject {
     
     func fetchSavedData() -> [ItemModel] {
         var items: [NSManagedObject] = []
-        //let searchCriteria: [NSPredicate] = getInventoryItems()
         let searchCriteria: [NSPredicate] = []
+        
         fetchRequest.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: searchCriteria)
         
         do {
@@ -56,6 +69,25 @@ class CoreDataObject {
         }
         
         return items as! [ItemModel]
+    }
+    
+    func fetchInventoryItems() -> [ItemModel] {
+        var items: [NSManagedObject] = []
+        let searchCriteria = getInventoryItems()
+        
+        fetchRequest.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: searchCriteria)
+        
+        do {
+            items = try managedContext.fetch(fetchRequest)
+            setNumberOfItemsPersisted(count: items.count)
+        } catch {
+            print("Failed to fetch inventory items \(error)")
+        }
+        
+        guard let itemModels = items as? [ItemModel] else {
+            return []
+        }
+        return itemModels
     }
     
     func fetchShoppingListItems(shoppingList: ShoppingList) -> [ItemModel] {
@@ -73,7 +105,7 @@ class CoreDataObject {
         return shoppingListItems as! [ItemModel]
     }
     
-    func saveItem(item: Item, itemList: inout [Item]) {
+    func saveItem(item: Item) -> Bool {
         let itemToSave = NSManagedObject(entity: entity, insertInto: managedContext)
         
         updateManagedObject(managedObject: itemToSave, with: item)
@@ -82,13 +114,14 @@ class CoreDataObject {
             itemsToSave.append(itemToSave)
             increaseNumberOfItemsPersisted()
             try managedContext.save()
-            itemList.append(item)
+            return true
         } catch {
             print("Could not save item \(error)")
+            return false
         }
     }
     
-    func deleteItem(itemToDelete: Item, indexToDelete: Int, itemList: inout [Item]) {
+    func deleteItem(itemToDelete: Item) -> Bool {
         let searchCriteria: [NSPredicate] = getSearchCriteria(item: itemToDelete)
 
         fetchRequest.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: searchCriteria)
@@ -100,10 +133,12 @@ class CoreDataObject {
                     decreaseNumberOfItemsPersisted()
                 }
                 try managedContext.save()
-                itemList.remove(at: indexToDelete)
+                return true
             }
+            return false
         } catch {
             print("Failed to delete item \(error)")
+            return false
         }
     }
     
@@ -179,19 +214,23 @@ class CoreDataObject {
         }
     }
     private func updateManagedObject(managedObject: NSManagedObject, with item: Item) {
-        managedObject.setValue(item.itemName, forKey: "name")
-        managedObject.setValue(item.itemOwner, forKey: "ownerOfItem")
-        managedObject.setValue(item.itemQuantity, forKey: "quantityOfItem")
-        managedObject.setValue(item.shoppingList, forKey: "shoppingListName")
-        managedObject.setValue(item.shopName, forKey: "shopName")
-        managedObject.setValue(item.itemCategory.rawValue, forKey: "itemCategory")
+        print("Raw value of name key \(CoreDateItemKeys.name.rawValue)")
+        managedObject.setValue(item.itemName, forKey: CoreDateItemKeys.name.rawValue)
+        managedObject.setValue(item.itemOwner, forKey: CoreDateItemKeys.ownerOfItem.rawValue)
+        managedObject.setValue(item.itemQuantity, forKey: CoreDateItemKeys.quantityOfItem.rawValue)
+        managedObject.setValue(item.shoppingList, forKey: CoreDateItemKeys.shoppingListName.rawValue)
+        managedObject.setValue(item.shopName, forKey: CoreDateItemKeys.shopName.rawValue)
+        managedObject.setValue(item.itemCategory.rawValue, forKey: CoreDateItemKeys.itemCategory.rawValue)
+        managedObject.setValue(item.isInventoryItem, forKey: CoreDateItemKeys.isInventoryItem.rawValue)
+        managedObject.setValue(item.hasImage, forKey: CoreDateItemKeys.hasImage.rawValue)
+        managedObject.setValue(item.itemId.uuidString, forKey: CoreDateItemKeys.itemId.rawValue)
         
-        if let shoppingListId = item.shoppingListID {
-            let idString = shoppingListId.uuidString
-            managedObject.setValue(idString, forKey: "shoppingListId")
-        } else {
-            managedObject.setValue("None", forKey: "shoppingListId")
+        var idString: String = ""
+        
+        if !item.isInventoryItem, let uuid = item.shoppingListID {
+            idString = uuid.uuidString
         }
+        managedObject.setValue(idString, forKey: CoreDateItemKeys.shoppingListId.rawValue)
     }
     
     private func updateManagedObjectShoppingListName(managedObject: NSManagedObject, shoppingList: ShoppingList) {
@@ -199,29 +238,23 @@ class CoreDataObject {
     }
     
     private func getSearchCriteria(item: Item) -> [NSPredicate] {
-        var searchCriteria: [NSPredicate] = [
-            NSPredicate(format: "name == %@", item.itemName),
-            NSPredicate(format: "ownerOfItem == %@", item.itemOwner),
-            NSPredicate(format: "quantityOfItem == %@", String(item.itemQuantity)),
-            NSPredicate(format: "shoppingListName == %@", item.shoppingList),
-            NSPredicate(format: "shopName == %@", item.shopName),
+        let searchCriteria: [NSPredicate] = [
+            NSPredicate(format: "itemId == %@", item.itemId.uuidString),
         ]
-        if item.isInventoryItem {
-            searchCriteria.append(NSPredicate(format: "shoppingListId == %@", "None"))
-        } else {
-            searchCriteria.append(NSPredicate(format: "shoppingListId == %@", item.shoppingListID!.uuidString))
-        }
         
         return searchCriteria
     }
     
     private func getInventoryItems() -> [NSPredicate] {
-        return [NSPredicate(format: "shoppingListId == %@", "None")]
+//        return [NSPredicate(format: "isInventoryItem == %@", "true"),
+//                NSPredicate(format: "shoppingListId == %@", "")]
+        return [NSPredicate(format: "isInventoryItem == %@", "true")]
     }
     
     private func getShoppingListSearchCriteria(shoppingList: ShoppingList) -> [NSPredicate] {
-        return [NSPredicate(format: "shoppingListName == %@", shoppingList.getListName()),
-                NSPredicate(format: "shoppingListId == %@", shoppingList.convertUUIDToString())
+        return [
+            NSPredicate(format: "shoppingListName == %@", shoppingList.getListName()),
+            NSPredicate(format: "shoppingListId == %@", shoppingList.convertUUIDToString()),
         ]
     }
     
@@ -234,7 +267,7 @@ class CoreDataObject {
     
     func getShoppingListItemCriteria(shoppingListId: UUID) -> [NSPredicate] {
         let shoppingListSearchCriteria: [NSPredicate] = [
-            NSPredicate(format: "shoppingListId == %@", shoppingListId.uuidString)
+            NSPredicate(format: "shoppingListId == %@", shoppingListId.uuidString),
         ]
         
         return shoppingListSearchCriteria

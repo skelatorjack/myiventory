@@ -3,7 +3,10 @@
     <entity name="Entity" representedClassName="Entity" syncable="YES" codeGenerationType="class"/>
     <entity name="Entity1" representedClassName="Entity1" syncable="YES" codeGenerationType="class"/>
     <entity name="ItemModel" representedClassName="ItemModel" syncable="YES" codeGenerationType="class">
+        <attribute name="hasImage" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="isInventoryItem" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="itemCategory" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="itemId" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="ownerOfItem" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="quantityOfItem" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
@@ -19,7 +22,7 @@
     <elements>
         <element name="Entity" positionX="-63" positionY="-63" width="128" height="45"/>
         <element name="Entity1" positionX="-54" positionY="-54" width="128" height="45"/>
-        <element name="ItemModel" positionX="-68.703125" positionY="-175.23046875" width="128" height="150"/>
+        <element name="ItemModel" positionX="-68.703125" positionY="-175.23046875" width="128" height="195"/>
         <element name="ShoppingListModel" positionX="-63" positionY="18" width="128" height="90"/>
     </elements>
 </model>

@@ -118,13 +118,15 @@ class User {
     }
     
     func add(item: Item) {
-        //itemList.append(item)
-        //coreDataInterface.saveItem(item: item, itemList: &itemList)
+        if coreDataInterface.saveItem(item: item) {
+            print("Adding item \(item)")
+            itemList.append(item)
+        }
     }
     
     func delete(at index: Int) {
-        if let item = self.item(at: index) {
-            coreDataInterface.deleteItem(itemToDelete: item, indexToDelete: index, itemList: &itemList)
+        if let item = self.item(at: index), coreDataInterface.deleteItem(itemToDelete: item) {
+            itemList.remove(at: index)
         }
     }
     
@@ -189,7 +191,7 @@ class User {
     }
     
     private func filterOutShoppingListItems(itemModelList: [ItemModel]) {
-        let inventoryItems = itemModelList.filter({ $0.shoppingListId == "None"})
+        let inventoryItems = itemModelList.filter({ $0.isInventoryItem })
         
         print("Adapting inventory items")
         adaptItemModelToItemList(itemModels: inventoryItems)
@@ -235,7 +237,7 @@ class User {
             let shopName = itemModel.shopName else {
             return nil
         }
-        if let shopListId = itemModel.shoppingListId, shopListId != "None" {
+        if let shopListId = itemModel.shoppingListId, !shopListId.isEmpty {
             id = UUID(uuidString: shopListId)
         }
         
