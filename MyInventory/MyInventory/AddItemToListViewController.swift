@@ -50,7 +50,7 @@ class AddItemToListViewController: UIViewController, UITextFieldDelegate, UIPick
             let ownerText = ownerField.text,
             let storeText = storeField.text  else { return }
         
-        let item = Item(newName: nameText, newOwner: ownerText, newQuantity: quantityText, newShoppingList: shoppingListToChange.getListName(), shopName: storeText, newCategory: getItemCategory(), newListID: shoppingListToChange.getShoppingListId())
+        let item = Item(newName: nameText, newOwner: ownerText, newQuantity: quantityText, newShoppingList: shoppingListToChange.getListName(), shopName: storeText, newCategory: getItemCategory(), newShoppingListID: shoppingListToChange.getShoppingListId())
         
         delegate?.add(item: item)
         let _ = navigationController?.popViewController(animated: true)

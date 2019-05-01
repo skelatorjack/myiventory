@@ -228,20 +228,25 @@ class User {
     func adaptItemModelToItem(itemModel: ItemModel) -> Item? {
         
         let quantity = Int(itemModel.quantityOfItem)
-        var id: UUID? = nil
+        var shoppingListId: UUID? = nil
+
         let category = convertStringToType(type: itemModel.itemCategory!)
         
         guard let name = itemModel.name,
             let owner = itemModel.ownerOfItem,
             let shoppingList = itemModel.shoppingListName,
-            let shopName = itemModel.shopName else {
+            let shopName = itemModel.shopName,
+            let itemIdAsString = itemModel.itemId else {
             return nil
         }
         if let shopListId = itemModel.shoppingListId, !shopListId.isEmpty {
-            id = UUID(uuidString: shopListId)
+            shoppingListId = UUID(uuidString: shopListId)
+        }
+        guard let itemId = UUID(uuidString: itemIdAsString) else {
+            return nil
         }
         
-        return Item(newName: name, newOwner: owner, newQuantity: quantity, newShoppingList: shoppingList, shopName: shopName, newCategory: category, newListID: id)
+        return Item(newName: name, newOwner: owner, newQuantity: quantity, newShoppingList: shoppingList, shopName: shopName, newCategory: category, newShoppingListID: shoppingListId, newItemId: itemId, hasImage: itemModel.hasImage, isInventoryItem: itemModel.isInventoryItem)
     }
     
     func adaptItemsToItemModels(items: [Item]) -> [ItemModel] {

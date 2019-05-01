@@ -238,8 +238,9 @@ class CoreDataObject {
     }
     
     private func getSearchCriteria(item: Item) -> [NSPredicate] {
+        print("The id of the item is \(item.itemId.uuidString)")
         let searchCriteria: [NSPredicate] = [
-            NSPredicate(format: "itemId == %@", item.itemId.uuidString),
+            NSPredicate(format: "itemId == %@", item.itemId.uuidString)
         ]
         
         return searchCriteria

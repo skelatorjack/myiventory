@@ -27,15 +27,15 @@ struct Item: Equatable {
     var isInventoryItem: Bool
     
     init(newName: String = "", newOwner: String = "", newQuantity: Int = 0, newShoppingList: String = "", shopName: String = "",
-         newCategory: ItemCategory = ItemCategory.Other, newListID: UUID? = nil, itemId: UUID = UUID(), hasImage: Bool = false, isInventoryItem: Bool = false) {
+         newCategory: ItemCategory = ItemCategory.Other, newShoppingListID: UUID? = nil, newItemId: UUID = UUID(), hasImage: Bool = false, isInventoryItem: Bool = false) {
         self.itemName = newName
         self.itemOwner = newOwner
         self.itemQuantity = newQuantity
         self.shoppingList = newShoppingList
         self.shopName = shopName
         self.itemCategory = newCategory
-        self.shoppingListID = newListID
-        self.itemId = itemId
+        self.shoppingListID = newShoppingListID
+        self.itemId = newItemId
         self.hasImage = hasImage
         self.isInventoryItem = isInventoryItem
     }
