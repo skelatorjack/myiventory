@@ -33,8 +33,8 @@ class CoreDataImage {
     
     func fetchImage(with item: Item) -> UIImage? {
         if item.hasImage {
-            let imageData = fetchImageFromCoreData(with: item)
-            guard let imageBin = imageData.imageBinary else {
+            let imageData = fetchImageFromCoreData(with: item).first
+            guard let imageBin = imageData?.imageBinary else {
                 return nil
             }
             return UIImage(data: imageBin)
@@ -63,7 +63,7 @@ class CoreDataImage {
         coreDataImage.setValue(imageData, forKey: CoreDataImageKeys.imageBinary.rawValue)
     }
     
-    func fetchImageFromCoreData(with item: Item) -> ImageData {
+    func fetchImageFromCoreData(with item: Item) -> [ImageData] {
         var images: [NSManagedObject] = []
         fetchRequest.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: getImageSearchCriteria(from: item))
         
@@ -73,7 +73,7 @@ class CoreDataImage {
             print("Failed to get image for item with id \(item.itemId.uuidString)")
         }
         
-        return images.first as! ImageData
+        return images as! [ImageData]
     }
     
     private func getImageSearchCriteria(from item: Item) -> [NSPredicate] {

@@ -15,20 +15,21 @@ class DisplayItemViewController: UIViewController {
     @IBOutlet weak var itemTypeLabel: UILabel!
     @IBOutlet weak var viewImageButton: UIButton!
     
-    var displayItem: Item = Item()
+    var displayItem: Item? = nil
+    var savedImage: UIImage? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        if displayItem.hasImage {
+        if displayItem!.hasImage {
             viewImageButton.isEnabled = true
         } else {
             viewImageButton.isEnabled = false
         }
         // Do any additional setup after loading the view.
-        setItemNameLabel(with: displayItem.itemName)
-        setItemTypeLabel(with: displayItem.itemCategory)
-        setItemQuantityLabel(with: displayItem.itemQuantity)
+        setItemNameLabel(with: displayItem!.itemName)
+        setItemTypeLabel(with: displayItem!.itemCategory)
+        setItemQuantityLabel(with: displayItem!.itemQuantity)
     }
     
 
@@ -36,12 +37,14 @@ class DisplayItemViewController: UIViewController {
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
+    
     */
-
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let displayItemVC = segue.destination as? DisplayItemImageViewController, savedImage != nil, segue.identifier == Segues.DisplayItemImage.rawValue {
+            displayItemVC.image = savedImage
+        }
+    }
+    
     func setItemNameLabel(with name: String) {
         itemNameLabel.text = "Item Name: \(name)"
     }
@@ -52,5 +55,9 @@ class DisplayItemViewController: UIViewController {
     
     func setItemTypeLabel(with type: ItemCategory) {
         itemTypeLabel.text = "Item Type: \(type.rawValue)"
+    }
+    @IBAction func onViewImagePressed(_ sender: Any) {
+        print("View Image Pressed")
+        performSegue(withIdentifier: Segues.DisplayItemImage.rawValue, sender: nil)
     }
 }

@@ -28,6 +28,7 @@ class User {
             NSFetchRequest<NSManagedObject>(entityName: "ItemModel")
         
         let shoppingListFetchRequest: NSFetchRequest<NSManagedObject> = NSFetchRequest(entityName: "ShoppingListModel")
+        let imageFetchRequest: NSFetchRequest<NSManagedObject> = NSFetchRequest(entityName: "ImageData")
         
         let entity = NSEntityDescription.entity(forEntityName: "ItemModel", in: managedContext)
         let shoppingListEntity = NSEntityDescription.entity(forEntityName: "ShoppingListModel", in: managedContext)
@@ -36,7 +37,7 @@ class User {
         
         self.coreDataShoppingList = CoreDataShoppingList(appDel: appDel, newManagedContext: managedContext, newFetchReq: shoppingListFetchRequest, newEntity: shoppingListEntity!)
         self.shoppingLists = shoppingLists
-        self.coreDataImageInterface = CoreDataImage(appDel: appDel, managedContext: managedContext, fetchReq: fetchRequest, imageToSave: [], entity: imageEntity!)
+        self.coreDataImageInterface = CoreDataImage(appDel: appDel, managedContext: managedContext, fetchReq: imageFetchRequest, imageToSave: [], entity: imageEntity!)
     }
     
     private func isIndexValid(index: Int) -> Bool {
@@ -374,5 +375,6 @@ class User {
     
     func saveImage(with item: Item, and image: UIImage) {
         coreDataImageInterface.saveImage(with: item, image: image)
+        add(item: item)
     }
 }

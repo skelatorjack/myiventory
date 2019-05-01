@@ -10,10 +10,9 @@ import UIKit
 import CoreData
 
 
-
 class ItemListViewController: UITableViewController, AddItemDelegate, UpdateItemDelegate, UpdateUserWithShoppingList {
 
-    var user: User = User(appDel: (UIApplication.shared.delegate as? AppDelegate)!)
+    public var user: User = User(appDel: (UIApplication.shared.delegate as? AppDelegate)!)
     
     var items: [NSManagedObject] = []
     
@@ -56,6 +55,10 @@ class ItemListViewController: UITableViewController, AddItemDelegate, UpdateItem
             shoppingListVC.delegate = self
         } else if let displayItemVC = segue.destination as? DisplayItemViewController, segue.identifier == Segues.DisplayItemItemList.rawValue, let index = sender as? Int, let selectedItem = user.item(at: index) {
             displayItemVC.displayItem = selectedItem
+            
+            if selectedItem.hasImage {
+                displayItemVC.savedImage = user.fetchImage(with: selectedItem)
+            }
         }
     }
     
@@ -111,6 +114,10 @@ class ItemListViewController: UITableViewController, AddItemDelegate, UpdateItem
         refreshTable()
     }
     
+    func addItem(item: Item, with image: UIImage) {
+        user.saveImage(with: item, and: image)
+        refreshTable()
+    }
     func updateItem(item: Item, at index: Int) {
         user.updateItem(at: index, with: item)
         refreshTable()

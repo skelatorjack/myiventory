@@ -9,6 +9,38 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--Saved Image-->
+        <scene sceneID="Bga-c4-ULS">
+            <objects>
+                <viewController title="Saved Image" id="iYe-96-VRq" customClass="DisplayItemImageViewController" customModule="MyInventory" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="433-7X-LfK"/>
+                        <viewControllerLayoutGuide type="bottom" id="YYc-ra-uR8"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="str-YP-fgS">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="dCd-16-Pq9">
+                                <rect key="frame" x="0.0" y="96" width="414" height="766"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="dCd-16-Pq9" firstAttribute="top" secondItem="433-7X-LfK" secondAttribute="bottom" constant="8" id="XTK-fE-qgP"/>
+                            <constraint firstItem="YYc-ra-uR8" firstAttribute="top" secondItem="dCd-16-Pq9" secondAttribute="bottom" id="aL6-Iy-8qu"/>
+                            <constraint firstAttribute="trailing" secondItem="dCd-16-Pq9" secondAttribute="trailing" id="e2C-8s-0ye"/>
+                            <constraint firstItem="dCd-16-Pq9" firstAttribute="leading" secondItem="str-YP-fgS" secondAttribute="leading" id="kJV-fD-2qf"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="savedImageImageView" destination="dCd-16-Pq9" id="9Kf-k6-YOF"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ErE-UD-HGP" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-159.42028985507247" y="-1321.2053571428571"/>
+        </scene>
         <!--Display Item-->
         <scene sceneID="Gmj-5E-0gg">
             <objects>
@@ -45,6 +77,9 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tdg-2G-cuI">
                                         <rect key="frame" x="167.66666666666666" y="170" width="79" height="30"/>
                                         <state key="normal" title="View Image"/>
+                                        <connections>
+                                            <action selector="onViewImagePressed:" destination="8j7-lq-Hl0" eventType="touchUpInside" id="Ho0-fh-lfW"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                             </stackView>
@@ -62,6 +97,7 @@
                         <outlet property="itemQuantityLabel" destination="gxL-fo-c3M" id="0Am-5R-tYY"/>
                         <outlet property="itemTypeLabel" destination="egQ-nA-Mh6" id="dZc-G4-SbG"/>
                         <outlet property="viewImageButton" destination="tdg-2G-cuI" id="vUw-oR-sqE"/>
+                        <segue destination="iYe-96-VRq" kind="show" identifier="displayItemImage" id="4cv-JV-HWK"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EeF-TI-pMR" userLabel="First Responder" sceneMemberID="firstResponder"/>

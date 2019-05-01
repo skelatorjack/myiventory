@@ -11,6 +11,7 @@ import UIKit
 
 protocol AddItemDelegate: class {
     func addItem(item: Item)
+    func addItem(item: Item, with image: UIImage)
 }
 
 
@@ -99,7 +100,13 @@ class AddItemViewController: UIViewController, UITextFieldDelegate, UIPickerView
             return
         }
         print("Adding new item as \(newItem)")
-        delegate?.addItem(item: newItem)
+    
+        if itemImage != nil {
+            delegate?.addItem(item: newItem, with: itemImage!)
+        } else {
+            delegate?.addItem(item: newItem)
+        }
+        
         let _ = navigationController?.popViewController(animated: true)
     }
     
