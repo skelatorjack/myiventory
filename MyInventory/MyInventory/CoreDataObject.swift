@@ -8,6 +8,7 @@
 
 import Foundation
 import CoreData
+import UIKit.UIImage
 
 enum CoreDateItemKeys: String {
     case isInventoryItem
@@ -54,7 +55,6 @@ class CoreDataObject {
     func getNumberOfItemsPersisted() -> Int {
         return numberOfItemsPersisted
     }
-    
     func fetchSavedData() -> [ItemModel] {
         var items: [NSManagedObject] = []
         let searchCriteria: [NSPredicate] = []

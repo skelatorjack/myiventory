@@ -8,7 +8,7 @@
 
 import Foundation
 import CoreData
-
+import UIKit.UIImage
 // Model Class
 
 
@@ -16,6 +16,7 @@ class User {
     private var itemList: [Item]
     private var coreDataInterface: CoreDataObject
     private var coreDataShoppingList: CoreDataShoppingList
+    private var coreDataImageInterface: CoreDataImage
     private var shoppingLists: [ShoppingList]
     
     init(itemList: [Item] = [], appDel: AppDelegate, shoppingLists: [ShoppingList] = []) {
@@ -30,12 +31,12 @@ class User {
         
         let entity = NSEntityDescription.entity(forEntityName: "ItemModel", in: managedContext)
         let shoppingListEntity = NSEntityDescription.entity(forEntityName: "ShoppingListModel", in: managedContext)
-        
+        let imageEntity = NSEntityDescription.entity(forEntityName: "ImageData", in: managedContext)
         self.coreDataInterface = CoreDataObject(appDel: appDel, managedContext: managedContext, fetchReq: fetchRequest, entity: entity!)
         
         self.coreDataShoppingList = CoreDataShoppingList(appDel: appDel, newManagedContext: managedContext, newFetchReq: shoppingListFetchRequest, newEntity: shoppingListEntity!)
         self.shoppingLists = shoppingLists
-
+        self.coreDataImageInterface = CoreDataImage(appDel: appDel, managedContext: managedContext, fetchReq: fetchRequest, imageToSave: [], entity: imageEntity!)
     }
     
     private func isIndexValid(index: Int) -> Bool {
@@ -365,5 +366,13 @@ class User {
             // shoppingLists[index].addItemToKey(item: item)
             add(item: item)
         }
+    }
+    
+    func fetchImage(with item: Item) -> UIImage? {
+        return coreDataImageInterface.fetchImage(with: item)
+    }
+    
+    func saveImage(with item: Item, and image: UIImage) {
+        coreDataImageInterface.saveImage(with: item, image: image)
     }
 }
