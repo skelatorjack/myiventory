@@ -34,6 +34,9 @@ class AddImageViewController: UIViewController {
     @IBAction func onTakeImagePressed(_ sender: Any) {
         presentImageController(didSelectCamera: true)
     }
+    @IBAction func onClearButtonPressed(_ sender: Any) {
+        itemImageView.image = nil
+    }
     
     private func presentImageController(didSelectCamera: Bool) {
         if didSelectCamera {
