@@ -127,11 +127,23 @@ class User {
     }
     
     func delete(at index: Int) {
-        if let item = self.item(at: index), coreDataInterface.deleteItem(itemToDelete: item) {
+        guard let item = self.item(at: index) else {
+            return
+        }
+        
+        if item.hasImage {
+            deleteItemWithImage(at: index)
+        }
+        if coreDataInterface.deleteItem(itemToDelete: item) {
             itemList.remove(at: index)
         }
     }
     
+    private func deleteItemWithImage(at indec: Int) {
+        if let item = self.item(at: indec) {
+            coreDataImageInterface.deleteImage(with: item)
+        }
+    }
     func updateItem(at index: Int, with item: Item) {
         if let oldItem = self.item(at: index) {
             coreDataInterface.updateItem(oldItem: oldItem, newItem: item, indexOfUpdate: index, itemList: &itemList)

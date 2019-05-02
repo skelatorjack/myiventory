@@ -29,6 +29,8 @@ class CoreDataImage {
         self.fetchRequest = fetchReq
         self.imagesToSave = imageToSave
         self.entity = entity
+        print("The number of images in core data is \(fetchAllImagesFromCoreData())")
+        //deleteAllImages()
     }
     
     func fetchImage(with item: Item) -> UIImage? {
@@ -76,6 +78,18 @@ class CoreDataImage {
         return images as! [ImageData]
     }
     
+    func fetchAllImagesFromCoreData() -> Int {
+        let searchCriteria: [NSPredicate] = []
+        var imageCount: Int = 0
+        fetchRequest.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: searchCriteria)
+        
+        do {
+            if let result = try? managedContext.fetch(fetchRequest) {
+                imageCount = result.count
+            }
+        }
+        return imageCount
+    }
     private func getImageSearchCriteria(from item: Item) -> [NSPredicate] {
         return [
             NSPredicate(format: "itemId == %@", item.itemId.uuidString)
@@ -84,5 +98,37 @@ class CoreDataImage {
     
     private func getImageData(from image: UIImage) -> Data? {
         return image.jpegData(compressionQuality: 1.0)
+    }
+    
+    func deleteImage(with item: Item) {
+        let searchCriteria: [NSPredicate] = getImageSearchCriteria(from: item)
+        
+        fetchRequest.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: searchCriteria)
+        
+        do {
+            if let result = try? managedContext.fetch(fetchRequest), let firstImage = result.first {
+                managedContext.delete(firstImage)
+                try managedContext.save()
+            }
+        } catch {
+            print("Failed to delete image \(error)")
+        }
+    }
+    
+    private func deleteAllImages() {
+        let searchCriteria: [NSPredicate] = []
+        
+        fetchRequest.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: searchCriteria)
+        
+        do {
+            if let result = try? managedContext.fetch(fetchRequest) {
+                for image in result {
+                     managedContext.delete(image)
+                }
+                try managedContext.save()
+            }
+        } catch {
+            print("Failed to delete image \(error)")
+        }
     }
 }
