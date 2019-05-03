@@ -937,7 +937,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1e4-Cc-ZYi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="888.40579710144937" y="902.00892857142856"/>
+            <point key="canvasLocation" x="122" y="1665"/>
         </scene>
         <!--Item List-->
         <scene sceneID="uZP-d9-dob">
@@ -1102,14 +1102,26 @@
                                     <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="umq-uD-NKQ" userLabel="Item Category Picker View">
                                         <rect key="frame" x="0.0" y="150.33333333333331" width="286" height="216"/>
                                     </pickerView>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4bm-dq-yd7">
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="av9-56-O5e">
                                         <rect key="frame" x="0.0" y="376.33333333333337" width="286" height="30"/>
-                                        <state key="normal" title="Update Item"/>
-                                        <connections>
-                                            <action selector="addItemPressed:" destination="kNB-iK-tjt" eventType="touchUpInside" id="tQP-P7-mSx"/>
-                                            <action selector="updateItemPressed:" destination="fyr-rr-6CU" eventType="touchUpInside" id="5Wo-tk-A7A"/>
-                                        </connections>
-                                    </button>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4bm-dq-yd7">
+                                                <rect key="frame" x="0.0" y="0.0" width="143" height="30"/>
+                                                <state key="normal" title="Update Item"/>
+                                                <connections>
+                                                    <action selector="addItemPressed:" destination="kNB-iK-tjt" eventType="touchUpInside" id="tQP-P7-mSx"/>
+                                                    <action selector="updateItemPressed:" destination="fyr-rr-6CU" eventType="touchUpInside" id="5Wo-tk-A7A"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uML-KL-5l0">
+                                                <rect key="frame" x="143" y="0.0" width="143" height="30"/>
+                                                <state key="normal" title="Add Image"/>
+                                                <connections>
+                                                    <action selector="onAddImagePressed:" destination="fyr-rr-6CU" eventType="touchUpInside" id="yfL-1E-QYG"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="H2F-jo-XOd" firstAttribute="width" secondItem="33f-Hm-Lsb" secondAttribute="width" id="EYt-u7-HBu"/>
@@ -1130,6 +1142,7 @@
                         <outlet property="updateNameField" destination="8mO-y4-7kj" id="dBW-Zx-kd0"/>
                         <outlet property="updateOwnerField" destination="33f-Hm-Lsb" id="Xbg-PV-02s"/>
                         <outlet property="updateQuantityField" destination="H2F-jo-XOd" id="Sg2-Yi-FhR"/>
+                        <segue destination="yfi-KR-xJs" kind="show" identifier="addImageSegueFromUpdate" id="8zb-Ze-IZl"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Fe9-cI-JyU" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1154,4 +1167,7 @@
             <point key="canvasLocation" x="-812" y="41"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="8zb-Ze-IZl"/>
+    </inferredMetricsTieBreakers>
 </document>

@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 protocol UpdateItemDelegate: class {
-    func updateItem(at index: Int, with: UpdatedItem)
+    func updateItem(at index: Int, with item: UpdatedItem)
 }
 
 class UpdateItemViewController: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
@@ -26,6 +26,7 @@ class UpdateItemViewController: UIViewController, UITextFieldDelegate, UIPickerV
     var itemToUpdate: UpdatedItem = UpdatedItem()
     
     var updateItemIndex: Int = -1
+    var itemImage: UIImage? = nil
     
     private let itemCategoryList: Array<ItemCategory> = [ItemCategory.Food, ItemCategory.Cleaning, ItemCategory.Clothes, ItemCategory.Fashion, ItemCategory.Tech, ItemCategory.Tools, ItemCategory.Yard, ItemCategory.Other]
     
@@ -59,6 +60,11 @@ class UpdateItemViewController: UIViewController, UITextFieldDelegate, UIPickerV
         return true
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let addImageVC = segue.destination as? AddImageViewController, segue.identifier == Segues.AddImageFromUpdate.rawValue {
+            print("Segueing to AddImageViewController from UpdateItem.")
+        }
+    }
     func enableUpdateItem() {
         let name: String = updateNameField.text!
         let quantity: String = updateQuantityField.text!
@@ -96,6 +102,9 @@ class UpdateItemViewController: UIViewController, UITextFieldDelegate, UIPickerV
         
         delegate?.updateItem(at: updateItemIndex, with: itemToUpdate)
         let _ = navigationController?.popViewController(animated: true)
+    }
+    @IBAction func onAddImagePressed(_ sender: Any) {
+        performSegue(withIdentifier: Segues.AddImageFromUpdate.rawValue, sender: nil)
     }
     private func getItemCategory() -> ItemCategory {
         print("Selected \(itemTypePicker.selectedRow(inComponent: 0))")

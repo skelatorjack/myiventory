@@ -119,13 +119,13 @@ class ItemListViewController: UITableViewController, AddItemDelegate, UpdateItem
         user.saveImage(with: item, and: image)
         refreshTable()
     }
-    func updateItem(at index: Int, with: UpdatedItem) {
+    func updateItem(at index: Int, with item: UpdatedItem) {
         guard var updatedItem = user.item(at: index)
             else {
                 return
         }
         
-        updatedItem.setUsing(updatedItem: with)
+        updatedItem.setUsing(updatedItem: item)
         
         user.updateItem(at: index, with: updatedItem)
         refreshTable()
