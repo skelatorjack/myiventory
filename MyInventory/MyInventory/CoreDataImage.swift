@@ -60,6 +60,22 @@ class CoreDataImage {
         }
     }
     
+    func updateItemImage(item: Item, image: UIImage) {
+        let searchCriteria = getImageSearchCriteria(from: item)
+        
+        fetchRequest.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: searchCriteria)
+        
+        do {
+            let images = try managedContext.fetch(fetchRequest)
+            guard let imageData = getImageData(from: image), let firstImage = images.first else {
+                return
+            }
+            updateImage(coreDataImage: firstImage, with: item, and: imageData)
+            try managedContext.save()
+        } catch {
+            print("Couldn't save image. \(error)")
+        }
+    }
     func updateImage(coreDataImage: NSManagedObject, with item: Item, and imageData: Data) {
         coreDataImage.setValue(item.itemId.uuidString, forKey: CoreDataImageKeys.itemId.rawValue)
         coreDataImage.setValue(imageData, forKey: CoreDataImageKeys.imageBinary.rawValue)

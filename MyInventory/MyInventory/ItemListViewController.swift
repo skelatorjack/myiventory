@@ -125,9 +125,7 @@ class ItemListViewController: UITableViewController, AddItemDelegate, UpdateItem
                 return
         }
         
-        updatedItem.setUsing(updatedItem: item)
-        
-        user.updateItem(at: index, with: updatedItem)
+        user.updateItem(at: index, with: item)
         refreshTable()
     }
     

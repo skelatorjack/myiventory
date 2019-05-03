@@ -150,6 +150,33 @@ class User {
         }
     }
     
+    func updateItem(at index: Int, with updatedItem: UpdatedItem) {
+        guard let selectedItem = self.item(at: index) else {
+            return
+        }
+    
+        var didSaveImage: Bool = false
+        let newItem = Item(updatedItem: updatedItem, item: selectedItem)
+        
+        if selectedItem.hasImage && hasImageChanged(item: selectedItem, image: updatedItem.itemImage) {
+            coreDataImageInterface.updateItemImage(item: selectedItem, image: updatedItem.itemImage!)
+            didSaveImage = true
+        } else if selectedItem.hasImage && !updatedItem.hasImage {
+            coreDataImageInterface.deleteImage(with: selectedItem)
+            didSaveImage = true
+        } else if !selectedItem.hasImage && updatedItem.hasImage {
+            coreDataImageInterface.saveImage(with: selectedItem, image: updatedItem.itemImage!)
+            didSaveImage = true
+        }
+        updateItem(at: index, with: newItem)
+    }
+    
+    private func hasImageChanged(item: Item, image: UIImage? = nil) -> Bool {
+        guard let itemImage = coreDataImageInterface.fetchImage(with: item), image != nil else {
+            return false
+        }
+        return !itemImage.isEqual(to: image!)
+    }
     func getItemCount() -> Int {
         return itemList.count
     }

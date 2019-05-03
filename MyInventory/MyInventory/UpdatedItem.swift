@@ -62,4 +62,8 @@ struct UpdatedItem {
     func isShoppingListItemValid() -> Bool {
         return isInventoryItemValid() && !shopName.isEmpty && !shoppingListName.isEmpty
     }
+    
+    func hasAddedAnImage() -> Bool {
+        return self.hasImage && self.itemImage != nil
+    }
 }

@@ -11,6 +11,7 @@ import UIKit
 protocol AddImageDelegate: class {
     func add(image: UIImage?)
 }
+
 class AddImageViewController: UIViewController {
 
     @IBOutlet weak var itemImageView: UIImageView!

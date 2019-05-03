@@ -39,7 +39,19 @@ struct Item: Equatable {
         self.hasImage = hasImage
         self.isInventoryItem = isInventoryItem
     }
-    
+   
+    init(updatedItem: UpdatedItem = UpdatedItem(), item: Item) {
+        itemName = updatedItem.itemName
+        itemOwner = updatedItem.itemOwner
+        itemQuantity = updatedItem.itemQuantity
+        shoppingList = updatedItem.shoppingListName
+        shopName = updatedItem.shopName
+        itemCategory = updatedItem.itemCategory
+        shoppingListID = updatedItem.shoppingListId
+        hasImage = updatedItem.hasImage
+        isInventoryItem = updatedItem.isInventoryItem
+        itemId = item.itemId
+    }
     mutating func setUsing(updatedItem: UpdatedItem = UpdatedItem()) {
         itemName = updatedItem.itemName
         itemOwner = updatedItem.itemOwner

@@ -7,7 +7,7 @@
 //
 
 import Foundation
-
+import UIKit
 // get element at index
 
 extension Array {
@@ -28,6 +28,15 @@ extension Array {
             return self.last
         }
         return nil
+    }
+}
+
+extension UIImage {
+    func isEqual(to image: UIImage) -> Bool {
+        guard let imageData = self.jpegData(compressionQuality: 1.0), let imageData2 = image.jpegData(compressionQuality: 1.0) else {
+            return false
+        }
+        return imageData == imageData2
     }
 }
 

@@ -13,7 +13,7 @@ protocol UpdateItemDelegate: class {
     func updateItem(at index: Int, with item: UpdatedItem)
 }
 
-class UpdateItemViewController: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
+class UpdateItemViewController: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource, AddImageDelegate {
     
     @IBOutlet weak var updateNameField: UITextField!
     @IBOutlet weak var updateQuantityField: UITextField!
@@ -26,7 +26,6 @@ class UpdateItemViewController: UIViewController, UITextFieldDelegate, UIPickerV
     var itemToUpdate: UpdatedItem = UpdatedItem()
     
     var updateItemIndex: Int = -1
-    var itemImage: UIImage? = nil
     
     private let itemCategoryList: Array<ItemCategory> = [ItemCategory.Food, ItemCategory.Cleaning, ItemCategory.Clothes, ItemCategory.Fashion, ItemCategory.Tech, ItemCategory.Tools, ItemCategory.Yard, ItemCategory.Other]
     
@@ -63,6 +62,7 @@ class UpdateItemViewController: UIViewController, UITextFieldDelegate, UIPickerV
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let addImageVC = segue.destination as? AddImageViewController, segue.identifier == Segues.AddImageFromUpdate.rawValue {
             print("Segueing to AddImageViewController from UpdateItem.")
+            addImageVC.delegate = self
         }
     }
     func enableUpdateItem() {
@@ -96,10 +96,22 @@ class UpdateItemViewController: UIViewController, UITextFieldDelegate, UIPickerV
         return itemCategoryList[row].rawValue
     }
     
+    func add(image: UIImage?) {
+        print("Adding image to updating item.")
+        if image != nil {
+            itemToUpdate.itemImage = image
+            itemToUpdate.hasImage = true
+        } else {
+            itemToUpdate.hasImage = false
+        }
+    }
     @IBAction func updateItemPressed(_ sender: UIButton) {
         print("Update Item pressed")
         itemToUpdate.itemCategory = getItemCategory()
         
+        if !itemToUpdate.hasAddedAnImage() {
+            itemToUpdate.hasImage = false
+        }
         delegate?.updateItem(at: updateItemIndex, with: itemToUpdate)
         let _ = navigationController?.popViewController(animated: true)
     }
