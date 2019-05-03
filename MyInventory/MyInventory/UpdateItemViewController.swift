@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 protocol UpdateItemDelegate: class {
-    func updateItem(item: Item, at index: Int)
+    func updateItem(at index: Int, with: UpdatedItem)
 }
 
 class UpdateItemViewController: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
@@ -23,23 +23,19 @@ class UpdateItemViewController: UIViewController, UITextFieldDelegate, UIPickerV
     
     weak var delegate: UpdateItemDelegate?
     
-    private var nameValue: String = ""
-    private var quantityValue: String = ""
-    private var ownerValue: String = ""
-    private var shopListValue: String = ""
+    var itemToUpdate: UpdatedItem = UpdatedItem()
     
-    private var item: Item = Item()
-    
-    private var updateItemIndex: Int = -1
+    var updateItemIndex: Int = -1
     
     private let itemCategoryList: Array<ItemCategory> = [ItemCategory.Food, ItemCategory.Cleaning, ItemCategory.Clothes, ItemCategory.Fashion, ItemCategory.Tech, ItemCategory.Tools, ItemCategory.Yard, ItemCategory.Other]
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        updateNameField.text = nameValue
-        updateQuantityField.text = quantityValue
-        updateOwnerField.text = ownerValue
+        updateNameField.text = itemToUpdate.itemName
+        updateQuantityField.text = "\(itemToUpdate.itemQuantity)"
+        updateOwnerField.text = itemToUpdate.itemOwner
         
         updateNameField.delegate = self
         updateOwnerField.delegate = self
@@ -67,11 +63,16 @@ class UpdateItemViewController: UIViewController, UITextFieldDelegate, UIPickerV
         let name: String = updateNameField.text!
         let quantity: String = updateQuantityField.text!
         let owner: String = updateOwnerField.text!
+       
+        itemToUpdate.itemName = name
+        itemToUpdate.itemOwner = owner
         
-        item.clear()
-        item.parseData(name: name, quantity: quantity, owner: owner)
+        guard let quantityAsInt = Int(quantity) else {
+            return
+        }
+        itemToUpdate.itemQuantity = quantityAsInt
         
-        if item.isItemValid(itemType:ItemType.InventoryItem) {
+        if itemToUpdate.isItemValid(itemType: .InventoryItem) {
             updateItemButton.isEnabled = true
         }
         else {
@@ -88,18 +89,12 @@ class UpdateItemViewController: UIViewController, UITextFieldDelegate, UIPickerV
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return itemCategoryList[row].rawValue
     }
-    func setValues(name: String, quantity: String, owner: String, index: Int, list: String) {
-        nameValue = name
-        quantityValue = quantity
-        ownerValue = owner
-        updateItemIndex = index
-        shopListValue = list
-    }
     
     @IBAction func updateItemPressed(_ sender: UIButton) {
         print("Update Item pressed")
-        item.itemCategory = getItemCategory()
-        delegate?.updateItem(item: item, at: updateItemIndex)
+        itemToUpdate.itemCategory = getItemCategory()
+        
+        delegate?.updateItem(at: updateItemIndex, with: itemToUpdate)
         let _ = navigationController?.popViewController(animated: true)
     }
     private func getItemCategory() -> ItemCategory {

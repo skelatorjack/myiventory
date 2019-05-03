@@ -45,8 +45,9 @@ class ItemListViewController: UITableViewController, AddItemDelegate, UpdateItem
             let item = user.item(at: index) {
             
             print("Updating \(String(describing: user.item(at: index)))")
-                updateItemDest.setValues(name: item.itemName, quantity: String(item.itemQuantity), owner: item.itemOwner, index: index, list: item.shoppingList)
-                updateItemDest.delegate = self
+            updateItemDest.itemToUpdate.setUpdatedItem(with: item)
+            updateItemDest.updateItemIndex = index
+            updateItemDest.delegate = self
         }
         else if let shoppingListVC = segue.destination as? ShoppingListsViewController {
             
@@ -118,8 +119,15 @@ class ItemListViewController: UITableViewController, AddItemDelegate, UpdateItem
         user.saveImage(with: item, and: image)
         refreshTable()
     }
-    func updateItem(item: Item, at index: Int) {
-        user.updateItem(at: index, with: item)
+    func updateItem(at index: Int, with: UpdatedItem) {
+        guard var updatedItem = user.item(at: index)
+            else {
+                return
+        }
+        
+        updatedItem.setUsing(updatedItem: with)
+        
+        user.updateItem(at: index, with: updatedItem)
         refreshTable()
     }
     

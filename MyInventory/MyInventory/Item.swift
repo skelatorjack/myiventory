@@ -40,6 +40,18 @@ struct Item: Equatable {
         self.isInventoryItem = isInventoryItem
     }
     
+    mutating func setUsing(updatedItem: UpdatedItem = UpdatedItem()) {
+        itemName = updatedItem.itemName
+        itemOwner = updatedItem.itemOwner
+        itemQuantity = updatedItem.itemQuantity
+        shoppingList = updatedItem.shoppingListName
+        shopName = updatedItem.shopName
+        itemCategory = updatedItem.itemCategory
+        shoppingListID = updatedItem.shoppingListId
+        hasImage = updatedItem.hasImage
+        isInventoryItem = updatedItem.isInventoryItem
+    }
+    
     static func == (left: Item, right: Item) -> Bool {
         if left.itemName == right.itemName,
             left.shoppingList == right.shoppingList,
@@ -125,5 +137,8 @@ struct Item: Equatable {
 extension Item {
     func quantityToString() -> String {
         return String(self.itemQuantity)
+    }
+    func convertQuantityStringToInt(quantity: String) -> Int? {
+        return Int(quantity)
     }
 }
