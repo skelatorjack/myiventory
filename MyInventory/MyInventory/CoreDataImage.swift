@@ -45,6 +45,12 @@ class CoreDataImage {
         }
     }
     
+    func fetchImage(with uuid: UUID) -> UIImage? {
+        let item: Item = Item(newItemId: uuid, hasImage: true)
+        fetchRequest.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: getImageSearchCriteria(from: item))
+        return fetchImage(with: item)
+    }
+    
     func saveImage(with item: Item, image: UIImage) {
         let imageToSave = NSManagedObject(entity: entity, insertInto: managedContext)
         guard let imageData = getImageData(from: image) else {
@@ -110,6 +116,10 @@ class CoreDataImage {
         return [
             NSPredicate(format: "itemId == %@", item.itemId.uuidString)
         ]
+    }
+    
+    private func getImageIdSearchCriteria(from id: UUID) -> Array<NSPredicate> {
+        return [NSPredicate(format: "itemId == %@", id.uuidString)]
     }
     
     private func getImageData(from image: UIImage) -> Data? {

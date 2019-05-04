@@ -25,9 +25,10 @@ struct Item: Equatable {
     let itemId: UUID
     var hasImage: Bool
     var isInventoryItem: Bool
+    var itemImage: UIImage?
     
     init(newName: String = "", newOwner: String = "", newQuantity: Int = 0, newShoppingList: String = "", shopName: String = "",
-         newCategory: ItemCategory = ItemCategory.Other, newShoppingListID: UUID? = nil, newItemId: UUID = UUID(), hasImage: Bool = false, isInventoryItem: Bool = false) {
+         newCategory: ItemCategory = ItemCategory.Other, newShoppingListID: UUID? = nil, newItemId: UUID = UUID(), hasImage: Bool = false, isInventoryItem: Bool = false, newItemImage: UIImage? = nil) {
         self.itemName = newName
         self.itemOwner = newOwner
         self.itemQuantity = newQuantity
@@ -51,6 +52,7 @@ struct Item: Equatable {
         hasImage = updatedItem.hasImage
         isInventoryItem = updatedItem.isInventoryItem
         itemId = item.itemId
+        itemImage = updatedItem.itemImage
     }
     mutating func setUsing(updatedItem: UpdatedItem = UpdatedItem()) {
         itemName = updatedItem.itemName
@@ -62,6 +64,7 @@ struct Item: Equatable {
         shoppingListID = updatedItem.shoppingListId
         hasImage = updatedItem.hasImage
         isInventoryItem = updatedItem.isInventoryItem
+        itemImage = updatedItem.itemImage
     }
     
     static func == (left: Item, right: Item) -> Bool {

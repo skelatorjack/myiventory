@@ -590,13 +590,25 @@
                                     <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0Wl-p3-DSh">
                                         <rect key="frame" x="0.0" y="190.33333333333331" width="286" height="216"/>
                                     </pickerView>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5aS-eh-Vwz">
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="oYG-JR-XD2">
                                         <rect key="frame" x="0.0" y="416.33333333333337" width="286" height="30"/>
-                                        <state key="normal" title="Add Item To List"/>
-                                        <connections>
-                                            <action selector="addItemToListPressed:" destination="dCs-bt-uCQ" eventType="touchUpInside" id="9So-vz-20s"/>
-                                        </connections>
-                                    </button>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5aS-eh-Vwz">
+                                                <rect key="frame" x="0.0" y="0.0" width="143" height="30"/>
+                                                <state key="normal" title="Add Item To List"/>
+                                                <connections>
+                                                    <action selector="addItemToListPressed:" destination="dCs-bt-uCQ" eventType="touchUpInside" id="9So-vz-20s"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nru-kY-T22">
+                                                <rect key="frame" x="143" y="0.0" width="143" height="30"/>
+                                                <state key="normal" title="Add Image"/>
+                                                <connections>
+                                                    <action selector="onAddImagePressed:" destination="dCs-bt-uCQ" eventType="touchUpInside" id="XUw-ZE-3kg"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="2j7-SP-qr9" firstAttribute="width" secondItem="4IT-WR-EeL" secondAttribute="width" id="8PY-SL-B7U"/>
@@ -619,6 +631,7 @@
                         <outlet property="ownerField" destination="TGW-pS-miE" id="Gud-Sb-eRF"/>
                         <outlet property="quantityField" destination="4IT-WR-EeL" id="Sx3-h5-n05"/>
                         <outlet property="storeField" destination="d4G-jo-aC9" id="LjZ-Iq-qf2"/>
+                        <segue destination="yfi-KR-xJs" kind="show" identifier="addImageSegueFromAddItemShopList" id="Tmq-Gw-0IX"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dr9-Xz-SPt" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -937,7 +950,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1e4-Cc-ZYi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="122" y="1665"/>
+            <point key="canvasLocation" x="1235" y="898"/>
         </scene>
         <!--Item List-->
         <scene sceneID="uZP-d9-dob">
@@ -1168,6 +1181,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="8zb-Ze-IZl"/>
+        <segue reference="Tmq-Gw-0IX"/>
     </inferredMetricsTieBreakers>
 </document>

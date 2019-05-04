@@ -13,7 +13,7 @@ protocol AddItemToList: class {
     func add(item: Item)
 }
 
-class AddItemToListViewController: UIViewController, UITextFieldDelegate, UIPickerViewDataSource, UIPickerViewDelegate {
+class AddItemToListViewController: UIViewController, UITextFieldDelegate, UIPickerViewDataSource, UIPickerViewDelegate, AddImageDelegate {
     
     @IBOutlet weak var nameField: UITextField!
     @IBOutlet weak var quantityField: UITextField!
@@ -25,6 +25,7 @@ class AddItemToListViewController: UIViewController, UITextFieldDelegate, UIPick
     weak var delegate: AddItemToList?
     
     private var shoppingListToChange: ShoppingList = ShoppingList()
+    private var image: UIImage? = nil
     
     private let itemCategoryList: Array<ItemCategory> = [ItemCategory.Food, ItemCategory.Cleaning, ItemCategory.Clothes, ItemCategory.Fashion, ItemCategory.Tech, ItemCategory.Tools, ItemCategory.Yard, ItemCategory.Other]
     
@@ -44,6 +45,15 @@ class AddItemToListViewController: UIViewController, UITextFieldDelegate, UIPick
         view.addGestureRecognizer(tapGesture)
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let addImageVC = segue.destination as? AddImageViewController, segue.identifier == Segues.AddImageFromShoppingList.rawValue {
+            addImageVC.delegate = self
+        }
+    }
+    @IBAction func onAddImagePressed(_ sender: Any) {
+        self.performSegue(withIdentifier: Segues.AddImageFromShoppingList.rawValue
+            , sender: nil)
+    }
     @IBAction func addItemToListPressed(_ sender: UIButton) {
         guard let nameText = nameField.text,
             let quantityText = Int(quantityField.text!),
@@ -106,5 +116,9 @@ class AddItemToListViewController: UIViewController, UITextFieldDelegate, UIPick
     private func getItemCategory() -> ItemCategory {
         print("Selected \(itemTypePicker.selectedRow(inComponent: 0))")
         return itemCategoryList[itemTypePicker.selectedRow(inComponent: 0)]
+    }
+    
+    func add(image: UIImage?) {
+        self.image = image
     }
 }

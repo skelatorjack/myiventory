@@ -56,10 +56,6 @@ class ItemListViewController: UITableViewController, AddItemDelegate, UpdateItem
             shoppingListVC.delegate = self
         } else if let displayItemVC = segue.destination as? DisplayItemViewController, segue.identifier == Segues.DisplayItemItemList.rawValue, let index = sender as? Int, let selectedItem = user.item(at: index) {
             displayItemVC.displayItem = selectedItem
-            
-            if selectedItem.hasImage {
-                displayItemVC.savedImage = user.fetchImage(with: selectedItem)
-            }
         }
     }
     
@@ -120,11 +116,6 @@ class ItemListViewController: UITableViewController, AddItemDelegate, UpdateItem
         refreshTable()
     }
     func updateItem(at index: Int, with item: UpdatedItem) {
-        guard var updatedItem = user.item(at: index)
-            else {
-                return
-        }
-        
         user.updateItem(at: index, with: item)
         refreshTable()
     }

@@ -124,6 +124,10 @@ class User {
             print("Adding item \(item)")
             itemList.append(item)
         }
+        
+        if item.hasImage && item.itemImage != nil {
+            coreDataImageInterface.saveImage(with: item, image: item.itemImage!)
+        }
     }
     
     func delete(at index: Int) {
@@ -194,7 +198,9 @@ class User {
             
             for model in itemModels {
             
-                if let item = adaptItemModelToItem(itemModel: model) {
+                if var item = adaptItemModelToItem(itemModel: model) {
+                    let image = fetchImage(with: item)
+                    item.itemImage = image
                     print("Item from core data is \(item)")
                     items.append(item)
                 }
@@ -270,7 +276,6 @@ class User {
         
         let quantity = Int(itemModel.quantityOfItem)
         var shoppingListId: UUID? = nil
-
         let category = convertStringToType(type: itemModel.itemCategory!)
         
         guard let name = itemModel.name,
@@ -286,10 +291,12 @@ class User {
         guard let itemId = UUID(uuidString: itemIdAsString) else {
             return nil
         }
-        
-        return Item(newName: name, newOwner: owner, newQuantity: quantity, newShoppingList: shoppingList, shopName: shopName, newCategory: category, newShoppingListID: shoppingListId, newItemId: itemId, hasImage: itemModel.hasImage, isInventoryItem: itemModel.isInventoryItem)
+        return Item(newName: name, newOwner: owner, newQuantity: quantity, newShoppingList: shoppingList, shopName: shopName, newCategory: category, newShoppingListID: shoppingListId, newItemId: itemId, hasImage: itemModel.hasImage, isInventoryItem: itemModel.isInventoryItem, newItemImage: nil)
     }
     
+    func pullImageFromCoreData(uuid: UUID) -> UIImage? {
+        return coreDataImageInterface.fetchImage(with: uuid)
+    }
     func adaptItemsToItemModels(items: [Item]) -> [ItemModel] {
         
         var itemMods: [ItemModel] = []

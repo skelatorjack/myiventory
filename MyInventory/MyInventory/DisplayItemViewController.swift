@@ -16,7 +16,6 @@ class DisplayItemViewController: UIViewController {
     @IBOutlet weak var viewImageButton: UIButton!
     
     var displayItem: Item? = nil
-    var savedImage: UIImage? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,8 +39,8 @@ class DisplayItemViewController: UIViewController {
     
     */
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let displayItemVC = segue.destination as? DisplayItemImageViewController, savedImage != nil, segue.identifier == Segues.DisplayItemImage.rawValue {
-            displayItemVC.image = savedImage
+        if let displayItemVC = segue.destination as? DisplayItemImageViewController, displayItem?.itemImage != nil, segue.identifier == Segues.DisplayItemImage.rawValue {
+            displayItemVC.image = displayItem!.itemImage
         }
     }
     

@@ -11,7 +11,6 @@ import UIKit
 
 protocol AddItemDelegate: class {
     func addItem(item: Item)
-    func addItem(item: Item, with image: UIImage)
 }
 
 
@@ -100,12 +99,7 @@ class AddItemViewController: UIViewController, UITextFieldDelegate, UIPickerView
             return
         }
         print("Adding new item as \(newItem)")
-    
-        if itemImage != nil {
-            delegate?.addItem(item: newItem, with: itemImage!)
-        } else {
-            delegate?.addItem(item: newItem)
-        }
+        delegate?.addItem(item: newItem)
         
         let _ = navigationController?.popViewController(animated: true)
     }
@@ -127,7 +121,7 @@ class AddItemViewController: UIViewController, UITextFieldDelegate, UIPickerView
         if itemImage != nil {
             isImageSelected = true
         }
-        return Item(newName: name, newOwner: owner, newQuantity: quantity, newCategory: getItemCategory(), hasImage: isImageSelected, isInventoryItem: true)
+        return Item(newName: name, newOwner: owner, newQuantity: quantity, newCategory: getItemCategory(), hasImage: isImageSelected, isInventoryItem: true, newItemImage: itemImage)
     }
     
     private func convertQuantityToInt(quantity: String?) -> Int? {

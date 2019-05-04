@@ -30,4 +30,5 @@ enum Segues: String {
     case DisplayItemItemList = "displayItemItemList"
     case DisplayItemShoppingList = "displayItemShoppingList"
     case DisplayItemImage = "displayItemImage"
+    case AddImageFromShoppingList = "addImageSegueFromAddItemShopList"
 }
