@@ -39,6 +39,7 @@ struct Item: Equatable {
         self.itemId = newItemId
         self.hasImage = hasImage
         self.isInventoryItem = isInventoryItem
+        self.itemImage = newItemImage
     }
    
     init(updatedItem: UpdatedItem = UpdatedItem(), item: Item) {
@@ -140,7 +141,9 @@ struct Item: Equatable {
     func isValueNotEqual(value: Int, to: Int) -> Bool {
         return value != to
     }
-    
+    func doesItemHaveImage() -> Bool {
+        return hasImage && itemImage != nil
+    }
     mutating func clear() {
         self.itemOwner.removeAll()
         self.itemName.removeAll()

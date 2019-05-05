@@ -48,6 +48,12 @@ class DisplayShoppingListItemViewController: UIViewController {
     }
     */
 
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let displayImageVC = segue.destination as? DisplayItemImageViewController, segue.identifier == Segues.DisplayShoppingListItemImage.rawValue, displayItem.doesItemHaveImage() {
+            print("Setting image.")
+            displayImageVC.image = displayItem.itemImage
+        }
+    }
     private func setUpLabels() {
         labels.at(index: LabelIndex.Name.rawValue)?.text = getLabel(label: LabelIndex.Name)
         labels.at(index: LabelIndex.Quantity.rawValue)?.text = getLabel(label: LabelIndex.Quantity)
@@ -74,6 +80,10 @@ class DisplayShoppingListItemViewController: UIViewController {
             labelText = ""
         }
         return labelText
+    }
+    @IBAction func onDisplayImageButtonPressed(_ sender: Any) {
+        print("Display Image Pressed.")
+        performSegue(withIdentifier: Segues.DisplayShoppingListItemImage.rawValue, sender: nil)
     }
     
 }

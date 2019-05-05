@@ -122,7 +122,9 @@ class User {
     func add(item: Item) {
         if coreDataInterface.saveItem(item: item) {
             print("Adding item \(item)")
-            itemList.append(item)
+            if item.isInventoryItem {
+                itemList.append(item)
+            }
         }
         
         if item.hasImage && item.itemImage != nil {
@@ -313,9 +315,11 @@ class User {
         var items: [Item] = []
         
         for itemModel in itemModels {
-            if let ITEM = adaptItemModelToItem(itemModel: itemModel) {
-                items.append(ITEM)
-                print("Added \(ITEM)")
+            if var item = adaptItemModelToItem(itemModel: itemModel) {
+                let image = fetchImage(with: item)
+                item.itemImage = image
+                items.append(item)
+                print("Added \(item)")
             }
         }
         return items
@@ -410,8 +414,12 @@ class User {
     
     func addItemToShoppingList(index: Int, item: Item) {
         if isShoppingListIndexValid(index: index) {
-            // shoppingLists[index].addItemToKey(item: item)
-            add(item: item)
+            shoppingLists[index].addItemToKey(item: item)
+            if item.doesItemHaveImage() {
+                saveImage(with: item, and: item.itemImage!)
+            } else {
+                coreDataInterface.saveItem(item: item)
+            }
         }
     }
     
@@ -421,6 +429,12 @@ class User {
     
     func saveImage(with item: Item, and image: UIImage) {
         coreDataImageInterface.saveImage(with: item, image: image)
-        add(item: item)
+        let result = coreDataInterface.saveItem(item: item)
+        
+        if result {
+            print("Sucessfully saved \(item)")
+        } else {
+            print("Falied to save \(item)")
+        }
     }
 }
