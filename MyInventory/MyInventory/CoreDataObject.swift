@@ -255,7 +255,7 @@ class CoreDataObject {
     private func getShoppingListSearchCriteria(shoppingList: ShoppingList) -> [NSPredicate] {
         return [
             NSPredicate(format: "shoppingListName == %@", shoppingList.getListName()),
-            NSPredicate(format: "shoppingListId == %@", shoppingList.convertUUIDToString()),
+            NSPredicate(format: "shoppingListId == %@", shoppingList.convertUUIDToString())
         ]
     }
     

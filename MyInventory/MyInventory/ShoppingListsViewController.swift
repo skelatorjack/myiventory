@@ -40,6 +40,7 @@ class ShoppingListsViewController: UITableViewController, AddShoppingList, Updat
     override func viewDidLoad() {
         super.viewDidLoad()
         setShoppingListNames()
+        reloadTable()
     }
     
     func setShoppingLists(userShoppingLists: [ShoppingList]) {
@@ -152,12 +153,14 @@ class ShoppingListsViewController: UITableViewController, AddShoppingList, Updat
     }
     
     func deleteItemFromList(key: String, index: Int) {
-        let SHOP_LIST: ShoppingList = shoppingLists[indexOfShoppingList]
+        var shoppingList: ShoppingList = shoppingLists[indexOfShoppingList]
         
-        guard let DELETE_ITEM: Item = SHOP_LIST.getValue(key: key, index: index) else {
+        guard let DELETE_ITEM: Item = shoppingList.getValue(key: key, index: index) else {
             return
         }
+        shoppingList.deleteItemFromList(key: DELETE_ITEM.shopName, index: index)
         delegate?.removeItemFromShoppingList(listIndex: indexOfShoppingList, itemToDelete: DELETE_ITEM)
+        reloadTable()
     }
     
     func updateItemFromList(key: String, index: Int, newItem: Item) {

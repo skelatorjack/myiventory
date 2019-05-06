@@ -414,7 +414,7 @@ class User {
     
     func addItemToShoppingList(index: Int, item: Item) {
         if isShoppingListIndexValid(index: index) {
-            shoppingLists[index].addItemToKey(item: item)
+            //shoppingLists[index].addItemToKey(item: item)
             if item.doesItemHaveImage() {
                 saveImage(with: item, and: item.itemImage!)
             } else {

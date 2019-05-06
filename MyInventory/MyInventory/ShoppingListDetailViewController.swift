@@ -164,7 +164,7 @@ class ShoppingListDetailViewController: UITableViewController, AddItemToList, Up
             let DELETE_KEY: String = self.shopNames[index.section]
             let DELETE_INDEX: Int = index.row
             self.delegate?.deleteItemFromList(key: DELETE_KEY, index: DELETE_INDEX)
-            self.deleteEntry(key: DELETE_KEY, index: DELETE_INDEX)
+            //self.deleteEntry(key: DELETE_KEY, index: DELETE_INDEX)
             self.reloadTable()
         }
         let changeShoppingListOfItem = UITableViewRowAction(style: .normal, title: "Change List") { action, index in

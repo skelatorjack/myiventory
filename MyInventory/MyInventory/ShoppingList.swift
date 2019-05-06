@@ -48,10 +48,10 @@ class ShoppingList {
     func getTotalNumberOfItems() -> Int {
         var count: Int = 0
         
-        for _ in storeAndItems {
-            count += 1
+        for keys in storeAndItems.keys {
+            count += calculateTotalNumberOfItems(with: keys)
         }
-        
+        print("The total number of items is \(count)")
         return count
     }
     
@@ -62,7 +62,6 @@ class ShoppingList {
         for shopName in listOfShops {
             totalCount += calculateTotalNumberOfItems(with: shopName)
         }
-        
         return totalCount
     }
     
