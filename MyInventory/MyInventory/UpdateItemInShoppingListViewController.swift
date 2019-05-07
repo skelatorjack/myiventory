@@ -118,7 +118,7 @@ class UpdateItemInShoppingListViewController: UIViewController, UITextFieldDeleg
             hasImage = true
         }
         
-        let updatedItem: Item = Item(newName: updatedName, newOwner: updatedOwner, newQuantity: Int(updatedQuantity)!, newShoppingList: updatedShopList, shopName: updatedStore, newCategory: getItemCategory(), newShoppingListID: itemToChange.itemId, newItemId: itemToChange.itemId, hasImage: hasImage, isInventoryItem: false, newItemImage: image)
+        let updatedItem: Item = Item(newName: updatedName, newOwner: updatedOwner, newQuantity: Int(updatedQuantity)!, newShoppingList: updatedShopList, shopName: updatedStore, newCategory: getItemCategory(), newShoppingListID: itemToChange.shoppingListID, newItemId: itemToChange.itemId, hasImage: hasImage, isInventoryItem: false, newItemImage: image)
         
         return updatedItem
     }
