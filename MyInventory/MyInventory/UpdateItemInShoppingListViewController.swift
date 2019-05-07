@@ -19,11 +19,12 @@ protocol UpdateItemInShoppingListDelegate: class {
     func updateItem(updatedItem: Item, update: UpdateShoppingListCase)
 }
 
-class UpdateItemInShoppingListViewController: UIViewController, UITextFieldDelegate, UIPickerViewDataSource, UIPickerViewDelegate {
+class UpdateItemInShoppingListViewController: UIViewController, UITextFieldDelegate, UIPickerViewDataSource, UIPickerViewDelegate, AddImageDelegate {
     
+    private var image: UIImage? = nil
     private var itemToChange: Item = Item()
     weak var delegate: UpdateItemInShoppingListDelegate?
-    
+    private let itemCategoryList: Array<ItemCategory> = [ItemCategory.Food, ItemCategory.Cleaning, ItemCategory.Clothes, ItemCategory.Fashion, ItemCategory.Tech, ItemCategory.Tools, ItemCategory.Yard, ItemCategory.Other]
     // IBOutlets and actions
     @IBOutlet weak var updateNameField: UITextField!
     @IBOutlet weak var updateQuantityField: UITextField!
@@ -39,9 +40,15 @@ class UpdateItemInShoppingListViewController: UIViewController, UITextFieldDeleg
         
         let _ = navigationController?.popViewController(animated: true)
     }
+    @IBAction func onAddImagePressed(_ sender: Any) {
+        self.performSegue(withIdentifier: Segues.AddImageFromUpdateShoppingListItem.rawValue, sender: nil)
+    }
     
-     private let itemCategoryList: Array<ItemCategory> = [ItemCategory.Food, ItemCategory.Cleaning, ItemCategory.Clothes, ItemCategory.Fashion, ItemCategory.Tech, ItemCategory.Tools, ItemCategory.Yard, ItemCategory.Other]
-    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let addImageVC = segue.destination as? AddImageViewController, segue.identifier == Segues.AddImageFromUpdateShoppingListItem.rawValue {
+            addImageVC.delegate = self
+        }
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -89,7 +96,7 @@ class UpdateItemInShoppingListViewController: UIViewController, UITextFieldDeleg
     }
     
     private func validateInput() {
-        let updatedItem: Item = createItem()
+        let updatedItem = createItem()
         
         if updatedItem.isItemValid(itemType:ItemType.ShoppingListItem) {
             updateItemButton.isEnabled = true
@@ -105,13 +112,22 @@ class UpdateItemInShoppingListViewController: UIViewController, UITextFieldDeleg
         let updatedOwner: String = updateOwnerField.text!
         let updatedStore: String = updateStoreField.text!
         let updatedShopList: String = itemToChange.shoppingList
+        var hasImage: Bool = false
         
-        let updatedItem: Item = Item(newName: updatedName, newOwner: updatedOwner, newQuantity: Int(updatedQuantity)!, newShoppingList: updatedShopList, shopName: updatedStore, newCategory: getItemCategory())
+        if image != nil {
+            hasImage = true
+        }
+        
+        let updatedItem: Item = Item(newName: updatedName, newOwner: updatedOwner, newQuantity: Int(updatedQuantity)!, newShoppingList: updatedShopList, shopName: updatedStore, newCategory: getItemCategory(), newShoppingListID: itemToChange.itemId, newItemId: itemToChange.itemId, hasImage: hasImage, isInventoryItem: false, newItemImage: image)
         
         return updatedItem
     }
     private func getItemCategory() -> ItemCategory {
         print("Selected \(itemTypePicker.selectedRow(inComponent: 0))")
         return itemCategoryList[itemTypePicker.selectedRow(inComponent: 0)]
+    }
+    
+    func add(image: UIImage?) {
+        self.image = image
     }
 }

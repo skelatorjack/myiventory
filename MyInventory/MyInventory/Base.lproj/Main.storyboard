@@ -737,14 +737,26 @@
                                     <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PFa-rz-jl5" userLabel="Item Type Picker">
                                         <rect key="frame" x="0.0" y="190.33333333333331" width="286" height="216"/>
                                     </pickerView>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ear-6j-CHL">
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="WlD-bh-iGe">
                                         <rect key="frame" x="0.0" y="416.33333333333337" width="286" height="30"/>
-                                        <state key="normal" title="Update Item In List"/>
-                                        <connections>
-                                            <action selector="addItemToListPressed:" destination="dCs-bt-uCQ" eventType="touchUpInside" id="EbA-Ja-DP8"/>
-                                            <action selector="updateItemPressed:" destination="IGk-70-qOZ" eventType="touchUpInside" id="Bs1-l0-eVe"/>
-                                        </connections>
-                                    </button>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ear-6j-CHL">
+                                                <rect key="frame" x="0.0" y="0.0" width="143" height="30"/>
+                                                <state key="normal" title="Update Item In List"/>
+                                                <connections>
+                                                    <action selector="addItemToListPressed:" destination="dCs-bt-uCQ" eventType="touchUpInside" id="EbA-Ja-DP8"/>
+                                                    <action selector="updateItemPressed:" destination="IGk-70-qOZ" eventType="touchUpInside" id="Bs1-l0-eVe"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Faa-e8-u98">
+                                                <rect key="frame" x="143" y="0.0" width="143" height="30"/>
+                                                <state key="normal" title="Add Image"/>
+                                                <connections>
+                                                    <action selector="onAddImagePressed:" destination="IGk-70-qOZ" eventType="touchUpInside" id="1TP-SP-MnE"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="26w-Fa-qsR" firstAttribute="width" secondItem="EnI-6I-axx" secondAttribute="width" id="5Ud-w0-JjZ"/>
@@ -767,6 +779,7 @@
                         <outlet property="updateOwnerField" destination="TLv-3W-qzm" id="uxy-1j-LJW"/>
                         <outlet property="updateQuantityField" destination="EnI-6I-axx" id="GD5-h2-WwG"/>
                         <outlet property="updateStoreField" destination="tYn-CA-3s5" id="5YG-eN-rqx"/>
+                        <segue destination="yfi-KR-xJs" kind="show" identifier="addImageFromUpdateShoppingListItem" id="uKO-Rj-fIq"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ypc-cB-XOG" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1185,7 +1198,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="Tmq-Gw-0IX"/>
+        <segue reference="uKO-Rj-fIq"/>
         <segue reference="vxa-ac-eSg"/>
     </inferredMetricsTieBreakers>
 </document>

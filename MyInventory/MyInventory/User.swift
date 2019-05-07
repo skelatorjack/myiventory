@@ -127,7 +127,7 @@ class User {
             }
         }
         
-        if item.hasImage && item.itemImage != nil {
+        if item.doesItemHaveImage() {
             coreDataImageInterface.saveImage(with: item, image: item.itemImage!)
         }
     }
@@ -397,6 +397,9 @@ class User {
     
     func updateItemInShoppingList(oldItem: Item, newItem: Item) {
         coreDataInterface.updateItem(oldItem: oldItem, newItem: newItem, itemList: &itemList)
+        if newItem.doesItemHaveImage() {
+            coreDataImageInterface.saveImage(with: newItem, image: newItem.itemImage!)
+        }
     }
     
     func updateShoppingListName(newShoppingListName: String, index: Int) {
