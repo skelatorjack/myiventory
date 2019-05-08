@@ -38,6 +38,7 @@ class User {
         self.coreDataShoppingList = CoreDataShoppingList(appDel: appDel, newManagedContext: managedContext, newFetchReq: shoppingListFetchRequest, newEntity: shoppingListEntity!)
         self.shoppingLists = shoppingLists
         self.coreDataImageInterface = CoreDataImage(appDel: appDel, managedContext: managedContext, fetchReq: imageFetchRequest, imageToSave: [], entity: imageEntity!)
+        print("The number of items in core data is \(coreDataInterface.checkHowManyItemsInCoreData())")
     }
     
     private func isIndexValid(index: Int) -> Bool {

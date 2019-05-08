@@ -159,6 +159,8 @@ class ShoppingListDetailViewController: UITableViewController, AddItemToList, Up
     }
     
     override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        var tableViewRowActions: [UITableViewRowAction] = []
+        
         let del = UITableViewRowAction(style: .destructive, title: "Delete Item") { action, index in
             print("Deleting item at index \(index.row) in shop \(self.shopNames[index.section]) in list \(self.shopListName)")
             let DELETE_KEY: String = self.shopNames[index.section]
@@ -194,9 +196,32 @@ class ShoppingListDetailViewController: UITableViewController, AddItemToList, Up
         changeShoppingListOfItem.backgroundColor = UIColor.green
         updateShoppingListItem.backgroundColor = UIColor.darkGray
         
-        return [del, changeShoppingListOfItem, updateShoppingListItem]
+        tableViewRowActions.append(del)
+        tableViewRowActions.append(changeShoppingListOfItem)
+        tableViewRowActions.append(updateShoppingListItem)
+        determineMarkAction(with: indexPath, and: &tableViewRowActions)
+        
+        return tableViewRowActions
     }
     
+    private func determineMarkAction(with indexPath: IndexPath, and rowActions: inout [UITableViewRowAction]) {
+        if let key = shopNames.at(index: indexPath.section),
+            let item = shoppingListToDisplay.getValue(key: key, index: indexPath.row), item.hasImage {
+            let markAsDoneAction = UITableViewRowAction(style: .normal, title: "Mark as Done") { action, index in
+                print("Marking done.")
+            }
+            markAsDoneAction.backgroundColor = UIColor.cyan
+            rowActions.append(markAsDoneAction)
+            return
+        }
+        if let key = shopNames.at(index: indexPath.section), let item = shoppingListToDisplay.getValue(key: key, index: indexPath.row), !item.hasImage {
+            let unmarkAsDoneAction = UITableViewRowAction(style: .normal, title: "Unmark as Done") { action, index in
+                print("Unmarking as done.")
+            }
+            unmarkAsDoneAction.backgroundColor = UIColor.cyan
+            rowActions.append(unmarkAsDoneAction)
+        }
+    }
     // For editing an item in a shopping list
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let SHOP_NAME = shopNames.at(index: indexPath.section), let SELECTED_ITEM = shoppingListToDisplay.getValue(key: SHOP_NAME, index: indexPath.row) else {

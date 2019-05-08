@@ -71,6 +71,19 @@ class CoreDataObject {
         return items as! [ItemModel]
     }
     
+    func checkHowManyItemsInCoreData() -> Int {
+        
+        fetchRequest.predicate = getAllItems()
+        var itemCount: Int = 0
+        
+        do {
+          itemCount = try managedContext.count(for: fetchRequest)
+        } catch {
+            print("Failed to count items \(error)")
+        }
+        
+        return itemCount
+    }
     func fetchInventoryItems() -> [ItemModel] {
         var items: [NSManagedObject] = []
         let searchCriteria = getInventoryItems()
@@ -272,6 +285,14 @@ class CoreDataObject {
         ]
         
         return shoppingListSearchCriteria
+    }
+    func getAllItems() -> NSCompoundPredicate {
+        let searchCriteria: [NSPredicate] = [
+            NSPredicate(format: "isInventoryItem == %@", "true"),
+            NSPredicate(format: "isInventoryItem == %@", "false")
+        ]
+        return NSCompoundPredicate(andPredicateWithSubpredicates: searchCriteria)
+        
     }
 
 }
