@@ -294,7 +294,7 @@ class User {
         guard let itemId = UUID(uuidString: itemIdAsString) else {
             return nil
         }
-        return Item(newName: name, newOwner: owner, newQuantity: quantity, newShoppingList: shoppingList, shopName: shopName, newCategory: category, newShoppingListID: shoppingListId, newItemId: itemId, hasImage: itemModel.hasImage, isInventoryItem: itemModel.isInventoryItem, newItemImage: nil)
+        return Item(newName: name, newOwner: owner, newQuantity: quantity, newShoppingList: shoppingList, shopName: shopName, newCategory: category, newShoppingListID: shoppingListId, newItemId: itemId, hasImage: itemModel.hasImage, isInventoryItem: itemModel.isInventoryItem, newItemImage: nil, newIsMarkedDone: itemModel.isMarkedDone)
     }
     
     func pullImageFromCoreData(uuid: UUID) -> UIImage? {
@@ -310,6 +310,10 @@ class User {
             }
         }
         return itemMods
+    }
+    
+    func saveMark(with pair: (UUID, Bool)) {
+        coreDataInterface.changeMarkOfItem(with: pair)
     }
     
     func adaptShoppingListItemModelToItem(itemModels: [ItemModel]) -> [Item] {

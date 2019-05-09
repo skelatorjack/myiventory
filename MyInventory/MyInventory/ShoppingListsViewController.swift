@@ -17,6 +17,7 @@ protocol UpdateUserWithShoppingList: class {
     func addItem(to list: Int, item: Item)
     func update(shoppingListName: String, at index: Int)
     func updateItem(oldItem: Item, newItem: Item, indexOfUpdate: Int, listIndex: Int)
+    func changeMark(with itemPair: (UUID, Bool))
 }
 
 enum UpdateShoppingListCase {
@@ -152,6 +153,9 @@ class ShoppingListsViewController: UITableViewController, AddShoppingList, Updat
         reloadTable()
     }
     
+    func changeMark(itemPair: (UUID, Bool)) {
+        delegate?.changeMark(with: itemPair)
+    }
     func deleteItemFromList(key: String, index: Int) {
         var shoppingList: ShoppingList = shoppingLists[indexOfShoppingList]
         

@@ -8,6 +8,7 @@
     <entity name="ItemModel" representedClassName="ItemModel" syncable="YES" codeGenerationType="class">
         <attribute name="hasImage" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="isInventoryItem" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="isMarkedDone" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="itemCategory" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="itemId" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
@@ -25,7 +26,7 @@
     <elements>
         <element name="Entity" positionX="-63" positionY="-63" width="128" height="45"/>
         <element name="ImageData" positionX="-228.8046875" positionY="-58.5078125" width="128" height="75"/>
-        <element name="ItemModel" positionX="-225.6875" positionY="-429.8359375" width="128" height="195"/>
+        <element name="ItemModel" positionX="-225.6875" positionY="-429.8359375" width="128" height="208"/>
         <element name="ShoppingListModel" positionX="-93.703125" positionY="-192.1796875" width="128" height="90"/>
     </elements>
 </model>

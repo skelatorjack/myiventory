@@ -21,6 +21,7 @@ enum CoreDateItemKeys: String {
     case shoppingListName
     case hasImage
     case itemId
+    case isMarkedDone
 }
 
 class CoreDataObject {
@@ -118,6 +119,18 @@ class CoreDataObject {
         return shoppingListItems as! [ItemModel]
     }
     
+    func changeMarkOfItem(with itemPair: (UUID, Bool)) {
+        fetchRequest.predicate = getItem(uuid: itemPair.0)
+        
+        do {
+            let items = try managedContext.fetch(fetchRequest)
+            guard let firstItem = items.first else { return }
+            updateMark(managedObject: firstItem, with: itemPair.1)
+            try managedContext.save()
+        } catch {
+            print("Failed to save \(itemPair)")
+        }
+    }
     func saveItem(item: Item) -> Bool {
         let itemToSave = NSManagedObject(entity: entity, insertInto: managedContext)
         
@@ -237,7 +250,7 @@ class CoreDataObject {
         managedObject.setValue(item.isInventoryItem, forKey: CoreDateItemKeys.isInventoryItem.rawValue)
         managedObject.setValue(item.hasImage, forKey: CoreDateItemKeys.hasImage.rawValue)
         managedObject.setValue(item.itemId.uuidString, forKey: CoreDateItemKeys.itemId.rawValue)
-        
+        managedObject.setValue(item.isMarkedDone, forKey: CoreDateItemKeys.isMarkedDone.rawValue)
         var idString: String = ""
         
         if !item.isInventoryItem, let uuid = item.shoppingListID {
@@ -246,6 +259,13 @@ class CoreDataObject {
         managedObject.setValue(idString, forKey: CoreDateItemKeys.shoppingListId.rawValue)
     }
     
+    private func updateMark(managedObject: NSManagedObject, with mark: Bool) {
+        managedObject.setValue(mark, forKey: CoreDateItemKeys.isMarkedDone.rawValue)
+    }
+    private func getItem(uuid: UUID) -> NSCompoundPredicate {
+        let predicate = [NSPredicate(format: "itemId == %@", uuid.uuidString)]
+        return NSCompoundPredicate(andPredicateWithSubpredicates: predicate)
+    }
     private func updateManagedObjectShoppingListName(managedObject: NSManagedObject, shoppingList: ShoppingList) {
         managedObject.setValue(shoppingList.getListName(), forKey: "shoppingListName")
     }

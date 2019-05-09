@@ -170,6 +170,31 @@ class ShoppingList {
         setValue(key: item.shopName, index: indexOfUpdate, item: item)
     }
     
+    func getMark(itemPair: (String, Int)) -> Bool? {
+        guard let itemMark = getValue(key: itemPair.0, index: itemPair.1)?.isMarkedDone else {
+            return nil
+        }
+        return itemMark
+    }
+    func markAsDone(item: (String, Int)) {
+        guard let itemMark = storeAndItems[item.0]?.at(index: item.1)?.isMarkedDone else {
+            return
+        }
+        
+        if !itemMark {
+            storeAndItems[item.0]?[item.1].isMarkedDone = true
+        }
+    }
+    
+    func unmarkAsDone(itemPair: (String, Int)) {
+        guard let itemMark = storeAndItems[itemPair.0]?.at(index: itemPair.1)?.isMarkedDone else {
+            return
+        }
+        
+        if itemMark {
+            storeAndItems[itemPair.0]?[itemPair.1].isMarkedDone = false
+        }
+    }
     private func isIndexValidForValue(key: String, index: Int) -> Bool {
         if let value = storeAndItems[key]?.count,
             isIndexValid(index: index, MAX: value, MIN: 0){

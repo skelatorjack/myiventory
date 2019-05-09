@@ -134,6 +134,10 @@ class ItemListViewController: UITableViewController, AddItemDelegate, UpdateItem
         }
     }
     
+    func changeMark(with itemPair: (UUID, Bool)) {
+        print("Changing with \(itemPair)")
+        user.saveMark(with: itemPair)
+    }
     func add(shoppingList: ShoppingList) {
         user.addShoppingList(shoppingList: shoppingList)
     }

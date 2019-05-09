@@ -14,6 +14,7 @@ protocol UpdateShoppingList: class {
     func updateItemFromList(key: String, index: Int, newItem: Item)
     func move(item: Item, to newShoppingList: String, oldItem: Item, indexOfMovedItem: Int)
     func addItemToShoppingList(item: Item)
+    func changeMark(itemPair: (UUID, Bool))
 }
 
 class ShoppingListDetailViewController: UITableViewController, AddItemToList, UpdateItemInShoppingListDelegate, ChangeItemShoppingListDelegate {
@@ -205,21 +206,34 @@ class ShoppingListDetailViewController: UITableViewController, AddItemToList, Up
     }
     
     private func determineMarkAction(with indexPath: IndexPath, and rowActions: inout [UITableViewRowAction]) {
-        if let key = shopNames.at(index: indexPath.section),
-            let item = shoppingListToDisplay.getValue(key: key, index: indexPath.row), item.hasImage {
+        guard let key = shopNames.at(index: indexPath.section), let item = shoppingListToDisplay.getValue(key: key, index: indexPath.row), let cell = tableView.cellForRow(at: indexPath) else {
+            return
+        }
+        
+        if !item.isMarkedDone {
             let markAsDoneAction = UITableViewRowAction(style: .normal, title: "Mark as Done") { action, index in
                 print("Marking done.")
+                self.shoppingListToDisplay.markAsDone(item: (key, indexPath.row))
+                print("The item is now \(item)")
+                self.delegate?.changeMark(itemPair: (item.itemId, true))
+                
+                cell.backgroundColor = UIColor.gray
             }
             markAsDoneAction.backgroundColor = UIColor.cyan
             rowActions.append(markAsDoneAction)
-            return
-        }
-        if let key = shopNames.at(index: indexPath.section), let item = shoppingListToDisplay.getValue(key: key, index: indexPath.row), !item.hasImage {
+            
+            self.reloadTable()
+        } else {
             let unmarkAsDoneAction = UITableViewRowAction(style: .normal, title: "Unmark as Done") { action, index in
                 print("Unmarking as done.")
+                self.shoppingListToDisplay.unmarkAsDone(itemPair: (key, indexPath.row))
+                print("The item is now \(item)")
+                self.delegate?.changeMark(itemPair: (item.itemId, false))
+                cell.backgroundColor = UIColor.white
             }
             unmarkAsDoneAction.backgroundColor = UIColor.cyan
             rowActions.append(unmarkAsDoneAction)
+            self.reloadTable()
         }
     }
     // For editing an item in a shopping list
