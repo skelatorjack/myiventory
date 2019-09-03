@@ -22,6 +22,7 @@ class ShoppingListDetailCell: UITableViewCell {
         quantityLabel.text = "\(item.itemQuantity)"
         ownerLabel.text = item.itemOwner
         setIcon(with: item)
+        setBackgroundColor(with: item.isMarkedDone)
     }
     
     private func setIcon(with item: Item) {
@@ -39,5 +40,13 @@ class ShoppingListDetailCell: UITableViewCell {
     
     private func setImage(using fileName: String) {
         cellIcon.image = UIImage(named: fileName)
+    }
+    
+    private func setBackgroundColor(with isMarkedDone: Bool) {
+        if isMarkedDone {
+            self.backgroundColor = UIColor.gray
+        } else {
+            self.backgroundColor = UIColor.white
+        }
     }
 }
